@@ -23,10 +23,10 @@ extension Project {
                            platform: platform,
                            product: .framework,
                            bundleId: bundleId(name),
-                        infoPlist: .file(path: .relativeToManifest("./\(name).plist")),
-                        sources: ["Sources/**"],
-                        resources: ["Resources/**"],
-                        dependencies: dependencies),
+                           infoPlist: .file(path: .relativeToManifest("./\(name).plist")),
+                           sources: ["Sources/**"],
+                           resources: ["Resources/**"],
+                           dependencies: dependencies),
                     Target(name: "\(name)Tests",
                         platform: platform,
                         product: .unitTests,
@@ -41,7 +41,6 @@ extension Project {
     }
     
     public static func app(name: String,
-                           
                            platform: Platform,
                            dependencies: [TargetDependency]) -> Project {
         Project(name: name,
@@ -50,10 +49,18 @@ extension Project {
                            platform: platform,
                            product: .app,
                            bundleId: bundleId(name),
-                        infoPlist: .file(path: .relativeToManifest("./\(name).plist")),
-                        sources: ["Sources/**"],
-                        resources: ["Resources/**"],
-                        dependencies: dependencies),
+                           infoPlist: .file(path: .relativeToManifest("./\(name).plist")),
+                           sources: ["Sources/**"],
+                           resources: ["Resources/**"],
+                           dependencies: dependencies,
+                           settings: Settings(configurations: [
+                            .debug(name: "Debug", settings: [
+                                "PRODUCT_NAME": .string("\(name) (debug)"),
+                                "PRODUCT_BUNDLE_IDENTIFIER": .string("pl.msut.\(name)Debug")]),
+                            .release(name: "Release", settings: [
+                                "PRODUCT_NAME": .string(name),
+                                "PRODUCT_BUNDLE_IDENTIFIER": .string("pl.msut.\(name)")]),
+                           ])),
                     Target(name: "\(name)Tests",
                         platform: platform,
                         product: .unitTests,
@@ -74,6 +81,23 @@ extension Project {
                             .target(name: "\(name)"),
                             .xctest
                     ])
+            ],
+                schemes: [
+                    Scheme(name: "\(name) (debug)",
+                        buildAction: BuildAction(targets: [.init(stringLiteral: name)]),
+                        testAction: TestAction(targets: [TestableTarget(stringLiteral: "\(name)Test"),
+                                                         TestableTarget(stringLiteral: "\(name)UTTest")]),
+                        runAction: RunAction(configurationName: "Debug"),
+                        archiveAction: ArchiveAction(configurationName: "Debug"),
+                        profileAction: ProfileAction(configurationName: "Debug"),
+                        analyzeAction: AnalyzeAction(configurationName: "Debug")),
+                    Scheme(name: "\(name) (Release)",
+                        buildAction: BuildAction(targets: [.init(stringLiteral: name)]),
+                        testAction: TestAction(targets: []),
+                        runAction: RunAction(configurationName: "Release"),
+                        archiveAction: ArchiveAction(configurationName: "Release"),
+                        profileAction: ProfileAction(configurationName: "Release"),
+                        analyzeAction: AnalyzeAction(configurationName: "Release"))
         ])
     }
 }
