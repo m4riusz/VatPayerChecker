@@ -2,6 +2,18 @@ import ProjectDescription
 
 extension Project {
     
+    private static func bundleId(_ name: String) -> String {
+        "pl.msut.\(name)"
+    }
+    
+    private static func bundleIdUnitTest(_ name: String) -> String {
+        bundleId("\(name)Tests")
+    }
+    
+    private static func bundleIdUITest(_ name: String) -> String {
+        bundleId("\(name)UITests")
+    }
+    
     public static func framework(name: String,
                                  platform: Platform,
                                  dependencies: [TargetDependency]) -> Project {
@@ -10,7 +22,7 @@ extension Project {
                     Target(name: name,
                            platform: platform,
                            product: .framework,
-                           bundleId: "io.tuist.\(name)",
+                           bundleId: bundleId(name),
                         infoPlist: .file(path: .relativeToManifest("./\(name).plist")),
                         sources: ["Sources/**"],
                         resources: ["Resources/**"],
@@ -18,7 +30,7 @@ extension Project {
                     Target(name: "\(name)Tests",
                         platform: platform,
                         product: .unitTests,
-                        bundleId: "io.tuist.\(name)Tests",
+                        bundleId: bundleIdUnitTest(name),
                         infoPlist: .file(path: .relativeToManifest("./\(name)Tests.plist")),
                         sources: "Tests/**",
                         dependencies: [
@@ -37,7 +49,7 @@ extension Project {
                     Target(name: name,
                            platform: platform,
                            product: .app,
-                           bundleId: "io.tuist.\(name)",
+                           bundleId: bundleId(name),
                         infoPlist: .file(path: .relativeToManifest("./\(name).plist")),
                         sources: ["Sources/**"],
                         resources: ["Resources/**"],
@@ -45,7 +57,7 @@ extension Project {
                     Target(name: "\(name)Tests",
                         platform: platform,
                         product: .unitTests,
-                        bundleId: "io.tuist.\(name)Tests",
+                        bundleId: bundleIdUnitTest(name),
                         infoPlist: .file(path: .relativeToManifest("./\(name)Tests.plist")),
                         sources: "Tests/**",
                         dependencies: [
@@ -55,7 +67,7 @@ extension Project {
                     Target(name: "\(name)UITests",
                         platform: platform,
                         product: .uiTests,
-                        bundleId: "io.tuist.\(name)UITests",
+                        bundleId: bundleIdUITest(name),
                         infoPlist: .file(path: .relativeToManifest("./\(name)UITests.plist")),
                         sources: "UITests/**",
                         dependencies: [
