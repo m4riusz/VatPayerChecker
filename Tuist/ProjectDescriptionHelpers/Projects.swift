@@ -19,6 +19,10 @@ public enum Projects {
         }
     }
     
+    public var path: ProjectDescription.Path {
+        .relativeToRoot(name)
+    }
+    
     var targets: [Targets] {
         switch self {
         case .common:
@@ -34,3 +38,5 @@ public enum Projects {
         .relativeToManifest("../\(name)")
     }
 }
+
+extension Projects: CaseIterable {}
