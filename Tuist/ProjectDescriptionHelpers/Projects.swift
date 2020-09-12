@@ -1,7 +1,9 @@
 import ProjectDescription
-import ProjectDescriptionHelpers
 
-enum Projects {
+public enum Projects {
+    public static let organizationName = "MSut"
+    public static let bundleId = "pl.msut"
+    
     case common
     case core
     case vatPayerChecker
@@ -15,5 +17,20 @@ enum Projects {
         case .vatPayerChecker:
             return "VatPayerChecker"
         }
+    }
+    
+    var targets: [Targets] {
+        switch self {
+        case .common:
+            return [.common, .commonTests]
+        case .core:
+            return [.core, .coreTests]
+        case .vatPayerChecker:
+            return [.vatPayerChecker, .vatPayerCheckerTests, .vatPayerCheckerUITests]
+        }
+    }
+    
+    var relativeManifestPath: Path {
+        .relativeToManifest("../\(name)")
     }
 }
