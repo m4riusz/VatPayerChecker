@@ -20,6 +20,16 @@ enum Targets {
         }
     }
     
+    var actions: [TargetAction] {
+        switch self {
+        case .common, .core, .vatPayerChecker:
+            return [.pre(tool: "swiftlint",
+                         name: "Swiftlint script")]
+        default:
+            return []
+        }
+    }
+    
     var dependencies: [TargetDependency] {
         switch self {
         case .common:
@@ -79,6 +89,7 @@ enum Targets {
             .setBaseBundleId(Projects.bundleId)
             .setDependencies(dependencies)
             .setSettings(settings)
+            .setActions(actions)
             .build()
     }
 }
