@@ -7,6 +7,7 @@ final class TargetBuilder {
     private var product: Product = .app
     private var dependencies: [TargetDependency] = []
     private var settings: Settings?
+    private var actions: [TargetAction] = []
     
     func setName(_ name: String) -> TargetBuilder {
         self.name = name
@@ -35,6 +36,11 @@ final class TargetBuilder {
     
     func setSettings(_ settings: Settings?) -> TargetBuilder {
         self.settings = settings
+        return self
+    }
+    
+    func setActions(_ actions: [TargetAction]) -> TargetBuilder {
+        self.actions = actions
         return self
     }
     
@@ -91,6 +97,7 @@ final class TargetBuilder {
                infoPlist: .file(path: .relativeToManifest(infoPlistName)),
                sources: sources,
                resources: resources,
+               actions: actions,
                dependencies: dependencies,
                settings: settings)
     }
