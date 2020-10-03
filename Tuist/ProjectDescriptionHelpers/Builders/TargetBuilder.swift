@@ -78,7 +78,9 @@ final class TargetBuilder {
         switch product {
         case .app, .framework:
             return ["Resources/**"]
-        case .unitTests, .uiTests:
+        case .unitTests:
+            return ["Tests/Resources/**"]
+        case  .uiTests:
             return nil
         default:
             fatalError("Unknown target resource")
