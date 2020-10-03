@@ -8,27 +8,9 @@
 
 import Foundation
 import XCTest
+import TestKit
 
 @testable import Core
-
-class BaseTestCase: XCTestCase {
-    
-    open var bundle: Bundle {
-        Bundle(for: Self.self)
-    }
-    
-    open func dataFromFile(_ fileName: String, type: String = "json") -> Data? {
-        guard let path = bundle.path(forResource: fileName, ofType: type) else {
-            return nil
-        }
-        return try? Data(contentsOf: URL(fileURLWithPath: path))
-    }
-    
-    open func decodeFromJsonFile<T: Decodable>(type: T.Type, fileName: String) -> T? {
-        try? JSONDecoder().decode(type, from: dataFromFile(fileName)!)
-    }
-    
-}
 
 final class VatStatusTests: BaseTestCase {
     

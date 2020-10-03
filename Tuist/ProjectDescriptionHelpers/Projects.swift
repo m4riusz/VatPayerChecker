@@ -4,12 +4,15 @@ public enum Projects {
     public static let organizationName = "MSut"
     public static let bundleId = "pl.msut"
     
+    case testKit
     case common
     case core
     case vatPayerChecker
     
     var name: String {
         switch self {
+        case .testKit:
+            return "TestKit"
         case .common:
             return "Common"
         case .core:
@@ -25,6 +28,8 @@ public enum Projects {
     
     var targets: [Targets] {
         switch self {
+        case .testKit:
+            return [.testKit]
         case .common:
             return [.common, .commonTests]
         case .core:
