@@ -1,6 +1,7 @@
 import ProjectDescription
 
 enum Targets {
+    case testKit
     case common
     case commonTests
     case core
@@ -11,6 +12,8 @@ enum Targets {
     
     var name: String {
         switch self {
+        case .testKit:
+            return "TestKit"
         case .common, .commonTests:
             return "Common"
         case .core, .coreTests:
@@ -24,6 +27,7 @@ enum Targets {
         switch self {
         case .common, .core, .vatPayerChecker:
             return [.pre(tool: "swiftlint",
+                         arguments: ["--path ../"],
                          name: "Swiftlint script")]
         default:
             return []
@@ -32,30 +36,40 @@ enum Targets {
     
     var dependencies: [TargetDependency] {
         switch self {
+        case .testKit:
+            return [.xctest]
         case .common:
             return []
         case .commonTests:
-            return [.target(name: name), .xctest]
+            return [.target(name: name),
+                    .project(target: Targets.testKit.name,
+                             path: Projects.testKit.relativeManifestPath)]
         case .core:
             return [.project(target: Targets.common.name,
                              path: Projects.common.relativeManifestPath)]
         case .coreTests:
-            return [.target(name: name), .xctest]
+            return [.target(name: name),
+                    .project(target: Targets.testKit.name,
+                             path: Projects.testKit.relativeManifestPath)]
         case .vatPayerChecker:
             return [.project(target: Targets.common.name,
                              path: Projects.common.relativeManifestPath),
                     .project(target: Targets.core.name,
                              path: Projects.core.relativeManifestPath)]
         case .vatPayerCheckerTests:
-            return [.target(name: name), .xctest]
+            return [.target(name: Targets.vatPayerChecker.name),
+                    .project(target: Targets.testKit.name,
+                             path: Projects.testKit.relativeManifestPath)]
         case .vatPayerCheckerUITests:
-            return [.target(name: name), .xctest]
+            return [.target(name: Targets.vatPayerChecker.name),
+                    .project(target: Targets.testKit.name,
+                             path: Projects.testKit.relativeManifestPath)]
         }
     }
     
     var product: Product {
         switch self {
-        case .common, .core:
+        case .testKit, .common, .core:
             return .framework
         case .vatPayerChecker:
             return .app

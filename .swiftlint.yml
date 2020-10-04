@@ -23,3 +23,7 @@ excluded:
   - Tuist
   - Setup.swift
   - Workspace.swift
+  - Core/Tests
+  - Common/Tests
+  - VatPayerChecker/Tests
+  - VatPayerChecker/UITests
