@@ -15,3 +15,5 @@ public enum VatStatus: String {
 }
 
 extension VatStatus: Codable {}
+
+extension VatStatus: Equatable {}

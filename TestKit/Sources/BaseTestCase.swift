@@ -11,6 +11,10 @@ import XCTest
 
 open class BaseTestCase: XCTestCase {
     
+    open var decoder: JSONDecoder {
+        JSONDecoder()
+    }
+    
     open var bundle: Bundle {
         Bundle(for: Self.self)
     }
@@ -23,6 +27,6 @@ open class BaseTestCase: XCTestCase {
     }
     
     open func decodeFromJsonFile<T: Decodable>(type: T.Type, fileName: String) -> T? {
-        try? JSONDecoder().decode(type, from: dataFromFile(fileName, type: "json")!)
+        try? decoder.decode(type, from: dataFromFile(fileName, type: "json")!)
     }
 }

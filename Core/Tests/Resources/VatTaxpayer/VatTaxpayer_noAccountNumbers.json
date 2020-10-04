@@ -1,0 +1,21 @@
+{
+    "name": "name",
+    "nip": "nip",
+    "statusVat": "Czynny",
+    "regon": "regon",
+    "pesel": "pesel",
+    "krs": "krs",
+    "residenceAddress": "residenceAddress",
+    "workingAddress": "workingAddress",
+    "representatives": [],
+    "authorizedClerks": [],
+    "partners": [],
+    "registrationLegalDate": "2020-01-01",
+    "registrationDenialDate": "2020-02-02",
+    "registrationDenialBasis": "registrationDenialBasis",
+    "restorationDate": "2020-03-03",
+    "restorationBasis": "restorationBasis",
+    "removalDate": "2020-04-04",
+    "removalBasis": "removalBasis",
+    "hasVirtualAccounts": true
+}

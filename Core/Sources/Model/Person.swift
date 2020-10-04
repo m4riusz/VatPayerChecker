@@ -46,3 +46,5 @@ extension Person: Codable {
         nip = try container.decodeIfPresent(String.self, forKey: .nip) ?? ""
     }
 }
+
+extension Person: Equatable {}

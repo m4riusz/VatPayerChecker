@@ -74,6 +74,8 @@ public struct VatTaxpayer {
 }
 
 extension VatTaxpayer: Codable {
+    private static let dateFormat = "yyyy-MM-dd"
+    
     enum CodingKeys: String, CodingKey {
         case name
         case nip
@@ -121,3 +123,5 @@ extension VatTaxpayer: Codable {
         hasVirtualAccounts = try container.decodeIfPresent(Bool.self, forKey: .hasVirtualAccounts)
     }
 }
+
+extension VatTaxpayer: Equatable {}

@@ -15,22 +15,22 @@ import TestKit
 final class VatStatusTests: BaseTestCase {
     
     func testDeserializeActive() {
-        let object = decodeFromJsonFile(type: VatStatus.self, fileName: "VatStatus_active")!
-        XCTAssertEqual(object, .active)
+        let sut = decodeFromJsonFile(type: VatStatus.self, fileName: "VatStatus_active")!
+        XCTAssertEqual(sut, .active)
     }
     
     func testDeserializeExempt() {
-        let object = decodeFromJsonFile(type: VatStatus.self, fileName: "VatStatus_exempt")!
-        XCTAssertEqual(object, .exempt)
+        let sut = decodeFromJsonFile(type: VatStatus.self, fileName: "VatStatus_exempt")!
+        XCTAssertEqual(sut, .exempt)
     }
     
     func testDeserializeNotRegistered() {
-        let object = decodeFromJsonFile(type: VatStatus.self, fileName: "VatStatus_notRegistered")!
-        XCTAssertEqual(object, .notRegistered)
+        let sut = decodeFromJsonFile(type: VatStatus.self, fileName: "VatStatus_notRegistered")!
+        XCTAssertEqual(sut, .notRegistered)
     }
     
     func testDeserializeUnknown() {
-        let object = decodeFromJsonFile(type: VatStatus.self, fileName: "VatStatus_unknown")
-        XCTAssertNil(object)
+        let sut = decodeFromJsonFile(type: VatStatus.self, fileName: "VatStatus_unknown")
+        XCTAssertNil(sut)
     }
 }
