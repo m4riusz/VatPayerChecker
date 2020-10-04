@@ -57,9 +57,13 @@ enum Targets {
                     .project(target: Targets.core.name,
                              path: Projects.core.relativeManifestPath)]
         case .vatPayerCheckerTests:
-            return [.target(name: name), .xctest]
+            return [.target(name: Targets.vatPayerChecker.name),
+                    .project(target: Targets.testKit.name,
+                             path: Projects.testKit.relativeManifestPath)]
         case .vatPayerCheckerUITests:
-            return [.target(name: name), .xctest]
+            return [.target(name: Targets.vatPayerChecker.name),
+                    .project(target: Targets.testKit.name,
+                             path: Projects.testKit.relativeManifestPath)]
         }
     }
     

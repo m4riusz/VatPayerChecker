@@ -74,8 +74,6 @@ public struct VatTaxpayer {
 }
 
 extension VatTaxpayer: Codable {
-    private static let dateFormat = "yyyy-MM-dd"
-    
     enum CodingKeys: String, CodingKey {
         case name
         case nip
