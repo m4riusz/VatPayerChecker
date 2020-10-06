@@ -45,7 +45,8 @@ enum Targets {
                     .project(target: Targets.testKit.name,
                              path: Projects.testKit.relativeManifestPath)]
         case .core:
-            return [.project(target: Targets.common.name,
+            return [.package(product: "Moya"),
+                    .project(target: Targets.common.name,
                              path: Projects.common.relativeManifestPath)]
         case .coreTests:
             return [.target(name: name),
