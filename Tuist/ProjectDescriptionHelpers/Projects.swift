@@ -22,7 +22,7 @@ public enum Projects {
         }
     }
     
-    public var path: ProjectDescription.Path {
+    public var path: Path {
         .relativeToRoot(name)
     }
     
@@ -37,6 +37,27 @@ public enum Projects {
         case .vatPayerChecker:
             return [.vatPayerChecker, .vatPayerCheckerTests, .vatPayerCheckerUITests]
         }
+    }
+    
+    var schemes: [Scheme] {
+        []
+    }
+    
+    var settings: Settings? {
+        nil
+    }
+    
+    var packages: [Package] {
+        switch self {
+        case .core:
+            return [.package(url: "https://github.com/Moya/Moya.git", .upToNextMajor(from: "14.0.0"))]
+        default:
+            return []
+        }
+    }
+    
+    var additionalFiles: [FileElement] {
+        []
     }
     
     var relativeManifestPath: Path {
