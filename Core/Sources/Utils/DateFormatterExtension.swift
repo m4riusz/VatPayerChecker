@@ -9,7 +9,7 @@
 import Foundation
 
 extension DateFormatter {
-    static var yearMonthDay: DateFormatter = {
+    public static var yearMonthDay: DateFormatter = {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy-MM-dd"
         return dateFormatter

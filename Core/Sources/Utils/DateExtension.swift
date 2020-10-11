@@ -17,4 +17,8 @@ extension Date {
         dateComponents.day = day
         return calendar.date(from: dateComponents)!
     }
+    
+    var yyyyMMdd: String {
+        DateFormatter.yearMonthDay.string(from: self)
+    }
 }

@@ -1,2 +1,4 @@
-
-ErrorResponse
+{
+    "code": "WL-107",
+    "message": "Nieprawidłowy REGON (12342352152352)."
+}

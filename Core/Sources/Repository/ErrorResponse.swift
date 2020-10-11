@@ -7,3 +7,10 @@
 //
 
 import Foundation
+
+public struct ErrorResponse {
+    let code: VatError
+    let message: String
+}
+
+extension ErrorResponse: Codable {}

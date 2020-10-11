@@ -45,8 +45,7 @@ enum Targets {
                     .project(target: Targets.testKit.name,
                              path: Projects.testKit.relativeManifestPath)]
         case .core:
-            return [.package(product: "Moya"),
-                    .project(target: Targets.common.name,
+            return [.project(target: Targets.common.name,
                              path: Projects.common.relativeManifestPath)]
         case .coreTests:
             return [.target(name: name),
@@ -86,11 +85,11 @@ enum Targets {
         case .vatPayerChecker:
             return Settings(configurations: [
                 .debug(name: "Debug", settings: [
-                    "PRODUCT_NAME": .string("\(name) (debug)"),
-                    "PRODUCT_BUNDLE_IDENTIFIER": .string("\(Projects.bundleId).\(name)Debug")]),
+                        "PRODUCT_NAME": .string("\(name) (debug)"),
+                        "PRODUCT_BUNDLE_IDENTIFIER": .string("\(Projects.bundleId).\(name)Debug")]),
                 .release(name: "Release", settings: [
-                    "PRODUCT_NAME": .string(name),
-                    "PRODUCT_BUNDLE_IDENTIFIER": .string("\(Projects.bundleId).\(name)")]),
+                            "PRODUCT_NAME": .string(name),
+                            "PRODUCT_BUNDLE_IDENTIFIER": .string("\(Projects.bundleId).\(name)")]),
             ])
         default:
             return nil
