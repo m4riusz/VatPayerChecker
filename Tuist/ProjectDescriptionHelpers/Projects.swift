@@ -48,12 +48,7 @@ public enum Projects {
     }
     
     var packages: [Package] {
-        switch self {
-        case .core:
-            return [.package(url: "https://github.com/Moya/Moya.git", .upToNextMajor(from: "14.0.0"))]
-        default:
-            return []
-        }
+        [.package(url: "https://github.com/tcldr/Entwine.git", from: Version(0, 9, 1))]
     }
     
     var additionalFiles: [FileElement] {
