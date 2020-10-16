@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import Core
 
 extension VatTaxpayer {
     static func stub(name: String) -> VatTaxpayer {

@@ -18,6 +18,7 @@ final class LocalVatPayerCheckerDataSourceTests: BaseTestCase {
     private lazy var scheduler = TestScheduler()
     private lazy var sut: VatPayerCheckerDataSourceProtocol = LocalVatPayerCheckerDataSource()
     private lazy var date: Date = .now
+    private lazy var otherDate: Date = Date().addingTimeInterval(60 * 60 * 24)
     private lazy var stub: VatTaxpayer = .stub(name: "StubTaxPayer")
     
     func testNipNotSaved() {
@@ -101,6 +102,90 @@ final class LocalVatPayerCheckerDataSourceTests: BaseTestCase {
             (0, .subscription),
             (0, .input(stub)),
             (0, .completion(.finished))
+        ])
+    }
+    
+    func testDifferentDateNipSaved() {
+        _ = sut.save("nip", date: date, result: stub)
+        let nip = sut.getByNip("nip", date: otherDate)
+        let nipResult = scheduler.createTestableSubscriber(VatTaxpayer.self, VatError.self)
+        
+        nip.receive(subscriber: nipResult)
+        scheduler.resume()
+        
+        XCTAssertEqual(nipResult.recordedOutput, [
+            (0, .subscription),
+            (0, .completion(.failure(.invalidNip)))
+        ])
+    }
+    
+    func testDifferentDateAccountSaved() {
+        _ = sut.save("accountNumber", date: date, result: stub)
+        let account = sut.getByAccountNumber("accountNumber", date: otherDate)
+        let accountResult = scheduler.createTestableSubscriber(VatTaxpayer.self, VatError.self)
+        
+        account.receive(subscriber: accountResult)
+        scheduler.resume()
+        
+        XCTAssertEqual(accountResult.recordedOutput, [
+            (0, .subscription),
+            (0, .completion(.failure(.invalidAccount)))
+        ])
+    }
+    
+    func testDifferentDateRegonSaved() {
+        _ = sut.save("regon", date: date, result: stub)
+        let regon = sut.getByRegon("regon", date: otherDate)
+        let regonResult = scheduler.createTestableSubscriber(VatTaxpayer.self, VatError.self)
+        
+        regon.receive(subscriber: regonResult)
+        scheduler.resume()
+        
+        XCTAssertEqual(regonResult.recordedOutput, [
+            (0, .subscription),
+            (0, .completion(.failure(.invalidRegon)))
+        ])
+    }
+    
+    func testDifferentNipSaved() {
+        _ = sut.save("nip", date: date, result: stub)
+        let nip = sut.getByNip("otherNip", date: date)
+        let nipResult = scheduler.createTestableSubscriber(VatTaxpayer.self, VatError.self)
+        
+        nip.receive(subscriber: nipResult)
+        scheduler.resume()
+        
+        XCTAssertEqual(nipResult.recordedOutput, [
+            (0, .subscription),
+            (0, .completion(.failure(.invalidNip)))
+        ])
+    }
+    
+    func testDifferentAccountSaved() {
+        _ = sut.save("accountNumber", date: date, result: stub)
+        let account = sut.getByAccountNumber("otherAccountNumber", date: date)
+        let accountResult = scheduler.createTestableSubscriber(VatTaxpayer.self, VatError.self)
+        
+        account.receive(subscriber: accountResult)
+        scheduler.resume()
+        
+        XCTAssertEqual(accountResult.recordedOutput, [
+            (0, .subscription),
+            (0, .completion(.failure(.invalidAccount)))
+        ])
+    }
+    
+    func testDifferentRegonSaved() {
+        _ = sut.save("regon", date: date, result: stub)
+        let regon = sut.getByRegon("otherRegon", date: date)
+        let regonResult = scheduler.createTestableSubscriber(VatTaxpayer.self, VatError.self)
+        
+        regon.receive(subscriber: regonResult)
+        scheduler.resume()
+        
+        XCTAssertEqual(regonResult.recordedOutput, [
+            (0, .subscription),
+            (0, .completion(.failure(.invalidRegon)))
         ])
     }
 }

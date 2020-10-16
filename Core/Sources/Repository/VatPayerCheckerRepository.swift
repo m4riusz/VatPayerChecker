@@ -26,22 +26,43 @@ public final class VatPayerCheckerRepository: VatPayerCheckerRepositoryProtocol 
     
     public func getByNip(_ nip: String, date: Date) -> AnyPublisher<VatTaxpayer, VatError> {
         local.getByNip(nip, date: date)
-            .catch { [unowned self] _ in self.remote.getByNip(nip, date: date) }
-            .flatMap { [unowned self] in self.local.save(nip, date: date, result: $0) }
+            .catch { [weak self] _ -> AnyPublisher<VatTaxpayer, VatError> in
+                guard let strongSelf = self else {
+                    return Fail<VatTaxpayer, VatError>(error: .unknown)
+                        .eraseToAnyPublisher()
+                }
+                return strongSelf.remote.getByNip(nip, date: date)
+                    .flatMap { result in strongSelf.local.save(nip, date: date, result: result) }
+                    .eraseToAnyPublisher()
+            }
             .eraseToAnyPublisher()
     }
     
     public func getByAccountNumber(_ accountNumber: String, date: Date) -> AnyPublisher<VatTaxpayer, VatError> {
         local.getByAccountNumber(accountNumber, date: date)
-            .catch { [unowned self] _ in self.remote.getByAccountNumber(accountNumber, date: date) }
-            .flatMap { [unowned self] in self.local.save(accountNumber, date: date, result: $0) }
+            .catch { [weak self] _ -> AnyPublisher<VatTaxpayer, VatError> in
+                guard let strongSelf = self else {
+                    return Fail<VatTaxpayer, VatError>(error: .unknown)
+                        .eraseToAnyPublisher()
+                }
+                return strongSelf.remote.getByAccountNumber(accountNumber, date: date)
+                    .flatMap { result in strongSelf.local.save(accountNumber, date: date, result: result) }
+                    .eraseToAnyPublisher()
+            }
             .eraseToAnyPublisher()
     }
     
     public func getByRegon(_ regon: String, date: Date) -> AnyPublisher<VatTaxpayer, VatError> {
         local.getByRegon(regon, date: date)
-            .catch { [unowned self] _ in self.remote.getByRegon(regon, date: date) }
-            .flatMap { [unowned self] in self.local.save(regon, date: date, result: $0) }
+            .catch { [weak self] _ -> AnyPublisher<VatTaxpayer, VatError> in
+                guard let strongSelf = self else {
+                    return Fail<VatTaxpayer, VatError>(error: .unknown)
+                        .eraseToAnyPublisher()
+                }
+                return strongSelf.remote.getByRegon(regon, date: date)
+                    .flatMap { result in strongSelf.local.save(regon, date: date, result: result) }
+                    .eraseToAnyPublisher()
+            }
             .eraseToAnyPublisher()
     }
 }
