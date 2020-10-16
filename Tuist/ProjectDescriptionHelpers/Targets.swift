@@ -49,6 +49,7 @@ enum Targets {
                              path: Projects.common.relativeManifestPath)]
         case .coreTests:
             return [.target(name: name),
+                    .package(product: "EntwineTest"),
                     .project(target: Targets.testKit.name,
                              path: Projects.testKit.relativeManifestPath)]
         case .vatPayerChecker:

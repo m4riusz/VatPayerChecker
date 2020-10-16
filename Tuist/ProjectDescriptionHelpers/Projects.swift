@@ -48,7 +48,7 @@ public enum Projects {
     }
     
     var packages: [Package] {
-        []
+        [.package(url: "https://github.com/tcldr/Entwine.git", from: Version(0, 9, 1))]
     }
     
     var additionalFiles: [FileElement] {

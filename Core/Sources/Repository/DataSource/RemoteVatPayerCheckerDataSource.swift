@@ -19,7 +19,6 @@ public final class RemoteVatPayerCheckerDataSource: VatPayerCheckerDataSourcePro
     }
     
     public func save(_ search: String, date: Date, result: VatTaxpayer) -> Future<VatTaxpayer, VatError> {
-  
         fatalError()
     }
     
@@ -105,7 +104,6 @@ public final class RemoteVatPayerCheckerDataSource: VatPayerCheckerDataSourcePro
                                             data: Data?,
                                             response: URLResponse?,
                                             error: Error?) -> Result<T, VatError> {
-        
         guard error.isNil else {
             if let nsError = error as NSError?, nsError.code == NSURLErrorNotConnectedToInternet {
                 return .failure(.noInternetConnection)

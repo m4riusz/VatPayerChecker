@@ -29,7 +29,7 @@ public final class LocalVatPayerCheckerDataSource: VatPayerCheckerDataSourceProt
         Future { [weak self] promise in
             guard let strongSelf = self,
                   let item = strongSelf.map[strongSelf.keyFrom(query: nip, date: date)] else {
-                promise(.failure(.unknown))
+                promise(.failure(.invalidNip))
                 return
             }
             promise(.success(item))
@@ -40,7 +40,7 @@ public final class LocalVatPayerCheckerDataSource: VatPayerCheckerDataSourceProt
         Future { [weak self] promise in
             guard let strongSelf = self,
                   let item = strongSelf.map[strongSelf.keyFrom(query: accountNumber, date: date)] else {
-                promise(.failure(.unknown))
+                promise(.failure(.invalidAccount))
                 return
             }
             promise(.success(item))
@@ -51,7 +51,7 @@ public final class LocalVatPayerCheckerDataSource: VatPayerCheckerDataSourceProt
         Future { [weak self] promise in
             guard let strongSelf = self,
                   let item = strongSelf.map[strongSelf.keyFrom(query: regon, date: date)] else {
-                promise(.failure(.unknown))
+                promise(.failure(.invalidRegon))
                 return
             }
             promise(.success(item))
