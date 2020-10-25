@@ -10,6 +10,11 @@ import SwiftUI
 
 @main
 struct VatPayerCheckerApp: App {
+    
+    init() {
+        VatPayerCheckerAssembler().assembly()
+    }
+    
     var body: some Scene {
         WindowGroup {
             ContentView()
