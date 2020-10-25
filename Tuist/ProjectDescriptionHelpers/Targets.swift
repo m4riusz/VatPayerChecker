@@ -53,7 +53,8 @@ enum Targets {
                     .project(target: Targets.testKit.name,
                              path: Projects.testKit.relativeManifestPath)]
         case .vatPayerChecker:
-            return [.project(target: Targets.common.name,
+            return [.package(product: "Swinject"),
+                    .project(target: Targets.common.name,
                              path: Projects.common.relativeManifestPath),
                     .project(target: Targets.core.name,
                              path: Projects.core.relativeManifestPath)]
