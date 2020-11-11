@@ -11,6 +11,8 @@ import SwiftUI
 @main
 struct VatPayerCheckerApp: App {
     
+    let store = AppStore(initialState: AppState(), reducer: AppReducer.reduce)
+    
     init() {
         VatPayerCheckerAssembler().assembly()
     }
@@ -18,6 +20,7 @@ struct VatPayerCheckerApp: App {
     var body: some Scene {
         WindowGroup {
             ContentView()
+                .environmentObject(store)
         }
     }
 }
