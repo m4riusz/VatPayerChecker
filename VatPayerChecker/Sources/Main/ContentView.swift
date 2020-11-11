@@ -7,7 +7,6 @@
 //
 
 import SwiftUI
-import ReSwift
 
 struct ContentView: View {
     @EnvironmentObject var store: AppStore
