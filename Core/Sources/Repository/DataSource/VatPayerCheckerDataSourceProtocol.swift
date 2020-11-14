@@ -8,7 +8,6 @@
 
 import Foundation
 import Combine
-import Moya
 
 public protocol VatPayerCheckerDataSourceProtocol {
     func save(_ search: String, date: Date, result: VatTaxpayer) -> Future<VatTaxpayer, VatError>
