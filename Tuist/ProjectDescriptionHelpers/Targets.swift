@@ -59,7 +59,8 @@ enum Targets {
                     .project(target: Targets.core.name,
                              path: Projects.core.relativeManifestPath)]
         case .vatPayerCheckerTests:
-            return [.target(name: Targets.vatPayerChecker.name),
+            return [.package(product: "SnapshotTesting"),
+                    .target(name: Targets.vatPayerChecker.name),
                     .project(target: Targets.testKit.name,
                              path: Projects.testKit.relativeManifestPath)]
         case .vatPayerCheckerUITests:
@@ -83,19 +84,7 @@ enum Targets {
     }
     
     var settings: Settings? {
-        switch self {
-        case .vatPayerChecker:
-            return Settings(configurations: [
-                .debug(name: "Debug", settings: [
-                        "PRODUCT_NAME": .string("\(name) (debug)"),
-                        "PRODUCT_BUNDLE_IDENTIFIER": .string("\(Projects.bundleId).\(name)Debug")]),
-                .release(name: "Release", settings: [
-                            "PRODUCT_NAME": .string(name),
-                            "PRODUCT_BUNDLE_IDENTIFIER": .string("\(Projects.bundleId).\(name)")]),
-            ])
-        default:
-            return nil
-        }
+        return nil
     }
     
     var target: Target {

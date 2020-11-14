@@ -19,6 +19,7 @@ struct TabViewItem: View {
             Text(title)
                 .fontWeight(.medium)
                 .font(.headline)
+                .lineLimit(1)
         }
         .padding(10)
     }
