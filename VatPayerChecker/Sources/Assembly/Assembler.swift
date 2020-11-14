@@ -7,7 +7,8 @@
 //
 
 import Foundation
+import Swinject
 
 protocol Assembler {
-    func assembly()
+    func assembly() -> Container
 }

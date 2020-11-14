@@ -11,11 +11,14 @@ import Swinject
 
 final class VatPayerCheckerAssembler: Assembler {
     private lazy var container = Container()
+    
     let assemblies: [Assembly] = [
-        CoreAssembly()
+        CoreAssembly(),
+        VatTaxpayerAssembly()
     ]
     
-    func assembly() {
+    func assembly() -> Container {
         assemblies.forEach { $0.register(container: container) }
+        return container
     }
 }

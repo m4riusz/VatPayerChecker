@@ -7,14 +7,14 @@
 //
 
 import SwiftUI
+import Swinject
+import Core
 
 @main
 struct VatPayerCheckerApp: App {
-    
-    let store = AppStore(initialState: AppState(), reducer: AppReducer.reduce)
-    
-    init() {
-        VatPayerCheckerAssembler().assembly()
+    private let container = VatPayerCheckerAssembler().assembly()
+    private var store: AppStore {
+        container.resolve(AppStore.self)!
     }
     
     var body: some Scene {

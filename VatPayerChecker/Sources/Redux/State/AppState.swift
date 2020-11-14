@@ -9,5 +9,6 @@
 import Foundation
 
 struct AppState: State {
-    var mainState: MainState = MainState()
+    var mainState = MainState()
+    var vatTaxpayerState = VatTaxpayerSearchState()
 }
