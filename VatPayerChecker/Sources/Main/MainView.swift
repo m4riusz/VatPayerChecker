@@ -28,7 +28,7 @@ struct MainView: View {
     
     var body: some View {
         TabView(selection: tabBinding) {
-            Text("Search")
+            VatTaxpayerView()
                 .tabItem { TabViewItem(title: "Search", image: state.tab == .vatTaxpayer ? "magnifyingglass.circle.fill" : "magnifyingglass.circle") }
                 .tag(Tab.vatTaxpayer)
             Text("About")

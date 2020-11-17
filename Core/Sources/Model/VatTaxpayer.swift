@@ -9,26 +9,26 @@
 import Foundation
 
 public struct VatTaxpayer {
-    let name: String
-    let nip: String
-    let vatStatus: VatStatus?
-    let regon: String
-    let pesel: String
-    let krs: String
-    let residenceAddress: String
-    let workingAddress: String
-    let representatives: [Person]
-    let authorizedClerks: [Person]
-    let partners: [Person]
-    let registrationLegalDate: Date?
-    let registrationDenialDate: Date?
-    let registrationDenialBasis: String?
-    let restorationDate: Date?
-    let restorationBasis: String?
-    let removalDate: Date?
-    let removalBasis: String?
-    let accountNumbers: [String]
-    let hasVirtualAccounts: Bool?
+    public let name: String
+    public let nip: String
+    public let vatStatus: VatStatus?
+    public let regon: String
+    public let pesel: String
+    public let krs: String
+    public let residenceAddress: String
+    public let workingAddress: String
+    public let representatives: [Person]
+    public let authorizedClerks: [Person]
+    public let partners: [Person]
+    public let registrationLegalDate: Date?
+    public let registrationDenialDate: Date?
+    public let registrationDenialBasis: String?
+    public let restorationDate: Date?
+    public let restorationBasis: String?
+    public let removalDate: Date?
+    public let removalBasis: String?
+    public let accountNumbers: [String]
+    public let hasVirtualAccounts: Bool?
     
     public init(name: String,
                 nip: String,
