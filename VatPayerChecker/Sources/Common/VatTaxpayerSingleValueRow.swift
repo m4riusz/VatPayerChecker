@@ -12,12 +12,9 @@ struct VatTaxpayerSingleValueRow: View {
     let title: String
     let value: String
     
-    init?(title: String, value: String?) {
-        guard let value = value else {
-            return nil
-        }
+    init(title: String, value: String?) {
         self.title = title
-        self.value = value
+        self.value = value ?? "-"
     }
     
     var body: some View {

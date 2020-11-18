@@ -34,7 +34,9 @@ struct VatTaxpayerView: View {
     }
     
     private func getReadyView() -> some View {
-        Text("Read")
+        Button("asasfasa") {
+            //TODO
+        }
     }
     
     private func getLoadingView() -> some View {
@@ -43,10 +45,24 @@ struct VatTaxpayerView: View {
     
     private func getSuccessView(vatTaxpayer: VatTaxpayer) -> some View {
         List {
-            VatTaxpayerSingleValueRow(title: "Name", value: vatTaxpayer.name)
-            VatTaxpayerSingleValueRow(title: "Nip", value: vatTaxpayer.nip)
-            VatTaxpayerSingleValueRow(title: "Regon", value: vatTaxpayer.regon)
-            VatTaxpayerSingleValueRow(title: "Vat status", value: vatTaxpayer.vatStatus?.rawValue)
+            //TODO
+            toListRow(sections: [
+                VatPayerCheckerStrings.name,
+                VatPayerCheckerStrings.name
+            ],
+            values: [
+                vatTaxpayer.name,
+                vatTaxpayer.nip
+            ])
+        }
+    }
+    
+    private func toListRow(sections: [String], values: [String?]) -> some View {
+        guard sections.count == values.count else {
+            fatalError()
+        }
+        return AnyView {(0...sections.count)
+            .map { VatTaxpayerSingleValueRow(title: sections[$0], value: values[$0]) }
         }
     }
     
