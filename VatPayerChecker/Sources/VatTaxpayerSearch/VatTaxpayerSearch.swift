@@ -1,5 +1,5 @@
 //
-//  VatTaxpayerView.swift
+//  VatTaxpayerSearch.swift
 //  VatPayerChecker
 //
 //  Created by Mariusz Sut on 14/11/2020.
@@ -10,7 +10,7 @@ import SwiftUI
 import Combine
 import Core
 
-struct VatTaxpayerView: View {
+struct VatTaxpayerSearch: View {
     @EnvironmentObject var store: AppStore
     private var state: VatTaxpayerSearchState {
         store.state.vatTaxpayerState
@@ -34,7 +34,9 @@ struct VatTaxpayerView: View {
     }
     
     private func getReadyView() -> some View {
-        Text("Read")
+        Button("asasfasa") {
+            //TODO
+        }
     }
     
     private func getLoadingView() -> some View {
@@ -42,12 +44,7 @@ struct VatTaxpayerView: View {
     }
     
     private func getSuccessView(vatTaxpayer: VatTaxpayer) -> some View {
-        List {
-            VatTaxpayerSingleValueRow(title: "Name", value: vatTaxpayer.name)
-            VatTaxpayerSingleValueRow(title: "Nip", value: vatTaxpayer.nip)
-            VatTaxpayerSingleValueRow(title: "Regon", value: vatTaxpayer.regon)
-            VatTaxpayerSingleValueRow(title: "Vat status", value: vatTaxpayer.vatStatus?.rawValue)
-        }
+        VatTaxpayerView(vatTaxpayer: vatTaxpayer)
     }
     
     private func getErrorView(error: VatError) -> some View {
@@ -55,8 +52,8 @@ struct VatTaxpayerView: View {
     }
 }
 
-struct VatTaxpayerView_Previews: PreviewProvider {
+struct VatTaxpayerSearch_Previews: PreviewProvider {
     static var previews: some View {
-        VatTaxpayerView()
+        VatTaxpayerSearch()
     }
 }

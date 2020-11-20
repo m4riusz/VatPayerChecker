@@ -27,7 +27,7 @@ enum Targets {
         switch self {
         case .common, .core, .vatPayerChecker:
             return [.pre(tool: "swiftlint",
-                         arguments: ["--path ../"],
+                         arguments: ["--path ${SRCROOT} --config ../.swiftlint.yml"],
                          name: "Swiftlint script")]
         default:
             return []

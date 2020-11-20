@@ -1,0 +1,30 @@
+/* Search */
+"name" = "Company (name) or name and surname";
+"nip" = "NIP number, if assigned";
+"vatStatus" = "Taxpayer status (as at the check date)";
+"vatStatusActive" = "Active";
+"vatStatusExempt" = "Exempt";
+"vatStatusNotRegistered" = "Not registered";
+"regon" = "REGON number, if assigned";
+"pesel" = "PESEL number, if assigned";
+"krs" = "KRS number, if assigned";
+"residenceAddress" = "The address of the permanent place of business or the address of the place of residence, in the case of no fixed place of business address - for a natural person";
+"workingAddress" = "Registered office address - in the case of an entity which is not a natural person";
+"representatives" = "Names and surnames of the members of the body authorized to represent the entity and their tax identification numbers or PESEL numbers";
+"authorizedClerks" = "Names and surnames of proxies and their tax identification numbers or PESEL numbers";
+"partners" = "Name and surname or company (name) of the partner and his tax identification number or PESEL number";
+"registrationLegalDate" = "Date of registration as a VAT payer";
+"registrationDenialDate" = "Date of refusal to register as a VAT payer";
+"registrationDenialBasis" = "Legal ground for refusing registration";
+"restorationDate" = "Date of restoration as a VAT payer";
+"restorationBasis" = "Legal basis for restoration";
+"removalDate" = "Date of deregistration as a VAT payer";
+"removalBasis" = "Legal basis for deregistration";
+"accountNumbers" = "Numbers of settlement accounts or registered accounts at SKOK";
+"hasVirtualAccounts" = "";
+"personCompanyName" = "Company name";
+"personNIP" = "NIP";
+"personPESEL" = "PESEL";
+"personFirstName" = "First name";
+"personLastName" = "Last name";
+
