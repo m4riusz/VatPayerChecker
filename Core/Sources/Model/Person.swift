@@ -9,11 +9,11 @@
 import Foundation
 
 public struct Person {
-    let companyName: String
-    let firstName: String
-    let lastName: String
-    let pesel: String
-    let nip: String
+    public let companyName: String
+    public let firstName: String
+    public let lastName: String
+    public let pesel: String
+    public let nip: String
     
     public init(companyName: String,
                 firstName: String,
@@ -48,3 +48,5 @@ extension Person: Codable {
 }
 
 extension Person: Equatable {}
+
+extension Person: Hashable {}

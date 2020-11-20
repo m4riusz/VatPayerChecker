@@ -1,8 +1,11 @@
 /* Search */
 "name" = "Company (name) or name and surname";
-"nip" = "The number by which the entity was identified for tax purposes, if such a number has been assigned";
+"nip" = "NIP number, if assigned";
 "vatStatus" = "Taxpayer status (as at the check date)";
-"regon" = "REGON identification number, if assigned";
+"vatStatusActive" = "Active";
+"vatStatusExempt" = "Exempt";
+"vatStatusNotRegistered" = "Not registered";
+"regon" = "REGON number, if assigned";
 "pesel" = "PESEL number, if assigned";
 "krs" = "KRS number, if assigned";
 "residenceAddress" = "The address of the permanent place of business or the address of the place of residence, in the case of no fixed place of business address - for a natural person";
@@ -19,3 +22,9 @@
 "removalBasis" = "Legal basis for deregistration";
 "accountNumbers" = "Numbers of settlement accounts or registered accounts at SKOK";
 "hasVirtualAccounts" = "";
+"personCompanyName" = "Company name";
+"personNIP" = "NIP";
+"personPESEL" = "PESEL";
+"personFirstName" = "First name";
+"personLastName" = "Last name";
+

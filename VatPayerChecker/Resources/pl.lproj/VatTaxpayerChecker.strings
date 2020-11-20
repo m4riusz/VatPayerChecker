@@ -2,6 +2,9 @@
 "name" = "Firma (nazwa) lub imię i nazwisko";
 "nip" = "Numer, za pomocą którego podmiot został zidentyfikowany na potrzeby podatku, jeżeli taki numer został przyznany";
 "vatStatus" = "Status podatnika (wg stanu na dzień sprawdzenia)";
+"vatStatusActive" = "Czynny";
+"vatStatusExempt" = "Zwolniony";
+"vatStatusNotRegistered" = "Niezarejestrowany";
 "regon" = "Numer identyfikacyjny REGON, o ile został nadany";
 "pesel" = "Numer PESEL, o ile podmiot posiada";
 "krs" = "Numer w Krajowym Rejestrze Sądowym, o ile został nadany";
@@ -19,3 +22,8 @@
 "removalBasis" = "Podstawa prawna wykreślenia";
 "accountNumbers" = "Numery rachunków rozliczeniowych lub imiennych rachunków w SKOK";
 "hasVirtualAccounts" = "";
+"personCompanyName" = "Nazwa firmy";
+"personNIP" = "NIP";
+"personPESEL" = "PESEL";
+"personFirstName" = "Imię";
+"personLastName" = "Nazwisko";

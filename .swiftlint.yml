@@ -7,7 +7,6 @@ disabled_rules:
 # Rule Config
 line_length: 150
 identifier_name:
-  allowed_symbols: "r"
   min_length: 1
   max_length:
     warning: 40
