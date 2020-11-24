@@ -10,28 +10,42 @@ import SwiftUI
 import Core
  
 struct VatTaxpayerSearchBar: View {
+    private typealias Literals = VatPayerCheckerStrings
+    var searchDate: Binding<Date>
     var searchText: Binding<String>
     var searchOption: Binding<Option>
     var onSearchTap: VoidHandler
+    var onDateTap: VoidHandler
     
-    init(searchText: Binding<String>, searchOption: Binding<Option>, onSearchTap: @escaping VoidHandler) {
+    init(searchDate: Binding<Date>,
+         searchText: Binding<String>,
+         searchOption: Binding<Option>,
+         onSearchTap: @escaping VoidHandler,
+         onDateTap: @escaping VoidHandler) {
+        self.searchDate = searchDate
         self.searchText = searchText
         self.searchOption = searchOption
         self.onSearchTap = onSearchTap
+        self.onDateTap = onDateTap
     }
     
     var body: some View {
         VStack {
             HStack {
+                Button(searchDate.wrappedValue.yyyyMMdd) {
+                    onDateTap()
+                }
                 TextField(placeholderText, text: searchText)
-                Button("SEARCH") {
+                    .modifier(TextFieldClearButtonModifier(text: searchText))
+                Button(Literals.searchButton) {
                     onSearchTap()
                 }
+                .disabled(searchText.wrappedValue.isEmpty)
             }
             Picker("", selection: searchOption) {
-                Text("Nip").tag(Option.nip)
-                Text("Account").tag(Option.account)
-                Text("Regon").tag(Option.regon)
+                Text(Literals.searchByNip).tag(Option.nip)
+                Text(Literals.searchByRegon).tag(Option.regon)
+                Text(Literals.searchByAccount).tag(Option.account)
             }.pickerStyle(SegmentedPickerStyle())
         }
         .padding()
@@ -40,11 +54,11 @@ struct VatTaxpayerSearchBar: View {
     private var placeholderText: String {
         switch searchOption.wrappedValue {
         case .nip:
-            return "Type NIP"
+            return Literals.searchByNipPlaceholder
         case .regon:
-            return "Type REGON"
+            return Literals.searchByRegonPlaceholder
         case .account:
-            return "Type Account"
+            return Literals.searchByAccountNumberPlaceholder
         }
     }
 }
@@ -58,6 +72,10 @@ extension VatTaxpayerSearchBar {
 }
 
 struct VatTaxpayerSearchBar_Previews: PreviewProvider {
+    private static var searchDate: Binding<Date> {
+        Binding<Date>(get: { Date() }, set: { _ in })
+    }
+    
     private static var searchText: Binding<String> {
         Binding<String>(get: { "" }, set: { _ in })
     }
@@ -67,8 +85,10 @@ struct VatTaxpayerSearchBar_Previews: PreviewProvider {
     }
     
     static var previews: some View {
-        VatTaxpayerSearchBar(searchText: searchText,
+        VatTaxpayerSearchBar(searchDate: searchDate,
+                             searchText: searchText,
                              searchOption: searchOption,
-                             onSearchTap: { /*Nop*/ })
+                             onSearchTap: { /*Nop*/ },
+                             onDateTap: { /*Nop*/ })
     }
 }

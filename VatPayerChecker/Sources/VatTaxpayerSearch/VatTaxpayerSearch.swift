@@ -35,9 +35,7 @@ struct VatTaxpayerSearch: View {
     
     private func getReadyView() -> some View {
         VStack {
-            VatTaxpayerSearchBar(searchText: searchText,
-                                 searchOption: searchOption,
-                                 onSearchTap: search)
+            searchBar
             Button("asasfasa") {
                 //TODO
             }
@@ -50,18 +48,14 @@ struct VatTaxpayerSearch: View {
     
     private func getSuccessView(vatTaxpayer: VatTaxpayer) -> some View {
         VStack {
-            VatTaxpayerSearchBar(searchText: searchText,
-                                 searchOption: searchOption,
-                                 onSearchTap: search)
+            searchBar
             VatTaxpayerView(vatTaxpayer: vatTaxpayer)
         }
     }
     
     private func getErrorView(error: VatError) -> some View {
         VStack {
-            VatTaxpayerSearchBar(searchText: searchText,
-                                 searchOption: searchOption,
-                                 onSearchTap: search)
+            searchBar
             Text("Error")
         }
     }
@@ -69,6 +63,22 @@ struct VatTaxpayerSearch: View {
 
 // MARK: - Search bar
 extension VatTaxpayerSearch {
+    private var searchBar: VatTaxpayerSearchBar {
+        VatTaxpayerSearchBar(searchDate: searchDate,
+                             searchText: searchText,
+                             searchOption: searchOption,
+                             onSearchTap: search,
+                             onDateTap: dateSelection)
+    }
+    
+    private var searchDate: Binding<Date> {
+        Binding<Date>(get: {
+            state.searchDate
+        }, set: { date in
+            store.dispatch(VatTaxpayerAction.setSearchDate(date))
+        })
+    }
+    
     private var searchText: Binding<String> {
         Binding<String>(get: {
             state.searchQuery
@@ -94,6 +104,10 @@ extension VatTaxpayerSearch {
         case .account:
             store.dispatch(VatTaxpayerAction.searchByAccount(state.searchQuery, date: state.searchDate))
         }
+    }
+    
+    private func dateSelection() {
+        store.dispatch(VatTaxpayerAction.setSearchDate(state.searchDate.addingTimeInterval(7200)))
     }
 }
 

@@ -30,7 +30,7 @@
 "searchButton" = "Szukaj";
 "searchByNip" = "NIP";
 "searchByRegon" = "REGON";
-"" = "";
-"" = "";
-"" = "";
-"" = "";
+"searchByAccount" = "Numer konta";
+"searchByNipPlaceholder" = "Wpisz NIP";
+"searchByRegonPlaceholder" = "Wpisz REGON";
+"searchByAccountNumberPlaceholder" = "Wpisz numer konta";
