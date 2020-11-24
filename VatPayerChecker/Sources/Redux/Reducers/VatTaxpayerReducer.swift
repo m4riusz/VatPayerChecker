@@ -26,20 +26,7 @@ struct VatTaxpayerReducer {
             mutableState.searchDate = Date()
             mutableState.searchOption = .nip
             mutableState.status = .ready
-        case .searchByNip(let nip, let date):
-//            mutableState.searchQuery = nip
-//            mutableState.searchDate = date
-//            mutableState.searchOption = .nip
-            mutableState.status = .loading
-        case .searchByRegon(let regon, let date):
-//            mutableState.searchQuery = regon
-//            mutableState.searchDate = date
-//            mutableState.searchOption = .regon
-            mutableState.status = .loading
-        case .searchByAccount(let account, let date):
-//            mutableState.searchQuery = account
-//            mutableState.searchDate = date
-//            mutableState.searchOption = .account
+        case .searchByNip, .searchByRegon, .searchByAccount:
             mutableState.status = .loading
         case .setResult(let result):
             switch result {
