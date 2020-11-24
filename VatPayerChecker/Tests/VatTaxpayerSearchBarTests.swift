@@ -13,12 +13,6 @@ import SnapshotTesting
 
 @testable import VatPayerChecker
 
-extension Binding {
-    init(getOnly: Value) {
-        self.init(get: { getOnly}, set: { _ in })
-    }
-}
-
 final class VatTaxpayerSearchBarTests: BaseTestCase {
     private var date = Date()
     private var text = ""
