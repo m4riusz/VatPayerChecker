@@ -38,7 +38,7 @@ struct VatTaxpayerMiddleware {
                     .map { VatTaxpayerAction.setResult(.success($0))}
                     .catch({ Just(VatTaxpayerAction.setResult(.failure($0))) })
                     .eraseToAnyPublisher()
-            case .clearSearch, .setResult:
+            case .clearSearch, .setResult, .setSearchQuery, .setSearchOption, .setSearchDate:
                 break
             }
             return Empty().eraseToAnyPublisher()

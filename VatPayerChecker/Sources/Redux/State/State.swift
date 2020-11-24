@@ -8,4 +8,4 @@
 
 import Foundation
 
-protocol State {}
+protocol StateRedux {}

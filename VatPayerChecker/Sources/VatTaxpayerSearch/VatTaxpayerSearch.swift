@@ -17,10 +17,10 @@ struct VatTaxpayerSearch: View {
     }
     
     var body: some View {
-        getByState(query: state.query, date: state.date, status: state.status)
+        getByState(status: state.status)
     }
     
-    private func getByState(query: String?, date: Date?, status: VatTaxpayerLoadable) -> AnyView {
+    private func getByState(status: VatTaxpayerLoadable) -> AnyView {
         switch status {
         case .ready:
             return AnyView(getReadyView())
@@ -34,8 +34,11 @@ struct VatTaxpayerSearch: View {
     }
     
     private func getReadyView() -> some View {
-        Button("asasfasa") {
-            //TODO
+        VStack {
+            searchBar
+            Button("asasfasa") {
+                //TODO
+            }
         }
     }
     
@@ -44,11 +47,67 @@ struct VatTaxpayerSearch: View {
     }
     
     private func getSuccessView(vatTaxpayer: VatTaxpayer) -> some View {
-        VatTaxpayerView(vatTaxpayer: vatTaxpayer)
+        VStack {
+            searchBar
+            VatTaxpayerView(vatTaxpayer: vatTaxpayer)
+        }
     }
     
     private func getErrorView(error: VatError) -> some View {
-        Text("Error")
+        VStack {
+            searchBar
+            Text("Error")
+        }
+    }
+}
+
+// MARK: - Search bar
+extension VatTaxpayerSearch {
+    private var searchBar: VatTaxpayerSearchBar {
+        VatTaxpayerSearchBar(searchDate: searchDate,
+                             searchText: searchText,
+                             searchOption: searchOption,
+                             onSearchTap: search,
+                             onDateTap: dateSelection)
+    }
+    
+    private var searchDate: Binding<Date> {
+        Binding<Date>(get: {
+            state.searchDate
+        }, set: { date in
+            store.dispatch(VatTaxpayerAction.setSearchDate(date))
+        })
+    }
+    
+    private var searchText: Binding<String> {
+        Binding<String>(get: {
+            state.searchQuery
+        }, set: { query in
+            store.dispatch(VatTaxpayerAction.setSearchQuery(query))
+        })
+    }
+    
+    private var searchOption: Binding<VatTaxpayerSearchBar.Option> {
+        Binding<VatTaxpayerSearchBar.Option>(get: {
+            state.searchOption
+        }, set: { option in
+            store.dispatch(VatTaxpayerAction.setSearchOption(option))
+        })
+    }
+    
+    private func search() {
+        switch state.searchOption {
+        case .nip:
+            store.dispatch(VatTaxpayerAction.searchByNip(state.searchQuery, date: state.searchDate))
+        case .regon:
+            store.dispatch(VatTaxpayerAction.searchByRegon(state.searchQuery, date: state.searchDate))
+        case .account:
+            store.dispatch(VatTaxpayerAction.searchByAccount(state.searchQuery, date: state.searchDate))
+        }
+    }
+    
+    private func dateSelection() {
+        store.dispatch(VatTaxpayerAction.setSearchDate(state.searchDate.addingTimeInterval(7200)))
     }
 }
 

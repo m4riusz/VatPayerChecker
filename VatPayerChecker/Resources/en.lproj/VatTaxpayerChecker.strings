@@ -27,4 +27,10 @@
 "personPESEL" = "PESEL";
 "personFirstName" = "First name";
 "personLastName" = "Last name";
-
+"searchButton" = "Search";
+"searchByNip" = "NIP";
+"searchByRegon" = "REGON";
+"searchByAccount" = "Account number";
+"searchByNipPlaceholder" = "Type NIP";
+"searchByRegonPlaceholder" = "Type REGON";
+"searchByAccountNumberPlaceholder" = "Type account number";

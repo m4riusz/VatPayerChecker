@@ -14,20 +14,25 @@ import SnapshotTesting
 @testable import VatPayerChecker
 
 final class VatTaxpayerTextRowTests: BaseTestCase {
+    private var text = ""
+    private var values = [""]
+    private lazy var sut = ListContainer(view: VatTaxpayerTextRow(title: text, values: values))
     
     func testSingleLine() {
-        let sut = ListContainer(view: VatTaxpayerTextRow(title: "Section", value: "Value"))
+        text = "Section"
+        values = ["Value"]
         assertSnapshot(matching: sut, as: .image)
     }
     
     func testLongLine() {
-        let sut = ListContainer(view: VatTaxpayerTextRow(title: "Very long title thas should have multiple lines",
-                                                            value: "Very long description matching multiple lines"))
+        text =  "Very long title thas should have multiple lines"
+        values = ["Very long description matching multiple lines"]
         assertSnapshot(matching: sut, as: .image)
     }
     
     func testMultipleRows() {
-        let sut = ListContainer(view: VatTaxpayerTextRow(title: "Title", values: ["Item one", "Item two"]))
+        text =  "Title"
+        values = ["Item one", "Item two"]
         assertSnapshot(matching: sut, as: .image)
     }
 }
