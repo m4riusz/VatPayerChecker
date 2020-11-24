@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct AppState: State {
+struct AppState: StateRedux {
     var mainState = MainState()
     var vatTaxpayerState = VatTaxpayerSearchState()
 }

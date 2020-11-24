@@ -16,9 +16,10 @@ enum VatTaxpayerLoadable {
     case error(_ error: VatError)
 }
 
-struct VatTaxpayerSearchState: State {
-    var query: String?
-    var date: Date?
+struct VatTaxpayerSearchState: StateRedux {
+    var searchQuery = ""
+    var searchDate = Date()
+    var searchOption: VatTaxpayerSearchBar.Option = .nip
     var status: VatTaxpayerLoadable = .success(
         VatTaxpayer(name: "Company name",
                     nip: "25423152135",

@@ -27,3 +27,10 @@
 "personPESEL" = "PESEL";
 "personFirstName" = "Imię";
 "personLastName" = "Nazwisko";
+"searchButton" = "Szukaj";
+"searchByNip" = "NIP";
+"searchByRegon" = "REGON";
+"" = "";
+"" = "";
+"" = "";
+"" = "";

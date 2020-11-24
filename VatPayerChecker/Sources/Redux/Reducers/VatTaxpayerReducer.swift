@@ -15,21 +15,31 @@ struct VatTaxpayerReducer {
         }
         var mutableState = state
         switch action {
+        case .setSearchDate(let date):
+            mutableState.searchDate = date
+        case .setSearchQuery(let query):
+            mutableState.searchQuery = query
+        case .setSearchOption(let option):
+            mutableState.searchOption = option
         case .clearSearch:
-            mutableState.query = nil
-            mutableState.date = nil
+            mutableState.searchQuery = ""
+            mutableState.searchDate = Date()
+            mutableState.searchOption = .nip
             mutableState.status = .ready
         case .searchByNip(let nip, let date):
-            mutableState.query = nip
-            mutableState.date = date
+//            mutableState.searchQuery = nip
+//            mutableState.searchDate = date
+//            mutableState.searchOption = .nip
             mutableState.status = .loading
         case .searchByRegon(let regon, let date):
-            mutableState.query = regon
-            mutableState.date = date
+//            mutableState.searchQuery = regon
+//            mutableState.searchDate = date
+//            mutableState.searchOption = .regon
             mutableState.status = .loading
         case .searchByAccount(let account, let date):
-            mutableState.query = account
-            mutableState.date = date
+//            mutableState.searchQuery = account
+//            mutableState.searchDate = date
+//            mutableState.searchOption = .account
             mutableState.status = .loading
         case .setResult(let result):
             switch result {

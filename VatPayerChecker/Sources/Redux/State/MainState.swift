@@ -8,6 +8,6 @@
 
 import Foundation
 
-struct MainState: State {
+struct MainState: StateRedux {
     var tab: MainView.Tab = .vatTaxpayer
 }

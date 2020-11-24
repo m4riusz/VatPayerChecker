@@ -10,6 +10,9 @@ import Foundation
 import Core
 
 enum VatTaxpayerAction: Action {
+    case setSearchDate(_ date: Date)
+    case setSearchQuery(_ query: String)
+    case setSearchOption(_ option: VatTaxpayerSearchBar.Option)
     case clearSearch
     case searchByNip(_ nip: String, date: Date)
     case searchByRegon(_ regon: String, date: Date)
