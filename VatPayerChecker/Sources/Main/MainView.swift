@@ -9,6 +9,8 @@
 import SwiftUI
 
 struct MainView: View {
+    private typealias Images = VatPayerCheckerAsset
+    private typealias Literals = VatPayerCheckerStrings
     @EnvironmentObject var store: AppStore
     
     private var state: MainState {
@@ -29,12 +31,22 @@ struct MainView: View {
     var body: some View {
         TabView(selection: tabBinding) {
             VatTaxpayerSearch()
-                .tabItem { TabViewItem(title: "Search", image: state.tab == .vatTaxpayer ? "magnifyingglass.circle.fill" : "magnifyingglass.circle") }
+                .tabItem { searchItem }
                 .tag(Tab.vatTaxpayer)
             Text("About")
-                .tabItem { TabViewItem(title: "About", image: state.tab == .about ? "info.circle.fill" : "info.circle") }
+                .tabItem { aboutItem }
                 .tag(Tab.about)
         }
+    }
+    
+    private var searchItem: TabViewItem {
+        TabViewItem(title: Literals.mainViewSearch,
+                    image: state.tab == .vatTaxpayer ? Images.searchFilled.image : Images.searchOutline.image)
+    }
+    
+    private var aboutItem: TabViewItem {
+        TabViewItem(title: Literals.mainViewAbout,
+                    image: state.tab == .about ? Images.infoFilled.image : Images.infoOutline.image)
     }
 }
 

@@ -14,8 +14,8 @@ import SnapshotTesting
 @testable import VatPayerChecker
 
 final class TabViewItemTests: BaseTestCase {
-    private var title = "Play"
-    private var image = "play.circle"
+    private var title = "Info"
+    private var image = VatPayerCheckerAsset.infoFilled.image
     private lazy var sut = Container(view: TabViewItem(title: title, image: image))
     
     func testNormal() {
@@ -29,11 +29,6 @@ final class TabViewItemTests: BaseTestCase {
     
     func testTooLongTitle() {
         title = "Very very very long title"
-        assertSnapshot(matching: sut, as: .image)
-    }
-    
-    func testNoImage() {
-        image = ""
         assertSnapshot(matching: sut, as: .image)
     }
 }

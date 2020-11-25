@@ -1,3 +1,7 @@
+/* MainView */
+"mainViewSearch" = "Search";
+"mainViewAbout" = "Info";
+
 /* Search */
 "name" = "Company (name) or name and surname";
 "nip" = "NIP number, if assigned";
