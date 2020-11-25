@@ -10,12 +10,11 @@ import SwiftUI
 
 struct TabViewItem: View {
     let title: String
-    let image: String
+    let image: UIImage
     
     var body: some View {
         VStack {
-            Image(systemName: image)
-                .font(.headline)
+            Image(uiImage: image)
             Text(title)
                 .fontWeight(.medium)
                 .font(.headline)
@@ -28,6 +27,6 @@ struct TabViewItem: View {
 struct TabViewItem_Previews: PreviewProvider {
     static var previews: some View {
         TabViewItem(title: "Play",
-                    image: "play.circle")
+                    image: VatPayerCheckerAsset.infoFilled.image)
     }
 }

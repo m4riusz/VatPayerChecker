@@ -9,6 +9,7 @@
 import SwiftUI
 
 struct TextFieldClearButtonModifier: ViewModifier {
+    private typealias Images = VatPayerCheckerAsset
     @Binding var text: String
     
     func body(content: Content) -> some View {
@@ -20,7 +21,7 @@ struct TextFieldClearButtonModifier: ViewModifier {
                         text = ""
                     },
                     label: {
-                        Image(systemName: "delete.left")
+                        Image(uiImage: Images.deleteLeft.image)
                             .foregroundColor(Color(UIColor.opaqueSeparator))
                     }
                 )
