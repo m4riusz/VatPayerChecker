@@ -7,9 +7,10 @@
 //
 
 import SwiftUI
+import SFSafeSymbols
 
 struct MainView: View {
-    private typealias Images = VatPayerCheckerAsset
+    private typealias Images = SFSymbol
     private typealias Literals = VatPayerCheckerStrings
     @EnvironmentObject var store: AppStore
     
@@ -36,17 +37,18 @@ struct MainView: View {
             Text("About")
                 .tabItem { aboutItem }
                 .tag(Tab.about)
+            
         }
     }
     
     private var searchItem: TabViewItem {
         TabViewItem(title: Literals.mainViewSearch,
-                    image: state.tab == .vatTaxpayer ? Images.searchFilled.image : Images.searchOutline.image)
+                    image: state.tab == .vatTaxpayer ? Images.magnifyingglassCircleFill : Images.magnifyingglassCircle)
     }
     
     private var aboutItem: TabViewItem {
         TabViewItem(title: Literals.mainViewAbout,
-                    image: state.tab == .about ? Images.infoFilled.image : Images.infoOutline.image)
+                    image: state.tab == .about ? Images.infoCircleFill : Images.infoCircle)
     }
 }
 

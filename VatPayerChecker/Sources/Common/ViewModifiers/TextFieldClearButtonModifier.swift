@@ -7,6 +7,7 @@
 //
 
 import SwiftUI
+import SFSafeSymbols
 
 struct TextFieldClearButtonModifier: ViewModifier {
     private typealias Images = VatPayerCheckerAsset
@@ -21,7 +22,7 @@ struct TextFieldClearButtonModifier: ViewModifier {
                         text = ""
                     },
                     label: {
-                        Image(uiImage: Images.deleteLeft.image)
+                        Image(systemSymbol: .deleteLeft)
                             .foregroundColor(Color(UIColor.opaqueSeparator))
                     }
                 )

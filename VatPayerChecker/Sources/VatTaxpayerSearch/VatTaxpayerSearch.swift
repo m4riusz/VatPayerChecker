@@ -43,7 +43,7 @@ struct VatTaxpayerSearch: View {
     }
     
     private func getLoadingView() -> some View {
-        Text("Loading")
+        LoadingView()
     }
     
     private func getSuccessView(vatTaxpayer: VatTaxpayer) -> some View {

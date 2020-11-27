@@ -38,3 +38,6 @@
 "searchByNipPlaceholder" = "Wpisz NIP";
 "searchByRegonPlaceholder" = "Wpisz REGON";
 "searchByAccountNumberPlaceholder" = "Wpisz numer konta";
+
+/* LoadingView */
+"loading" = "Szukam...";

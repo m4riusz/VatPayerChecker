@@ -38,3 +38,6 @@
 "searchByNipPlaceholder" = "Type NIP";
 "searchByRegonPlaceholder" = "Type REGON";
 "searchByAccountNumberPlaceholder" = "Type account number";
+
+/* LoadingView */
+"loading" = "Searching...";
