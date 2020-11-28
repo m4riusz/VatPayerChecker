@@ -41,11 +41,14 @@ public struct VPSegmentControl<T: VPSegmentControlItem>: View {
             Spacer()
             Text(text)
                 .fontWeight(.semibold)
-                .font(.title3)
+                .font(.body)
                 .frame(maxHeight: .infinity)
             Spacer()
         })
-        .border(Color.accentColor)
+        .overlay(
+            RoundedRectangle(cornerRadius: 5)
+                .stroke(Color.accentColor)
+        )
         .foregroundColor(selection.wrappedValue == option ? .white : .accentColor)
         .background(selection.wrappedValue == option ? Color.accentColor : Color.white)
     }

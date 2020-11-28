@@ -3,6 +3,7 @@
 "mainViewAbout" = "Informacje";
 
 /* Search */
+"findCompany" = "Wyszukaj firmę";
 "name" = "Firma (nazwa) lub imię i nazwisko";
 "nip" = "Numer, za pomocą którego podmiot został zidentyfikowany na potrzeby podatku, jeżeli taki numer został przyznany";
 "vatStatus" = "Status podatnika (wg stanu na dzień sprawdzenia)";

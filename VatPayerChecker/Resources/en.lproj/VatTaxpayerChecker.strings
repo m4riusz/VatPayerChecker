@@ -3,6 +3,7 @@
 "mainViewAbout" = "Info";
 
 /* Search */
+"findCompany" = "Find company";
 "name" = "Company (name) or name and surname";
 "nip" = "NIP number, if assigned";
 "vatStatus" = "Taxpayer status (as at the check date)";

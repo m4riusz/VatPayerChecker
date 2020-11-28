@@ -9,41 +9,56 @@
 import SwiftUI
 
 public struct VPTextField: View {
-    let placeholder: String
-    let text: Binding<String>
-    let clearImage: Image?
+    private let placeholder: String
+    private let text: Binding<String>
+    private let clearImage: Image
+    private let error: String?
     
-    public init(placeholder: String, text: Binding<String>, clearImage: Image?) {
+    public init(placeholder: String, text: Binding<String>, error: String?, clearImage: Image) {
         self.placeholder = placeholder
         self.text = text
         self.clearImage = clearImage
+        self.error = error
     }
     
     public var body: some View {
         VStack {
-            if let image = clearImage {
+            Group {
                 TextField(placeholder, text: text)
-                    .modifier(VPTextFieldClearButtonModifier(clearImage: image, text: text))
-                    .foregroundColor(.accentColor)
-                    .font(.body)
-                    .padding()
-            } else {
-                TextField(placeholder, text: text)
+                    .modifier(VPTextFieldClearButtonModifier(clearImage: clearImage, text: text))
                     .foregroundColor(.accentColor)
                     .font(.body)
                     .padding()
             }
+            .overlay(
+                RoundedRectangle(cornerRadius: 5)
+                    .stroke(error != nil ? Color.red : Color.accentColor)
+            )
+            
+            if let error = error {
+                Text(error)
+                    .foregroundColor(.red)
+                    .fontWeight(.semibold)
+                    .font(.body)
+                    .padding(.bottom, 5)
+            }
         }
-        .border(Color.accentColor)
     }
 }
 
 struct VPTextField_Previews: PreviewProvider {
     private static var text: Binding<String> {
-        Binding<String>(get: { "" }, set: { _ in })
+        Binding<String>(get: { "text" }, set: { _ in })
+    }
+    
+    private static var error: Binding<String?> {
+        Binding<String?>(get: { "error" }, set: { _ in })
     }
     
     static var previews: some View {
-        VPTextField(placeholder: "Placeholder", text: text, clearImage: nil)
+        VPTextField(placeholder: "Placeholder",
+                    text: text,
+                    error: "error",
+                    clearImage: Image(systemName: "play.circle"))
     }
 }

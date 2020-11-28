@@ -37,6 +37,7 @@ public struct VPButton: View {
                     content
                         .foregroundColor(.white)
                         .background(Color.accentColor)
+                        .cornerRadius(5)
                 }
                })
     }
@@ -44,10 +45,10 @@ public struct VPButton: View {
     var content: some View {
         HStack {
             image
-                .font(.title2)
+                .font(.body)
             Text(text)
                 .fontWeight(.semibold)
-                .font(.title2)
+                .font(.body)
         }
         .frame(minWidth: 0, maxWidth: .infinity)
         .padding(10)

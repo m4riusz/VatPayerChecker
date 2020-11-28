@@ -38,6 +38,7 @@ struct VatTaxpayerSearch: View {
         VatTaxpayerSearchBar(searchDate: searchDate,
                              searchText: searchText,
                              searchOption: searchOption,
+                             error: nil,
                              onSearchTap: search,
                              onDateTap: dateSelection)
     }
@@ -53,9 +54,12 @@ struct VatTaxpayerSearch: View {
     }
     
     private func getErrorView(error: VatError) -> some View {
-        VStack {
-            Text("Error")
-        }
+        VatTaxpayerSearchBar(searchDate: searchDate,
+                             searchText: searchText,
+                             searchOption: searchOption,
+                             error: "Versadasfjdnfjsdnfjsdnfkjsdnfjksdnfjk nasjkfnasjkdfn sjkfnsjkdnf jksdfndslk dfsd",
+                             onSearchTap: search,
+                             onDateTap: dateSelection)
     }
 }
 

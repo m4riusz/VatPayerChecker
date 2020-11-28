@@ -13,28 +13,35 @@ import SFSafeSymbols
 
 struct VatTaxpayerSearchBar: View {
     private typealias Literals = VatPayerCheckerStrings
-    var searchDate: Binding<Date>
-    var searchText: Binding<String>
-    var searchOption: Binding<Option>
-    var onSearchTap: VoidHandler
-    var onDateTap: VoidHandler
+    private let searchDate: Binding<Date>
+    private let searchText: Binding<String>
+    private let searchOption: Binding<Option>
+    private let error: String?
+    private let onSearchTap: VoidHandler
+    private let onDateTap: VoidHandler
     
     init(searchDate: Binding<Date>,
          searchText: Binding<String>,
          searchOption: Binding<Option>,
+         error: String?,
          onSearchTap: @escaping VoidHandler,
          onDateTap: @escaping VoidHandler) {
         self.searchDate = searchDate
         self.searchText = searchText
         self.searchOption = searchOption
+        self.error = error
         self.onSearchTap = onSearchTap
         self.onDateTap = onDateTap
     }
     
     var body: some View {
         VStack {
+            Text(Literals.findCompany)
+                .font(.title)
+                .fontWeight(.semibold)
             VPTextField(placeholder: placeholderText,
                         text: searchText,
+                        error: error,
                         clearImage: Image(systemSymbol: .deleteLeft))
                 .frame(maxWidth: .infinity)
             VPSegmentControl<Option>(items: [.nip, .regon, .account],
@@ -102,6 +109,7 @@ struct VatTaxpayerSearchBar_Previews: PreviewProvider {
         VatTaxpayerSearchBar(searchDate: searchDate,
                              searchText: searchText,
                              searchOption: searchOption,
+                             error: "error",
                              onSearchTap: { /*Nop*/ },
                              onDateTap: { /*Nop*/ })
     }
