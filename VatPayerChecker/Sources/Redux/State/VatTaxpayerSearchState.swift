@@ -20,5 +20,5 @@ struct VatTaxpayerSearchState: StateRedux {
     var searchQuery = ""
     var searchDate = Date()
     var searchOption: VatTaxpayerSearchBar.Option = .nip
-    var status: VatTaxpayerLoadable = .loading
+    var status: VatTaxpayerLoadable = .ready
 }

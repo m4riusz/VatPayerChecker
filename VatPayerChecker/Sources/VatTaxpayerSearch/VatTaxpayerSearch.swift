@@ -11,6 +11,7 @@ import Combine
 import Core
 
 struct VatTaxpayerSearch: View {
+    private typealias Literals = VatPayerCheckerStrings
     @EnvironmentObject var store: AppStore
     private var state: VatTaxpayerSearchState {
         store.state.vatTaxpayerState
@@ -34,28 +35,25 @@ struct VatTaxpayerSearch: View {
     }
     
     private func getReadyView() -> some View {
-        VStack {
-            searchBar
-            Button("asasfasa") {
-                //TODO
-            }
-        }
+        VatTaxpayerSearchBar(searchDate: searchDate,
+                             searchText: searchText,
+                             searchOption: searchOption,
+                             onSearchTap: search,
+                             onDateTap: dateSelection)
     }
     
     private func getLoadingView() -> some View {
-        LoadingView()
+        ProgressView(Literals.loading)
+            .progressViewStyle(CircularProgressViewStyle(tint: .accentColor))
+            .foregroundColor(.accentColor)
     }
     
     private func getSuccessView(vatTaxpayer: VatTaxpayer) -> some View {
-        VStack {
-            searchBar
-            VatTaxpayerView(vatTaxpayer: vatTaxpayer)
-        }
+        VatTaxpayerView(vatTaxpayer: vatTaxpayer)
     }
     
     private func getErrorView(error: VatError) -> some View {
         VStack {
-            searchBar
             Text("Error")
         }
     }
@@ -63,13 +61,6 @@ struct VatTaxpayerSearch: View {
 
 // MARK: - Search bar
 extension VatTaxpayerSearch {
-    private var searchBar: VatTaxpayerSearchBar {
-        VatTaxpayerSearchBar(searchDate: searchDate,
-                             searchText: searchText,
-                             searchOption: searchOption,
-                             onSearchTap: search,
-                             onDateTap: dateSelection)
-    }
     
     private var searchDate: Binding<Date> {
         Binding<Date>(get: {

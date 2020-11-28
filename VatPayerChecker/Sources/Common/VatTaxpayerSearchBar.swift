@@ -8,7 +8,9 @@
 
 import SwiftUI
 import Core
- 
+import Common
+import SFSafeSymbols
+
 struct VatTaxpayerSearchBar: View {
     private typealias Literals = VatPayerCheckerStrings
     var searchDate: Binding<Date>
@@ -31,24 +33,25 @@ struct VatTaxpayerSearchBar: View {
     
     var body: some View {
         VStack {
-            HStack {
-                Button(searchDate.wrappedValue.yyyyMMdd) {
-                    onDateTap()
-                }
-                TextField(placeholderText, text: searchText)
-                    .modifier(TextFieldClearButtonModifier(text: searchText))
-                Button(Literals.searchButton) {
-                    onSearchTap()
-                }
-                .disabled(searchText.wrappedValue.isEmpty)
-            }
-            Picker("", selection: searchOption) {
-                Text(Literals.searchByNip).tag(Option.nip)
-                Text(Literals.searchByRegon).tag(Option.regon)
-                Text(Literals.searchByAccount).tag(Option.account)
-            }.pickerStyle(SegmentedPickerStyle())
+            VPTextField(placeholder: placeholderText,
+                        text: searchText,
+                        clearImage: Image(systemSymbol: .deleteLeft))
+                .frame(maxWidth: .infinity)
+            VPSegmentControl<Option>(items: [.nip, .regon, .account],
+                                     selection: searchOption)
+                .frame(maxWidth: .infinity, maxHeight: 50)
+            VPButton(style: .link,
+                     text: searchDate.wrappedValue.yyyyMMdd,
+                     image: Image(systemSymbol: .calendar),
+                     action: onDateTap)
+                .frame(maxWidth: .infinity)
+            VPButton(style: .action,
+                     text: Literals.searchButton,
+                     image: Image(systemSymbol: .magnifyingglass),
+                     action: onSearchTap)
+                .frame(maxWidth: .infinity)
         }
-        .padding()
+        .padding(10)
     }
     
     private var placeholderText: String {
@@ -64,10 +67,21 @@ struct VatTaxpayerSearchBar: View {
 }
 
 extension VatTaxpayerSearchBar {
-    enum Option {
+    enum Option: VPSegmentControlItem {
         case nip
         case account
         case regon
+        
+        var text: String {
+            switch self {
+            case .nip:
+                return Literals.searchByNip
+            case .regon:
+                return Literals.searchByRegon
+            case .account:
+                return Literals.searchByAccount
+            }
+        }
     }
 }
 
