@@ -17,13 +17,15 @@ final class VatTaxpayerSearchBarTests: BaseTestCase {
     private var date = Date()
     private var text = ""
     private var option = VatTaxpayerSearchBar.Option.nip
-    private lazy var sut =  Container(view: VatTaxpayerSearchBar(searchDate: Binding(getOnly: date),
-                                                                 searchText: Binding(getOnly: text),
-                                                                 searchOption: Binding(getOnly: option),
-                                                                 onSearchTap: { /*Nop*/ },
-                                                                 onDateTap: { /*Nop*/ }),
-                                      width: 400,
-                                      height: 90)
+    private var error: String?
+    private lazy var sut = Container(view: VatTaxpayerSearchBar(searchDate: Binding(getOnly: date),
+                                                                searchText: Binding(getOnly: text),
+                                                                searchOption: Binding(getOnly: option),
+                                                                error: error,
+                                                                onSearchTap: { /*Nop*/ },
+                                                                onDateTap: { /*Nop*/ }),
+                                     width: 400,
+                                     height: 300)
     
     func testNoClearButton() {
         assertSnapshot(matching: sut, as: .image)
@@ -46,6 +48,11 @@ final class VatTaxpayerSearchBarTests: BaseTestCase {
     
     func testAccountNumberPlaceholder() {
         option = .account
+        assertSnapshot(matching: sut, as: .image)
+    }
+    
+    func testError() {
+        error = "Some error message"
         assertSnapshot(matching: sut, as: .image)
     }
 }
