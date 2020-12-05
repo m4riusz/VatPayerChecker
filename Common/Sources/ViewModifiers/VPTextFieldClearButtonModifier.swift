@@ -22,13 +22,8 @@ struct VPTextFieldClearButtonModifier: ViewModifier {
             content
             if !text.wrappedValue.isEmpty {
                 Button(
-                    action: {
-                        text.wrappedValue = ""
-                    },
-                    label: {
-                        clearImage
-                            .foregroundColor(Color.accentColor)
-                    }
+                    action: { text.wrappedValue = "" },
+                    label: { clearImage }
                 )
             }
         }

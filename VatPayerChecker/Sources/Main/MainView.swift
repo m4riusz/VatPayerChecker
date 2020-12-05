@@ -31,7 +31,7 @@ struct MainView: View {
     
     var body: some View {
         TabView(selection: tabBinding) {
-            VatTaxpayerSearch()
+            VatTaxpayerSearchTab()
                 .tabItem { searchItem }
                 .tag(Tab.vatTaxpayer)
             Text("About")

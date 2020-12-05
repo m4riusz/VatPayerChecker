@@ -39,6 +39,7 @@ struct VatTaxpayerView: View {
                 accountNumbersSection
             }
         }
+        .listStyle(PlainListStyle())
     }
     
     private var nameSection: VatTaxpayerTextRow? {

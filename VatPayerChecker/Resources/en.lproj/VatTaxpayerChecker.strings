@@ -42,3 +42,13 @@
 
 /* LoadingView */
 "loading" = "Searching...";
+
+/* Error */
+"invalidNipMessage" = "Invalid NIP number";
+"invalidRegonMessage" = "Invalid REGON number";
+"invalidAccountMessage" = "Invalid account number";
+"noInternetConnection" = "No internet connection";
+"unknownMessage" = "Unknown error";
+
+/* General */
+"back" = "Back";

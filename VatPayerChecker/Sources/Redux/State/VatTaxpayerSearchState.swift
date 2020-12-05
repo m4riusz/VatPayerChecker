@@ -16,6 +16,8 @@ enum VatTaxpayerLoadable {
     case error(_ error: VatError)
 }
 
+extension VatTaxpayerLoadable: Equatable { /*Nop*/ }
+
 struct VatTaxpayerSearchState: StateRedux {
     var searchQuery = ""
     var searchDate = Date()

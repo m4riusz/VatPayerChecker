@@ -24,8 +24,16 @@ struct VatTaxpayerPersonRow: View {
     }
     
     var body: some View {
-        Section(header: Text(title)
-                    .font(.caption),
+        Section(header:
+                    HStack {
+                        Text(title)
+                            .font(.caption)
+                            .foregroundColor(.white)
+                        Spacer()
+                    }
+                    .padding(8)
+                    .background(Color.blue)
+                    .listRowInsets(EdgeInsets()),
                 content: {
                     ForEach(persons, id: \.self) {
                         personView(person: $0)

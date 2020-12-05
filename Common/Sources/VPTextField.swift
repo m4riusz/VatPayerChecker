@@ -23,26 +23,20 @@ public struct VPTextField: View {
     
     public var body: some View {
         VStack {
-            Group {
-                TextField(placeholder, text: text)
-                    .modifier(VPTextFieldClearButtonModifier(clearImage: clearImage, text: text))
-                    .foregroundColor(.accentColor)
-                    .font(.body)
-                    .padding()
-            }
-            .overlay(
-                RoundedRectangle(cornerRadius: 5)
-                    .stroke(error != nil ? Color.red : Color.accentColor)
-            )
+            TextField(placeholder, text: text)
+                .modifier(VPTextFieldClearButtonModifier(clearImage: clearImage, text: text))
+                .textFieldStyle(RoundedBorderTextFieldStyle())
+                .font(.body)
             
             if let error = error {
                 Text(error)
                     .foregroundColor(.red)
                     .fontWeight(.semibold)
                     .font(.body)
-                    .padding(.bottom, 5)
+                    .frame(maxWidth: .infinity, alignment: .leading)
             }
         }
+        .padding([.top, .bottom], 5)
     }
 }
 
