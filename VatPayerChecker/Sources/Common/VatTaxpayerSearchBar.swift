@@ -8,47 +8,57 @@
 
 import SwiftUI
 import Core
- 
+import Common
+import SFSafeSymbols
+
 struct VatTaxpayerSearchBar: View {
     private typealias Literals = VatPayerCheckerStrings
-    var searchDate: Binding<Date>
-    var searchText: Binding<String>
-    var searchOption: Binding<Option>
-    var onSearchTap: VoidHandler
-    var onDateTap: VoidHandler
+    private let searchDate: Binding<Date>
+    private let searchText: Binding<String>
+    private let searchOption: Binding<Option>
+    private let error: String?
+    private let onSearchTap: VoidHandler
+    private let onDateTap: VoidHandler
     
     init(searchDate: Binding<Date>,
          searchText: Binding<String>,
          searchOption: Binding<Option>,
+         error: String?,
          onSearchTap: @escaping VoidHandler,
          onDateTap: @escaping VoidHandler) {
         self.searchDate = searchDate
         self.searchText = searchText
         self.searchOption = searchOption
+        self.error = error
         self.onSearchTap = onSearchTap
         self.onDateTap = onDateTap
     }
     
     var body: some View {
         VStack {
-            HStack {
-                Button(searchDate.wrappedValue.yyyyMMdd) {
-                    onDateTap()
-                }
-                TextField(placeholderText, text: searchText)
-                    .modifier(TextFieldClearButtonModifier(text: searchText))
-                Button(Literals.searchButton) {
-                    onSearchTap()
-                }
-                .disabled(searchText.wrappedValue.isEmpty)
-            }
-            Picker("", selection: searchOption) {
-                Text(Literals.searchByNip).tag(Option.nip)
-                Text(Literals.searchByRegon).tag(Option.regon)
-                Text(Literals.searchByAccount).tag(Option.account)
-            }.pickerStyle(SegmentedPickerStyle())
+            Text(Literals.findCompany)
+                .font(.title)
+                .fontWeight(.semibold)
+            VPTextField(placeholder: placeholderText,
+                        text: searchText,
+                        error: error,
+                        clearImage: Image(systemSymbol: .deleteLeft))
+                .frame(maxWidth: .infinity)
+            VPSegmentControl<Option>(items: [.nip, .regon, .account],
+                                     selection: searchOption)
+                .frame(maxWidth: .infinity, maxHeight: 50)
+            VPButton(style: .link,
+                     text: searchDate.wrappedValue.yyyyMMdd,
+                     image: Image(systemSymbol: .calendar),
+                     action: onDateTap)
+                .frame(maxWidth: .infinity)
+            VPButton(style: .action,
+                     text: Literals.searchButton,
+                     image: Image(systemSymbol: .magnifyingglass),
+                     action: onSearchTap)
+                .frame(maxWidth: .infinity)
         }
-        .padding()
+        .padding(10)
     }
     
     private var placeholderText: String {
@@ -64,10 +74,21 @@ struct VatTaxpayerSearchBar: View {
 }
 
 extension VatTaxpayerSearchBar {
-    enum Option {
+    enum Option: VPSegmentControlItem {
         case nip
         case account
         case regon
+        
+        var text: String {
+            switch self {
+            case .nip:
+                return Literals.searchByNip
+            case .regon:
+                return Literals.searchByRegon
+            case .account:
+                return Literals.searchByAccount
+            }
+        }
     }
 }
 
@@ -88,6 +109,7 @@ struct VatTaxpayerSearchBar_Previews: PreviewProvider {
         VatTaxpayerSearchBar(searchDate: searchDate,
                              searchText: searchText,
                              searchOption: searchOption,
+                             error: "error",
                              onSearchTap: { /*Nop*/ },
                              onDateTap: { /*Nop*/ })
     }

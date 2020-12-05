@@ -7,14 +7,16 @@
 //
 
 import SwiftUI
+import SFSafeSymbols
 
 struct TabViewItem: View {
     let title: String
-    let image: UIImage
+    let image: SFSymbol
     
     var body: some View {
         VStack {
-            Image(uiImage: image)
+            Image(systemSymbol: image)
+                .font(.headline)
             Text(title)
                 .fontWeight(.medium)
                 .font(.headline)
@@ -27,6 +29,6 @@ struct TabViewItem: View {
 struct TabViewItem_Previews: PreviewProvider {
     static var previews: some View {
         TabViewItem(title: "Play",
-                    image: VatPayerCheckerAsset.infoFilled.image)
+                    image: .play)
     }
 }

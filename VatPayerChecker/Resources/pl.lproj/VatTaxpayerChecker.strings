@@ -3,6 +3,7 @@
 "mainViewAbout" = "Informacje";
 
 /* Search */
+"findCompany" = "Wyszukaj firmę";
 "name" = "Firma (nazwa) lub imię i nazwisko";
 "nip" = "Numer, za pomocą którego podmiot został zidentyfikowany na potrzeby podatku, jeżeli taki numer został przyznany";
 "vatStatus" = "Status podatnika (wg stanu na dzień sprawdzenia)";
@@ -38,3 +39,16 @@
 "searchByNipPlaceholder" = "Wpisz NIP";
 "searchByRegonPlaceholder" = "Wpisz REGON";
 "searchByAccountNumberPlaceholder" = "Wpisz numer konta";
+
+/* LoadingView */
+"loading" = "Szukam...";
+
+/* Error */
+"invalidNipMessage" = "Nieprawidłowy NIP";
+"invalidRegonMessage" = "Nieprawidłowy REGON";
+"invalidAccountMessage" = "Nieprawidłowy numer rachunku";
+"noInternetConnection" = "Brak połączenia do internetu";
+"unknownMessage" = "Nieznany błąd";
+
+/* General */
+"back" = "Cofnij";

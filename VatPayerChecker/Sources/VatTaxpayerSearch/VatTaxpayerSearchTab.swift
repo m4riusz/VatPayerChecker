@@ -1,5 +1,5 @@
 //
-//  VatTaxpayerSearch.swift
+//  VatTaxpayerSearchTab.swift
 //  VatPayerChecker
 //
 //  Created by Mariusz Sut on 14/11/2020.
@@ -10,7 +10,8 @@ import SwiftUI
 import Combine
 import Core
 
-struct VatTaxpayerSearch: View {
+struct VatTaxpayerSearchTab: View {
+    private typealias Literals = VatPayerCheckerStrings
     @EnvironmentObject var store: AppStore
     private var state: VatTaxpayerSearchState {
         store.state.vatTaxpayerState
@@ -20,56 +21,80 @@ struct VatTaxpayerSearch: View {
         getByState(status: state.status)
     }
     
-    private func getByState(status: VatTaxpayerLoadable) -> AnyView {
-        switch status {
-        case .ready:
-            return AnyView(getReadyView())
-        case .loading:
-            return AnyView(getLoadingView())
-        case .success(let vatTaxpayer):
-            return AnyView(getSuccessView(vatTaxpayer: vatTaxpayer))
-        case .error(let error):
-            return AnyView(getErrorView(error: error))
-        }
-    }
-    
-    private func getReadyView() -> some View {
-        VStack {
-            searchBar
-            Button("asasfasa") {
-                //TODO
+    private func getByState(status: VatTaxpayerLoadable) -> some View {
+        NavigationView {
+            ZStack {
+                getLoadingView()
+                    .opacity(status == .loading ? 1 : 0)
+                    .zIndex(1)
+                
+                switch status {
+                case .ready, .loading:
+                    getReadyView()
+                        .navigationBarHidden(true)
+                case .success(let vatTaxpayer):
+                    getSuccessView(vatTaxpayer: vatTaxpayer)
+                        .navigationBarTitle(vatTaxpayer.name, displayMode: .inline)
+                        .navigationBarItems(leading: Button(Literals.back, action: {
+                            store.dispatch(VatTaxpayerAction.clearSearch)
+                        }))
+                        .navigationBarHidden(false)
+                case .error(let error):
+                    getErrorView(error: error)
+                        .navigationBarHidden(true)
+                }
             }
         }
     }
     
+    private func getReadyView() -> some View {
+        VatTaxpayerSearchBar(searchDate: searchDate,
+                             searchText: searchText,
+                             searchOption: searchOption,
+                             error: nil,
+                             onSearchTap: search,
+                             onDateTap: dateSelection)
+    }
+    
     private func getLoadingView() -> some View {
-        Text("Loading")
+        LoadingView(text: Literals.loading)
     }
     
     private func getSuccessView(vatTaxpayer: VatTaxpayer) -> some View {
-        VStack {
-            searchBar
-            VatTaxpayerView(vatTaxpayer: vatTaxpayer)
-        }
+        VatTaxpayerView(vatTaxpayer: vatTaxpayer)
     }
     
     private func getErrorView(error: VatError) -> some View {
-        VStack {
-            searchBar
-            Text("Error")
+        VatTaxpayerSearchBar(searchDate: searchDate,
+                             searchText: searchText,
+                             searchOption: searchOption,
+                             error: error.localizedMessage,
+                             onSearchTap: search,
+                             onDateTap: dateSelection)
+    }
+}
+
+private extension VatError {
+    private typealias Literals = VatPayerCheckerStrings
+    
+    var localizedMessage: String {
+        switch self {
+        case .invalidNip:
+            return Literals.invalidNipMessage
+        case .invalidRegon:
+            return Literals.invalidRegonMessage
+        case .invalidAccount:
+            return Literals.invalidAccountMessage
+        case .noInternetConnection:
+            return Literals.noInternetConnection
+        case .unknown:
+            return Literals.unknownMessage
         }
     }
 }
 
 // MARK: - Search bar
-extension VatTaxpayerSearch {
-    private var searchBar: VatTaxpayerSearchBar {
-        VatTaxpayerSearchBar(searchDate: searchDate,
-                             searchText: searchText,
-                             searchOption: searchOption,
-                             onSearchTap: search,
-                             onDateTap: dateSelection)
-    }
+extension VatTaxpayerSearchTab {
     
     private var searchDate: Binding<Date> {
         Binding<Date>(get: {
@@ -111,8 +136,8 @@ extension VatTaxpayerSearch {
     }
 }
 
-struct VatTaxpayerSearch_Previews: PreviewProvider {
+struct VatTaxpayerSearchTab_Previews: PreviewProvider {
     static var previews: some View {
-        VatTaxpayerSearch()
+        VatTaxpayerSearchTab()
     }
 }

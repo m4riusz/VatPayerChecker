@@ -15,8 +15,7 @@ import SnapshotTesting
 
 final class TabViewItemTests: BaseTestCase {
     private var title = "Info"
-    private var image = VatPayerCheckerAsset.infoFilled.image
-    private lazy var sut = Container(view: TabViewItem(title: title, image: image))
+    private lazy var sut = Container(view: TabViewItem(title: title, image: .infoCircleFill))
     
     func testNormal() {
         assertSnapshot(matching: sut, as: .image)
