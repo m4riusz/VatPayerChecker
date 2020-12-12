@@ -18,7 +18,7 @@ struct SearchTabMiddleware {
     }
     
     func middleware() -> Middleware<AppState, Action> {
-        return { state, action in
+        return { _, action in
             guard let action = action as? SearchTabAction else {
                 return Empty().eraseToAnyPublisher()
             }
