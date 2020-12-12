@@ -50,5 +50,10 @@
 "noInternetConnection" = "Brak połączenia do internetu";
 "unknownMessage" = "Nieznany błąd";
 
+/* Date picker */
+"selectDate" = "Wybierz datę";
+
 /* General */
 "back" = "Cofnij";
+"pick" = "Wybierz";
+"cancel" = "Anuluj";

@@ -1,5 +1,5 @@
 //
-//  VatTaxpayerMiddleware.swift
+//  SearchTabMiddleware.swift
 //  VatPayerChecker
 //
 //  Created by Mariusz Sut on 14/11/2020.
@@ -10,7 +10,7 @@ import Foundation
 import Core
 import Combine
 
-struct VatTaxpayerMiddleware {
+struct SearchTabMiddleware {
     private let repository: VatPayerCheckerRepositoryProtocol
     
     init(repository: VatPayerCheckerRepositoryProtocol) {
@@ -19,26 +19,27 @@ struct VatTaxpayerMiddleware {
     
     func middleware() -> Middleware<AppState, Action> {
         return { state, action in
-            guard let action = action as? VatTaxpayerAction else {
+            guard let action = action as? SearchTabAction else {
                 return Empty().eraseToAnyPublisher()
             }
             switch action {
             case .searchByNip(let nip, let date):
                 return repository.getByNip(nip, date: date)
-                    .map { VatTaxpayerAction.setResult(.success($0))}
-                    .catch({ Just(VatTaxpayerAction.setResult(.failure($0))) })
+                    .map { SearchTabAction.setResult(.success($0))}
+                    .catch({ Just(SearchTabAction.setResult(.failure($0))) })
                     .eraseToAnyPublisher()
             case .searchByRegon(let regon, let date):
                 return repository.getByRegon(regon, date: date)
-                    .map { VatTaxpayerAction.setResult(.success($0))}
-                    .catch({ Just(VatTaxpayerAction.setResult(.failure($0))) })
+                    .map { SearchTabAction.setResult(.success($0))}
+                    .catch({ Just(SearchTabAction.setResult(.failure($0))) })
                     .eraseToAnyPublisher()
             case .searchByAccount(let account, let date):
                 return repository.getByAccountNumber(account, date: date)
-                    .map { VatTaxpayerAction.setResult(.success($0))}
-                    .catch({ Just(VatTaxpayerAction.setResult(.failure($0))) })
+                    .map { SearchTabAction.setResult(.success($0))}
+                    .catch({ Just(SearchTabAction.setResult(.failure($0))) })
                     .eraseToAnyPublisher()
-            case .clearSearch, .setResult, .setSearchQuery, .setSearchOption, .setSearchDate:
+            case .clearSearch, .setResult, .setSearchQuery, .setSearchOption,
+                 .setSearchDate, .showDatePicker, .hideDatePicker:
                 break
             }
             return Empty().eraseToAnyPublisher()

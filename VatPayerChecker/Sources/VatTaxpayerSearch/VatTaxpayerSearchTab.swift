@@ -13,17 +13,33 @@ import Core
 struct VatTaxpayerSearchTab: View {
     private typealias Literals = VatPayerCheckerStrings
     @EnvironmentObject var store: AppStore
-    private var state: VatTaxpayerSearchState {
-        store.state.vatTaxpayerState
+    private var state: SearchTabState {
+        store.state.searchTabState
     }
     
     var body: some View {
         getByState(status: state.status)
     }
     
-    private func getByState(status: VatTaxpayerLoadable) -> some View {
+    private func getByState(status: SearchTabLoadable) -> some View {
         NavigationView {
             ZStack {
+                if state.showDatePicker {
+                    DatePickerView(title: Literals.selectDate,
+                                   cancel: Literals.cancel,
+                                   accept: Literals.pick,
+                                   currentDate: state.searchDate,
+                                   minDate: .from(year: 1900, month: 1, day: 1),
+                                   maxDate: Date(),
+                                   onDismiss: {
+                                    store.dispatch(SearchTabAction.hideDatePicker)
+                                   },
+                                   onDatePicked: { date in
+                                    store.dispatch(SearchTabAction.setSearchDate(date))
+                                    store.dispatch(SearchTabAction.hideDatePicker)
+                                   })
+                        .zIndex(1)
+                }
                 getLoadingView()
                     .opacity(status == .loading ? 1 : 0)
                     .zIndex(1)
@@ -36,7 +52,7 @@ struct VatTaxpayerSearchTab: View {
                     getSuccessView(vatTaxpayer: vatTaxpayer)
                         .navigationBarTitle(vatTaxpayer.name, displayMode: .inline)
                         .navigationBarItems(leading: Button(Literals.back, action: {
-                            store.dispatch(VatTaxpayerAction.clearSearch)
+                            store.dispatch(SearchTabAction.clearSearch)
                         }))
                         .navigationBarHidden(false)
                 case .error(let error):
@@ -100,7 +116,7 @@ extension VatTaxpayerSearchTab {
         Binding<Date>(get: {
             state.searchDate
         }, set: { date in
-            store.dispatch(VatTaxpayerAction.setSearchDate(date))
+            store.dispatch(SearchTabAction.setSearchDate(date))
         })
     }
     
@@ -108,7 +124,7 @@ extension VatTaxpayerSearchTab {
         Binding<String>(get: {
             state.searchQuery
         }, set: { query in
-            store.dispatch(VatTaxpayerAction.setSearchQuery(query))
+            store.dispatch(SearchTabAction.setSearchQuery(query))
         })
     }
     
@@ -116,23 +132,23 @@ extension VatTaxpayerSearchTab {
         Binding<VatTaxpayerSearchBar.Option>(get: {
             state.searchOption
         }, set: { option in
-            store.dispatch(VatTaxpayerAction.setSearchOption(option))
+            store.dispatch(SearchTabAction.setSearchOption(option))
         })
     }
     
     private func search() {
         switch state.searchOption {
         case .nip:
-            store.dispatch(VatTaxpayerAction.searchByNip(state.searchQuery, date: state.searchDate))
+            store.dispatch(SearchTabAction.searchByNip(state.searchQuery, date: state.searchDate))
         case .regon:
-            store.dispatch(VatTaxpayerAction.searchByRegon(state.searchQuery, date: state.searchDate))
+            store.dispatch(SearchTabAction.searchByRegon(state.searchQuery, date: state.searchDate))
         case .account:
-            store.dispatch(VatTaxpayerAction.searchByAccount(state.searchQuery, date: state.searchDate))
+            store.dispatch(SearchTabAction.searchByAccount(state.searchQuery, date: state.searchDate))
         }
     }
     
     private func dateSelection() {
-        store.dispatch(VatTaxpayerAction.setSearchDate(state.searchDate.addingTimeInterval(7200)))
+        store.dispatch(SearchTabAction.showDatePicker)
     }
 }
 

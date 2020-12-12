@@ -12,7 +12,7 @@ struct AppReducer {
     static func reduce(state: AppState, action: Action) -> AppState {
         var mutableState = state
         mutableState.mainState = MainReducer.reduce(state: state.mainState, action: action)
-        mutableState.vatTaxpayerState = VatTaxpayerReducer.reduce(state: state.vatTaxpayerState, action: action)
+        mutableState.searchTabState = SearchTabReducer.reduce(state: state.searchTabState, action: action)
         return mutableState
     }
 }

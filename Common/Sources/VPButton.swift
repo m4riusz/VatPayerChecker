@@ -16,10 +16,10 @@ public struct VPButton: View {
     
     private let style: Style
     private let text: String
-    private let image: Image
+    private let image: Image?
     private let action: () -> Void
     
-    public init(style: Style, text: String, image: Image, action: @escaping () -> Void) {
+    public init(style: Style, text: String, image: Image? = nil, action: @escaping () -> Void) {
         self.style = style
         self.text = text
         self.image = image
@@ -44,8 +44,10 @@ public struct VPButton: View {
     
     var content: some View {
         HStack {
-            image
-                .font(.body)
+            if let image = image {
+                image
+                    .font(.body)
+            }
             Text(text)
                 .fontWeight(.semibold)
                 .font(.body)

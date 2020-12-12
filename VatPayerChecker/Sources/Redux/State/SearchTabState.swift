@@ -1,5 +1,5 @@
 //
-//  VatTaxpayerSearchState.swift
+//  SearchTabState.swift
 //  VatPayerChecker
 //
 //  Created by Mariusz Sut on 14/11/2020.
@@ -9,18 +9,19 @@
 import Foundation
 import Core
 
-enum VatTaxpayerLoadable {
+enum SearchTabLoadable {
     case ready
     case loading
     case success(_ vatTaxpayer: VatTaxpayer)
     case error(_ error: VatError)
 }
 
-extension VatTaxpayerLoadable: Equatable { /*Nop*/ }
+extension SearchTabLoadable: Equatable { /*Nop*/ }
 
-struct VatTaxpayerSearchState: StateRedux {
+struct SearchTabState: StateRedux {
     var searchQuery = ""
     var searchDate = Date()
+    var showDatePicker = false
     var searchOption: VatTaxpayerSearchBar.Option = .nip
-    var status: VatTaxpayerLoadable = .ready
+    var status: SearchTabLoadable = .ready
 }

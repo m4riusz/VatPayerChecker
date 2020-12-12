@@ -1,5 +1,5 @@
 //
-//  VatTaxpayerReducer.swift
+//  SearchTabReducer.swift
 //  VatPayerChecker
 //
 //  Created by Mariusz Sut on 14/11/2020.
@@ -8,9 +8,9 @@
 
 import Foundation
 
-struct VatTaxpayerReducer {
-    static func reduce(state: VatTaxpayerSearchState, action: Action) -> VatTaxpayerSearchState {
-        guard let action = action as? VatTaxpayerAction else {
+struct SearchTabReducer {
+    static func reduce(state: SearchTabState, action: Action) -> SearchTabState {
+        guard let action = action as? SearchTabAction else {
             return state
         }
         var mutableState = state
@@ -26,6 +26,7 @@ struct VatTaxpayerReducer {
             mutableState.searchDate = Date()
             mutableState.searchOption = .nip
             mutableState.status = .ready
+            mutableState.showDatePicker = false
         case .searchByNip, .searchByRegon, .searchByAccount:
             mutableState.status = .loading
         case .setResult(let result):
@@ -35,6 +36,10 @@ struct VatTaxpayerReducer {
             case .failure(let error):
                 mutableState.status = .error(error)
             }
+        case .showDatePicker:
+            mutableState.showDatePicker = true
+        case .hideDatePicker:
+            mutableState.showDatePicker = false
         }
         return mutableState
     }

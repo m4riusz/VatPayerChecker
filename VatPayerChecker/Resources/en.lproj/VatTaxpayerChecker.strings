@@ -50,5 +50,10 @@
 "noInternetConnection" = "No internet connection";
 "unknownMessage" = "Unknown error";
 
+/* Date picker */
+"selectDate" = "Select date";
+
 /* General */
 "back" = "Back";
+"pick" = "Select";
+"cancel" = "Cancel";

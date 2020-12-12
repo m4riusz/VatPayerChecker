@@ -10,5 +10,5 @@ import Foundation
 
 struct AppState: StateRedux {
     var mainState = MainState()
-    var vatTaxpayerState = VatTaxpayerSearchState()
+    var searchTabState = SearchTabState()
 }

@@ -1,5 +1,5 @@
 //
-//  VatTaxpayerAction.swift
+//  SearchTabAction.swift
 //  VatPayerChecker
 //
 //  Created by Mariusz Sut on 14/11/2020.
@@ -9,7 +9,7 @@
 import Foundation
 import Core
 
-enum VatTaxpayerAction: Action {
+enum SearchTabAction: Action {
     case setSearchDate(_ date: Date)
     case setSearchQuery(_ query: String)
     case setSearchOption(_ option: VatTaxpayerSearchBar.Option)
@@ -18,4 +18,6 @@ enum VatTaxpayerAction: Action {
     case searchByRegon(_ regon: String, date: Date)
     case searchByAccount(_ account: String, date: Date)
     case setResult(_ result: Result<VatTaxpayer, VatError>)
+    case showDatePicker
+    case hideDatePicker
 }
