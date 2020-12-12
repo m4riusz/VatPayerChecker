@@ -6,9 +6,9 @@ enum Targets {
     case commonTests
     case core
     case coreTests
-    case vatPayerChecker
-    case vatPayerCheckerTests
-    case vatPayerCheckerUITests
+    case mobileApp
+    case mobileAppTests
+    case mobileAppUITests
     
     var name: String {
         switch self {
@@ -18,14 +18,14 @@ enum Targets {
             return "Common"
         case .core, .coreTests:
             return "Core"
-        case .vatPayerChecker, .vatPayerCheckerTests, .vatPayerCheckerUITests:
-            return "VatPayerChecker"
+        case .mobileApp, .mobileAppTests, .mobileAppUITests:
+            return "MobileApp"
         }
     }
     
     var actions: [TargetAction] {
         switch self {
-        case .common, .core, .vatPayerChecker:
+        case .common, .core, .mobileApp:
             return [.pre(tool: "swiftlint",
                          arguments: ["--path ${SRCROOT} --config ../.swiftlint.yml"],
                          name: "Swiftlint script")]
@@ -52,20 +52,20 @@ enum Targets {
                     .package(product: "EntwineTest"),
                     .project(target: Targets.testKit.name,
                              path: Projects.testKit.relativeManifestPath)]
-        case .vatPayerChecker:
+        case .mobileApp:
             return [.package(product: "Swinject"),
                     .package(product: "SFSafeSymbols"),
                     .project(target: Targets.common.name,
                              path: Projects.common.relativeManifestPath),
                     .project(target: Targets.core.name,
                              path: Projects.core.relativeManifestPath)]
-        case .vatPayerCheckerTests:
+        case .mobileAppTests:
             return [.package(product: "SnapshotTesting"),
-                    .target(name: Targets.vatPayerChecker.name),
+                    .target(name: Targets.mobileApp.name),
                     .project(target: Targets.testKit.name,
                              path: Projects.testKit.relativeManifestPath)]
-        case .vatPayerCheckerUITests:
-            return [.target(name: Targets.vatPayerChecker.name),
+        case .mobileAppUITests:
+            return [.target(name: Targets.mobileApp.name),
                     .project(target: Targets.testKit.name,
                              path: Projects.testKit.relativeManifestPath)]
         }
@@ -75,11 +75,11 @@ enum Targets {
         switch self {
         case .testKit, .common, .core:
             return .framework
-        case .vatPayerChecker:
+        case .mobileApp:
             return .app
-        case .commonTests, .coreTests, .vatPayerCheckerTests:
+        case .commonTests, .coreTests, .mobileAppTests:
             return .unitTests
-        case .vatPayerCheckerUITests:
+        case .mobileAppUITests:
             return .uiTests
         }
     }

@@ -1,0 +1,59 @@
+/* MainView */
+"mainViewSearch" = "Szukaj";
+"mainViewAbout" = "Informacje";
+
+/* Search */
+"findCompany" = "Wyszukaj firmę";
+"name" = "Firma (nazwa) lub imię i nazwisko";
+"nip" = "Numer, za pomocą którego podmiot został zidentyfikowany na potrzeby podatku, jeżeli taki numer został przyznany";
+"vatStatus" = "Status podatnika (wg stanu na dzień sprawdzenia)";
+"vatStatusActive" = "Czynny";
+"vatStatusExempt" = "Zwolniony";
+"vatStatusNotRegistered" = "Niezarejestrowany";
+"regon" = "Numer identyfikacyjny REGON, o ile został nadany";
+"pesel" = "Numer PESEL, o ile podmiot posiada";
+"krs" = "Numer w Krajowym Rejestrze Sądowym, o ile został nadany";
+"residenceAddress" = "Adres stałego miejsca prowadzenia działalności albo adres miejsca zamieszkania, w przypadku braku adresu stałego miejsca prowadzenia działalności - w odniesieniu do osoby fizycznej";
+"workingAddress" = "Adres siedziby – w przypadku podmiotu niebędącego osobą fizyczną";
+"representatives" = "Imiona i nazwiska osób wchodzących w skład organu uprawnionego do reprezentowania podmiotu oraz ich numery identyfikacji podatkowej lub numery PESEL";
+"authorizedClerks" = "Imiona i nazwiska prokurentów oraz ich numery identyfikacji podatkowej lub numery PESEL";
+"partners" = "Imię i nazwisko lub firma (nazwa) wspólnika oraz jego numer identyfikacji podatkowej lub numer PESEL";
+"registrationLegalDate" = "Data rejestracji jako podatnika VAT";
+"registrationDenialDate" = "Data odmowy rejestracji jako podatnika VAT";
+"registrationDenialBasis" = "Podstawa prawna odmowy rejestracji";
+"restorationDate" = "Data przywrócenia rejestracji jako podatnika VAT";
+"restorationBasis" = "Podstawa prawna przywrócenia";
+"removalDate" = "Data wykreślenia rejestracji jako podatnika VAT";
+"removalBasis" = "Podstawa prawna wykreślenia";
+"accountNumbers" = "Numery rachunków rozliczeniowych lub imiennych rachunków w SKOK";
+"hasVirtualAccounts" = "";
+"personCompanyName" = "Nazwa firmy";
+"personNIP" = "NIP";
+"personPESEL" = "PESEL";
+"personFirstName" = "Imię";
+"personLastName" = "Nazwisko";
+"searchButton" = "Szukaj";
+"searchByNip" = "NIP";
+"searchByRegon" = "REGON";
+"searchByAccount" = "Numer konta";
+"searchByNipPlaceholder" = "Wpisz NIP";
+"searchByRegonPlaceholder" = "Wpisz REGON";
+"searchByAccountNumberPlaceholder" = "Wpisz numer konta";
+
+/* LoadingView */
+"loading" = "Szukam...";
+
+/* Error */
+"invalidNipMessage" = "Nieprawidłowy NIP";
+"invalidRegonMessage" = "Nieprawidłowy REGON";
+"invalidAccountMessage" = "Nieprawidłowy numer rachunku";
+"noInternetConnection" = "Brak połączenia do internetu";
+"unknownMessage" = "Nieznany błąd";
+
+/* Date picker */
+"selectDate" = "Wybierz datę";
+
+/* General */
+"back" = "Cofnij";
+"pick" = "Wybierz";
+"cancel" = "Anuluj";

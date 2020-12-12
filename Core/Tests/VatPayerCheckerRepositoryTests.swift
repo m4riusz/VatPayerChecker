@@ -24,7 +24,6 @@ final class VatPayerCheckerRepositoryTests: BaseTestCase {
         VatPayerCheckerRepository(local: localDataSource, remote: remoteDataSource)
     }()
     
-    
     func testGetByNipUnavailableLocalUnavailableRemote() {
         localDataSource.getByNipResult = .failure(.invalidNip)
         remoteDataSource.getByNipResult = .failure(.invalidNip)
@@ -197,7 +196,6 @@ final class VatPayerCheckerRepositoryTests: BaseTestCase {
             (0, .completion(.failure(.invalidRegon)))
         ])
     }
-    
     
     func testGetByRegonUnavailableLocalAvailableRemote() {
         localDataSource.getByRegonResult = .failure(.invalidRegon)

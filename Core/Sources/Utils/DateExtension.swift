@@ -10,11 +10,11 @@ import Foundation
 
 extension Date {
     
-    static var now: Date {
+    public static var now: Date {
         Date()
     }
     
-    static func from(year: Int, month: Int, day: Int) -> Date {
+    public static func from(year: Int, month: Int, day: Int) -> Date {
         let calendar = Calendar(identifier: .gregorian)
         var dateComponents = DateComponents()
         dateComponents.year = year

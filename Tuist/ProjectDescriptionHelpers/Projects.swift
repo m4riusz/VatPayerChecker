@@ -7,7 +7,7 @@ public enum Projects {
     case testKit
     case common
     case core
-    case vatPayerChecker
+    case mobileApp
     
     var name: String {
         switch self {
@@ -17,8 +17,8 @@ public enum Projects {
             return "Common"
         case .core:
             return "Core"
-        case .vatPayerChecker:
-            return "VatPayerChecker"
+        case .mobileApp:
+            return "MobileApp"
         }
     }
     
@@ -34,8 +34,8 @@ public enum Projects {
             return [.common, .commonTests]
         case .core:
             return [.core, .coreTests]
-        case .vatPayerChecker:
-            return [.vatPayerChecker, .vatPayerCheckerTests, .vatPayerCheckerUITests]
+        case .mobileApp:
+            return [.mobileApp, .mobileAppTests, .mobileAppUITests]
         }
     }
     
