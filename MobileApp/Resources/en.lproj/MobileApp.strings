@@ -55,6 +55,11 @@
 "selectDate" = "Select date";
 
 /* General */
+"appName" = "VatTaxpayerChecker";
 "back" = "Back";
 "pick" = "Select";
 "cancel" = "Cancel";
+
+/* About */
+"aboutApiDescription" = "Aplication fetch data from Polish National Revenue Administration API";
+"aboutOpenSource" = "Opensource libraries used by this app";

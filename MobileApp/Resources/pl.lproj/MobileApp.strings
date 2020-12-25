@@ -55,6 +55,11 @@
 "selectDate" = "Wybierz datę";
 
 /* General */
+"appName" = "VatTaxpayerChecker";
 "back" = "Cofnij";
 "pick" = "Wybierz";
 "cancel" = "Anuluj";
+
+/* About */
+"aboutApiDescription" = "Aplikacja pobiera dane poprzez API wystawione przez Ministerstwo Finansów - Krajową Administracje Skarbową";
+"aboutOpenSource" = "Biblioteki opensource wykorzystywane przez aplikację";
