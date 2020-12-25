@@ -34,11 +34,12 @@ struct MainView: View {
             VatTaxpayerSearchTab()
                 .tabItem { searchItem }
                 .tag(Tab.vatTaxpayer)
-            Text("About")
+            AboutView()
                 .tabItem { aboutItem }
                 .tag(Tab.about)
             
         }
+        .onAppear { store.dispatch(AboutAction.load) }
     }
     
     private var searchItem: TabViewItem {

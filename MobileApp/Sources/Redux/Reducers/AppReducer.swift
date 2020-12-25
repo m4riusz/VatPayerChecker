@@ -13,6 +13,7 @@ struct AppReducer {
         var mutableState = state
         mutableState.mainState = MainReducer.reduce(state: state.mainState, action: action)
         mutableState.searchTabState = SearchTabReducer.reduce(state: state.searchTabState, action: action)
+        mutableState.aboutTabState = AboutReducer.reduce(state: state.aboutTabState, action: action)
         return mutableState
     }
 }

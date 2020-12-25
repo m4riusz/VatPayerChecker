@@ -13,16 +13,29 @@ import Core
 final class MobileAppAssembly: Assembly {
     
     enum ServiceName: String {
+        case urlHandler
+        case aboutTabMiddleware
         case searchTabMiddleware
     }
     
     func register(container: Container) {
+        registerUrlHandler(container: container)
         registerStates(container: container)
         registerMiddlewares(container: container)
         registerAppStore(container: container)
     }
     
+    private func registerUrlHandler(container: Container) {
+        container.register(UrlHandlerProtocol.self) { _ in
+            UIApplicationUrlHandler()
+        }.inObjectScope(.container)
+    }
+    
     private func registerStates(container: Container) {
+        container.register(AboutTabState.self) { _ in
+            AboutTabState()
+        }
+        
         container.register(SearchTabState.self) { _ in
             SearchTabState()
         }
@@ -33,13 +46,20 @@ final class MobileAppAssembly: Assembly {
         
         container.register(AppState.self) { r in
             AppState(mainState: r.resolve(MainState.self)!,
-                     searchTabState: r.resolve(SearchTabState.self)!)
+                     searchTabState: r.resolve(SearchTabState.self)!,
+                     aboutTabState: r.resolve(AboutTabState.self)!)
         }
     }
     
     private func registerMiddlewares(container: Container) {
         container.register(Middleware<AppState, Action>.self, name: ServiceName.searchTabMiddleware.rawValue) { _ in
             SearchTabMiddleware(repository: container.resolve(VatPayerCheckerRepositoryProtocol.self)!).middleware()
+        }
+        container.register(Middleware<AppState, Action>.self, name: ServiceName.aboutTabMiddleware.rawValue) { _ in
+            AboutTabMiddleware(repository: container.resolve(AboutRepositoryProtocol.self)!).middleware()
+        }
+        container.register(Middleware<AppState, Action>.self, name: ServiceName.urlHandler.rawValue) { r in
+            UrlHandlerMiddleware(urlHandler: r.resolve(UrlHandlerProtocol.self)!).middleware()
         }
     }
     
@@ -48,7 +68,9 @@ final class MobileAppAssembly: Assembly {
             AppStore(initialState: r.resolve(AppState.self)!,
                      reducer: AppReducer.reduce,
                      middlewares: [
-                        r.resolve(Middleware<AppState, Action>.self, name: ServiceName.searchTabMiddleware.rawValue)!
+                        r.resolve(Middleware<AppState, Action>.self, name: ServiceName.searchTabMiddleware.rawValue)!,
+                        r.resolve(Middleware<AppState, Action>.self, name: ServiceName.aboutTabMiddleware.rawValue)!,
+                        r.resolve(Middleware<AppState, Action>.self, name: ServiceName.urlHandler.rawValue)!
                      ])
         }
     }

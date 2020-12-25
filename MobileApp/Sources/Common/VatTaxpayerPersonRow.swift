@@ -42,7 +42,7 @@ struct VatTaxpayerPersonRow: View {
     }
     
     private func personView(person: Person) -> some View {
-        VStack(alignment: .leading) {
+        LazyVStack(alignment: .leading) {
             if !person.companyName.isEmpty {
                 keyValueView(key: Literals.personCompanyName, value: person.companyName)
             }
@@ -62,7 +62,7 @@ struct VatTaxpayerPersonRow: View {
     }
     
     private func keyValueView(key: String, value: String) -> some View {
-        VStack(alignment: .leading) {
+        LazyVStack(alignment: .leading) {
             Text(key)
                 .font(.caption)
             Text(value)

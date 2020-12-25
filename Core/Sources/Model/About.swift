@@ -9,7 +9,6 @@
 import Foundation
 
 public struct About {
-    public let apiDescription: String
     public let apiUrl: String
     public let usedLibraries: [Library]
 }

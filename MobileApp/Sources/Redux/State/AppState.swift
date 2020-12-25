@@ -11,4 +11,5 @@ import Foundation
 struct AppState: StateRedux {
     var mainState = MainState()
     var searchTabState = SearchTabState()
+    var aboutTabState = AboutTabState()
 }

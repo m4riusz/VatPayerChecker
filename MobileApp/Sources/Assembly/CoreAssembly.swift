@@ -35,6 +35,10 @@ final class CoreAssembly: Assembly {
     }
     
     private func registerRepository(container: Container) {
+        container.register(AboutDataSourceProtocol.self) { _ in
+            LocalAboutDataSource()
+        }
+        
         container.register(VatPayerCheckerDataSourceProtocol.self, name: ServiceName.localDataSource.rawValue) { _ in
             LocalVatPayerCheckerDataSource()
         }
@@ -43,6 +47,11 @@ final class CoreAssembly: Assembly {
             RemoteVatPayerCheckerDataSource(configuration: r.resolve(ConfigurationProtocol.self)!,
                                             decoder: r.resolve(JSONDecoder.self)!)
         }
+        
+        container.register(AboutRepositoryProtocol.self) { r in
+            AboutRepository(local: r.resolve(AboutDataSourceProtocol.self)!)
+        }
+        
         container.register(VatPayerCheckerRepositoryProtocol.self) { r in
             VatPayerCheckerRepository(local: r.resolve(VatPayerCheckerDataSourceProtocol.self,
                                                        name: ServiceName.localDataSource.rawValue)!,

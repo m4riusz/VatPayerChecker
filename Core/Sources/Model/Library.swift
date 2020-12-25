@@ -12,6 +12,14 @@ public struct Library {
     public let name: String
     public let url: String
     public let licence: String
+    
+    public init(name: String, url: String, licence: String) {
+        self.name = name
+        self.url = url
+        self.licence = licence
+    }
 }
 
 extension Library: Equatable { /*Nop*/ }
+
+extension Library: Hashable { /*Nop*/ }

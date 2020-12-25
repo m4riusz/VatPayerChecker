@@ -15,8 +15,7 @@ public final class LocalAboutDataSource: AboutDataSourceProtocol {
     
     public func getAbout() -> Future<About, Never> {
         Future { [unowned self] promise in
-            let about = About(apiDescription: "App user official MF api for checkoing white list of companies",
-                              apiUrl: "https://www.gov.pl/web/kas/api-wykazu-podatnikow-vat",
+            let about = About(apiUrl: "https://www.gov.pl/web/kas/api-wykazu-podatnikow-vat",
                               usedLibraries: [
                                 self.tuist,
                                 self.swinject,

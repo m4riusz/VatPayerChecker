@@ -35,7 +35,7 @@ struct VatTaxpayerSearchBar: View {
     }
     
     var body: some View {
-        VStack {
+        LazyVStack {
             Text(Literals.findCompany)
                 .font(.title)
                 .fontWeight(.semibold)

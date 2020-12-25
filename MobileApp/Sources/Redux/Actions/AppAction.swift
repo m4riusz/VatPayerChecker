@@ -8,4 +8,6 @@
 
 import Foundation
 
-enum AppAction: Action {}
+enum AppAction: Action {
+    case openUrl(_ stringUrl: String)
+}

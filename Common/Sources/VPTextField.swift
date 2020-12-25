@@ -22,7 +22,7 @@ public struct VPTextField: View {
     }
     
     public var body: some View {
-        VStack {
+        LazyVStack {
             TextField(placeholder, text: text)
                 .modifier(VPTextFieldClearButtonModifier(clearImage: clearImage, text: text))
                 .textFieldStyle(RoundedBorderTextFieldStyle())
