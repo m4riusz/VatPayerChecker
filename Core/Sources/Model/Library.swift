@@ -11,12 +11,12 @@ import Foundation
 public struct Library {
     public let name: String
     public let url: String
-    public let licence: String
+    public let license: String
     
-    public init(name: String, url: String, licence: String) {
+    public init(name: String, url: String, license: String) {
         self.name = name
         self.url = url
-        self.licence = licence
+        self.license = license
     }
 }
 

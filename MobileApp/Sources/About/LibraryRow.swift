@@ -23,7 +23,7 @@ struct LibraryRow: View {
                 .fontWeight(.regular)
                 .foregroundColor(.blue)
                 .onTapGesture { onLinkTap() }
-            Text(library.licence)
+            Text(library.license)
                 .font(.callout)
                 .fontWeight(.light)
         }
@@ -36,7 +36,7 @@ struct LibraryRow_Previews: PreviewProvider {
     static var previews: some View {
         LibraryRow(library: Library(name: "Name",
                                     url: "url",
-                                    licence: "some licence text"),
+                                    license: "some licence text"),
                    onLinkTap: { /*Nop*/ })
     }
 }

@@ -30,7 +30,7 @@ public final class LocalAboutDataSource: AboutDataSourceProtocol {
     private var tuist: Library {
         Library(name: "tuist",
                 url: "https://github.com/tuist/tuist",
-                licence: """
+                license: """
                 MIT License
 
                 Copyright (c) from 2018 Pedro Piñera Buendía
@@ -46,7 +46,7 @@ public final class LocalAboutDataSource: AboutDataSourceProtocol {
     private var sfSymbols: Library {
         Library(name: "SFSafeSymbols",
                 url: "https://github.com/piknotech/SFSafeSymbols",
-                licence: """
+                license: """
                 The MIT License (MIT)
                 
                 Copyright (c) 2020 Piknotech
@@ -62,7 +62,7 @@ public final class LocalAboutDataSource: AboutDataSourceProtocol {
     private var snapshot: Library {
         Library(name: "swift-snapshot-testing",
                 url: "https://github.com/pointfreeco/swift-snapshot-testing",
-                licence: """
+                license: """
                 MIT License
                 
                 Copyright (c) 2019 Point-Free, Inc.
@@ -78,7 +78,7 @@ public final class LocalAboutDataSource: AboutDataSourceProtocol {
     private var swinject: Library {
         Library(name: "Swinject",
                 url: "https://github.com/Swinject/Swinject",
-                licence: """
+                license: """
                 The MIT License (MIT)
                 
                 Copyright (c) 2015 Swinject Contributors
@@ -94,7 +94,7 @@ public final class LocalAboutDataSource: AboutDataSourceProtocol {
     private var entwine: Library {
         Library(name: "Entwine",
                 url: "https://github.com/tcldr/Entwine",
-                licence: """
+                license: """
                 Copyright © 2019 Tristan Celder. All rights reserved.
                 
                 Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
