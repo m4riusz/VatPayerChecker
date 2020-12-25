@@ -16,7 +16,9 @@ import EntwineTest
 
 final class VatPayerCheckerRepositoryTests: BaseTestCase {
     private lazy var scheduler = TestScheduler()
-    private lazy var stub: VatTaxpayer = .stub(name: "Stub")
+    private lazy var stub: ObjectResult<VatTaxpayer> = .init(subject: .stub(name: "Stub"),
+                                                             requestDateTime: "10-10-2020",
+                                                             requestId: "123456789") 
     private lazy var date: Date = .now
     private lazy var localDataSource = StubVatPayerCheckerDataSource()
     private lazy var remoteDataSource = StubVatPayerCheckerDataSource()
@@ -29,7 +31,7 @@ final class VatPayerCheckerRepositoryTests: BaseTestCase {
         remoteDataSource.getByNipResult = .failure(.invalidNip)
         
         let nip = sut.getByNip("nip", date: date)
-        let result = scheduler.createTestableSubscriber(VatTaxpayer.self, VatError.self)
+        let result = scheduler.createTestableSubscriber(ObjectResult<VatTaxpayer>.self, VatError.self)
         nip.receive(subscriber: result)
         
         scheduler.resume()
@@ -45,7 +47,7 @@ final class VatPayerCheckerRepositoryTests: BaseTestCase {
         remoteDataSource.getByNipResult = .success(stub)
         
         let nip = sut.getByNip("nip", date: date)
-        let result = scheduler.createTestableSubscriber(VatTaxpayer.self, VatError.self)
+        let result = scheduler.createTestableSubscriber(ObjectResult<VatTaxpayer>.self, VatError.self)
         nip.receive(subscriber: result)
         
         scheduler.resume()
@@ -60,7 +62,7 @@ final class VatPayerCheckerRepositoryTests: BaseTestCase {
         localDataSource.getByNipResult = .success(stub)
         
         let nip = sut.getByNip("nip", date: date)
-        let result = scheduler.createTestableSubscriber(VatTaxpayer.self, VatError.self)
+        let result = scheduler.createTestableSubscriber(ObjectResult<VatTaxpayer>.self, VatError.self)
         nip.receive(subscriber: result)
         
         scheduler.resume()
@@ -76,7 +78,7 @@ final class VatPayerCheckerRepositoryTests: BaseTestCase {
         remoteDataSource.getByNipResult = .success(stub)
         
         let nip = sut.getByNip("nip", date: date)
-        let result = scheduler.createTestableSubscriber(VatTaxpayer.self, VatError.self)
+        let result = scheduler.createTestableSubscriber(ObjectResult<VatTaxpayer>.self, VatError.self)
         nip.receive(subscriber: result)
         
         scheduler.resume()
@@ -93,7 +95,7 @@ final class VatPayerCheckerRepositoryTests: BaseTestCase {
         remoteDataSource.getByNipResult = .success(stub)
         
         let account = sut.getByNip("nip", date: date)
-        let result = scheduler.createTestableSubscriber(VatTaxpayer.self, VatError.self)
+        let result = scheduler.createTestableSubscriber(ObjectResult<VatTaxpayer>.self, VatError.self)
         account.receive(subscriber: result)
         
         scheduler.resume()
@@ -108,7 +110,7 @@ final class VatPayerCheckerRepositoryTests: BaseTestCase {
         remoteDataSource.getByAccountNumberResult = .failure(.invalidAccount)
         
         let account = sut.getByAccountNumber("accountNumber", date: date)
-        let result = scheduler.createTestableSubscriber(VatTaxpayer.self, VatError.self)
+        let result = scheduler.createTestableSubscriber(ObjectResult<VatTaxpayer>.self, VatError.self)
         account.receive(subscriber: result)
         
         scheduler.resume()
@@ -124,7 +126,7 @@ final class VatPayerCheckerRepositoryTests: BaseTestCase {
         remoteDataSource.getByAccountNumberResult = .success(stub)
         
         let account = sut.getByAccountNumber("accountNumber", date: date)
-        let result = scheduler.createTestableSubscriber(VatTaxpayer.self, VatError.self)
+        let result = scheduler.createTestableSubscriber(ObjectResult<VatTaxpayer>.self, VatError.self)
         account.receive(subscriber: result)
         
         scheduler.resume()
@@ -139,7 +141,7 @@ final class VatPayerCheckerRepositoryTests: BaseTestCase {
         localDataSource.getByAccountNumberResult = .success(stub)
         
         let account = sut.getByAccountNumber("accountNumber", date: date)
-        let result = scheduler.createTestableSubscriber(VatTaxpayer.self, VatError.self)
+        let result = scheduler.createTestableSubscriber(ObjectResult<VatTaxpayer>.self, VatError.self)
         account.receive(subscriber: result)
         
         scheduler.resume()
@@ -155,7 +157,7 @@ final class VatPayerCheckerRepositoryTests: BaseTestCase {
         remoteDataSource.getByAccountNumberResult = .success(stub)
         
         let account = sut.getByAccountNumber("accountNumber", date: date)
-        let result = scheduler.createTestableSubscriber(VatTaxpayer.self, VatError.self)
+        let result = scheduler.createTestableSubscriber(ObjectResult<VatTaxpayer>.self, VatError.self)
         account.receive(subscriber: result)
         
         scheduler.resume()
@@ -172,7 +174,7 @@ final class VatPayerCheckerRepositoryTests: BaseTestCase {
         remoteDataSource.getByAccountNumberResult = .success(stub)
         
         let account = sut.getByAccountNumber("accountNumber", date: date)
-        let result = scheduler.createTestableSubscriber(VatTaxpayer.self, VatError.self)
+        let result = scheduler.createTestableSubscriber(ObjectResult<VatTaxpayer>.self, VatError.self)
         account.receive(subscriber: result)
         
         scheduler.resume()
@@ -187,7 +189,7 @@ final class VatPayerCheckerRepositoryTests: BaseTestCase {
         remoteDataSource.getByRegonResult = .failure(.invalidRegon)
         
         let regon = sut.getByRegon("regon", date: date)
-        let result = scheduler.createTestableSubscriber(VatTaxpayer.self, VatError.self)
+        let result = scheduler.createTestableSubscriber(ObjectResult<VatTaxpayer>.self, VatError.self)
         regon.receive(subscriber: result)
         
         scheduler.resume()
@@ -203,7 +205,7 @@ final class VatPayerCheckerRepositoryTests: BaseTestCase {
         remoteDataSource.getByRegonResult = .success(stub)
         
         let regon = sut.getByRegon("regon", date: date)
-        let result = scheduler.createTestableSubscriber(VatTaxpayer.self, VatError.self)
+        let result = scheduler.createTestableSubscriber(ObjectResult<VatTaxpayer>.self, VatError.self)
         regon.receive(subscriber: result)
         
         scheduler.resume()
@@ -218,7 +220,7 @@ final class VatPayerCheckerRepositoryTests: BaseTestCase {
         localDataSource.getByRegonResult = .success(stub)
         
         let regon = sut.getByRegon("regon", date: date)
-        let result = scheduler.createTestableSubscriber(VatTaxpayer.self, VatError.self)
+        let result = scheduler.createTestableSubscriber(ObjectResult<VatTaxpayer>.self, VatError.self)
         regon.receive(subscriber: result)
         
         scheduler.resume()
@@ -234,7 +236,7 @@ final class VatPayerCheckerRepositoryTests: BaseTestCase {
         remoteDataSource.getByRegonResult = .success(stub)
         
         let regon = sut.getByRegon("regon", date: date)
-        let result = scheduler.createTestableSubscriber(VatTaxpayer.self, VatError.self)
+        let result = scheduler.createTestableSubscriber(ObjectResult<VatTaxpayer>.self, VatError.self)
         regon.receive(subscriber: result)
         
         scheduler.resume()
@@ -251,7 +253,7 @@ final class VatPayerCheckerRepositoryTests: BaseTestCase {
         remoteDataSource.getByRegonResult = .success(stub)
         
         let regon = sut.getByRegon("regon", date: date)
-        let result = scheduler.createTestableSubscriber(VatTaxpayer.self, VatError.self)
+        let result = scheduler.createTestableSubscriber(ObjectResult<VatTaxpayer>.self, VatError.self)
         regon.receive(subscriber: result)
         
         scheduler.resume()
