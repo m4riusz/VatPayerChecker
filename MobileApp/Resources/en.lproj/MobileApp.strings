@@ -26,6 +26,7 @@
 "removalDate" = "Date of deregistration as a VAT payer";
 "removalBasis" = "Legal basis for deregistration";
 "accountNumbers" = "Numbers of settlement accounts or registered accounts at SKOK";
+"searchId" = "Search identifier";
 "hasVirtualAccounts" = "";
 "personCompanyName" = "Company name";
 "personNIP" = "NIP";

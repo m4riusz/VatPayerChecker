@@ -12,6 +12,8 @@ import Core
 struct VatTaxpayerView: View {
     private typealias Literals = MobileAppStrings
     let vatTaxpayer: VatTaxpayer
+    let searchDate: String
+    let searchId: String
     
     var body: some View {
         List {
@@ -37,6 +39,7 @@ struct VatTaxpayerView: View {
                 removalDateSection
                 removalBasisSection
                 accountNumbersSection
+                searchIdSection
             }
         }
         .listStyle(PlainListStyle())
@@ -126,6 +129,10 @@ struct VatTaxpayerView: View {
         createTextRow(title: Literals.accountNumbers, values: vatTaxpayer.accountNumbers)
     }
     
+    private var searchIdSection: VatTaxpayerTextRow? {
+        createTextRow(title: Literals.searchId, values: [searchId])
+    }
+    
     private func createTextRow(title: String, values: [String?]) -> VatTaxpayerTextRow? {
         let notNilAndEmptyValues = values
             .filter { !$0.isNilOrEmpty }
@@ -182,6 +189,8 @@ struct VatTaxpayerView_Previews: PreviewProvider {
                                         removalDate: Date(),
                                         removalBasis: "removalBasis",
                                         accountNumbers: ["12112123123121241241212", "2312342423423423"],
-                                        hasVirtualAccounts: false))
+                                        hasVirtualAccounts: false),
+                        searchDate: "10-10-2020",
+                        searchId: "gdfgdf-sfgdgfds-sdffsdh")
     }
 }

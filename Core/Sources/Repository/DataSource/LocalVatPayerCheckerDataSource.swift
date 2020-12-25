@@ -10,11 +10,11 @@ import Foundation
 import Combine
 
 public final class LocalVatPayerCheckerDataSource: VatPayerCheckerDataSourceProtocol {
-    private var map: [String: VatTaxpayer] = [:]
+    private var map: [String: ObjectResult<VatTaxpayer>] = [:]
     
     public init() { /* Nop */ }
     
-    public func save(_ search: String, date: Date, result: VatTaxpayer) -> Future<VatTaxpayer, VatError> {
+    public func save(_ search: String, date: Date, result: ObjectResult<VatTaxpayer>) -> Future<ObjectResult<VatTaxpayer>, VatError> {
         Future { [weak self] promise in
             guard let strongSelf = self else {
                 promise(.failure(.unknown))
@@ -25,7 +25,7 @@ public final class LocalVatPayerCheckerDataSource: VatPayerCheckerDataSourceProt
         }
     }
     
-    public func getByNip(_ nip: String, date: Date) -> Future<VatTaxpayer, VatError> {
+    public func getByNip(_ nip: String, date: Date) -> Future<ObjectResult<VatTaxpayer>, VatError> {
         Future { [weak self] promise in
             guard let strongSelf = self,
                   let item = strongSelf.map[strongSelf.keyFrom(query: nip, date: date)] else {
@@ -36,7 +36,7 @@ public final class LocalVatPayerCheckerDataSource: VatPayerCheckerDataSourceProt
         }
     }
     
-    public func getByAccountNumber(_ accountNumber: String, date: Date) -> Future<VatTaxpayer, VatError> {
+    public func getByAccountNumber(_ accountNumber: String, date: Date) -> Future<ObjectResult<VatTaxpayer>, VatError> {
         Future { [weak self] promise in
             guard let strongSelf = self,
                   let item = strongSelf.map[strongSelf.keyFrom(query: accountNumber, date: date)] else {
@@ -47,7 +47,7 @@ public final class LocalVatPayerCheckerDataSource: VatPayerCheckerDataSourceProt
         }
     }
     
-    public func getByRegon(_ regon: String, date: Date) -> Future<VatTaxpayer, VatError> {
+    public func getByRegon(_ regon: String, date: Date) -> Future<ObjectResult<VatTaxpayer>, VatError> {
         Future { [weak self] promise in
             guard let strongSelf = self,
                   let item = strongSelf.map[strongSelf.keyFrom(query: regon, date: date)] else {

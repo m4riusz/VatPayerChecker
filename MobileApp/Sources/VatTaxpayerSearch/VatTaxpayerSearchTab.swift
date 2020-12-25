@@ -48,9 +48,9 @@ struct VatTaxpayerSearchTab: View {
                 case .ready, .loading:
                     getReadyView()
                         .navigationBarHidden(true)
-                case .success(let vatTaxpayer):
-                    getSuccessView(vatTaxpayer: vatTaxpayer)
-                        .navigationBarTitle(vatTaxpayer.name, displayMode: .inline)
+                case .success(let result):
+                    getSuccessView(result: result)
+                        .navigationBarTitle(result.subject.name, displayMode: .inline)
                         .navigationBarItems(leading: Button(Literals.back, action: {
                             store.dispatch(SearchTabAction.clearSearch)
                         }))
@@ -76,8 +76,10 @@ struct VatTaxpayerSearchTab: View {
         LoadingView(text: Literals.loading)
     }
     
-    private func getSuccessView(vatTaxpayer: VatTaxpayer) -> some View {
-        VatTaxpayerView(vatTaxpayer: vatTaxpayer)
+    private func getSuccessView(result: ObjectResult<VatTaxpayer>) -> some View {
+        VatTaxpayerView(vatTaxpayer: result.subject,
+                        searchDate: result.requestDateTime,
+                        searchId: result.requestId)
     }
     
     private func getErrorView(error: VatError) -> some View {

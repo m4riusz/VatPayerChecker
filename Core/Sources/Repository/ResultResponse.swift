@@ -8,8 +8,10 @@
 
 import Foundation
 
-public struct ResultResponse<T: Codable> {
+public struct ResultResponse<T: Codable & Equatable> {
     let result: ObjectResult<T>
 }
 
-extension ResultResponse: Codable {}
+extension ResultResponse: Equatable { /*Nop*/ }
+
+extension ResultResponse: Codable { /*Nop*/ }

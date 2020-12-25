@@ -12,7 +12,7 @@ import Core
 enum SearchTabLoadable {
     case ready
     case loading
-    case success(_ vatTaxpayer: VatTaxpayer)
+    case success(_ vatTaxpayer: ObjectResult<VatTaxpayer>)
     case error(_ error: VatError)
 }
 

@@ -30,7 +30,7 @@ struct VatTaxpayerTextRow: View {
                         Spacer()
                     }
                     .padding(8)
-                    .background(Color.blue)
+                    .background(Color.accentColor)
                     .listRowInsets(EdgeInsets()),
                 content: {
                     ForEach(values, id: \.self) { text in
