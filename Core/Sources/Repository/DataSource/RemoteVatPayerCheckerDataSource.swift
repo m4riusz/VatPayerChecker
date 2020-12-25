@@ -18,11 +18,11 @@ public final class RemoteVatPayerCheckerDataSource: VatPayerCheckerDataSourcePro
         self.decoder = decoder
     }
     
-    public func save(_ search: String, date: Date, result: VatTaxpayer) -> Future<VatTaxpayer, VatError> {
+    public func save(_ search: String, date: Date, result: ObjectResult<VatTaxpayer>) -> Future<ObjectResult<VatTaxpayer>, VatError> {
         fatalError()
     }
     
-    public func getByNip(_ nip: String, date: Date) -> Future<VatTaxpayer, VatError> {
+    public func getByNip(_ nip: String, date: Date) -> Future<ObjectResult<VatTaxpayer>, VatError> {
         Future { [unowned self] promise in
             var address = self.configuration.apiAddress
             address.appendPathComponent("/api/search/nip/\(nip)")
@@ -33,7 +33,7 @@ public final class RemoteVatPayerCheckerDataSource: VatPayerCheckerDataSourcePro
                     promise(.failure(.unknown))
                     return
                 }
-                let result: Result<VatTaxpayer, VatError> = strongSelf.handleResponse(decoder: strongSelf.decoder,
+                let result: Result<ObjectResult<VatTaxpayer>, VatError> = strongSelf.handleResponse(decoder: strongSelf.decoder,
                                                                                       data: data,
                                                                                       response: response,
                                                                                       error: error)
@@ -48,7 +48,7 @@ public final class RemoteVatPayerCheckerDataSource: VatPayerCheckerDataSourcePro
         }
     }
     
-    public func getByAccountNumber(_ accountNumber: String, date: Date) -> Future<VatTaxpayer, VatError> {
+    public func getByAccountNumber(_ accountNumber: String, date: Date) -> Future<ObjectResult<VatTaxpayer>, VatError> {
         Future { [unowned self] promise in
             var address = self.configuration.apiAddress
             address.appendPathComponent("/api/search/bank-account/\(accountNumber)")
@@ -59,7 +59,7 @@ public final class RemoteVatPayerCheckerDataSource: VatPayerCheckerDataSourcePro
                     promise(.failure(.unknown))
                     return
                 }
-                let result: Result<VatTaxpayer, VatError> = strongSelf.handleResponse(decoder: strongSelf.decoder,
+                let result: Result<ObjectResult<VatTaxpayer>, VatError> = strongSelf.handleResponse(decoder: strongSelf.decoder,
                                                                                       data: data,
                                                                                       response: response,
                                                                                       error: error)
@@ -74,7 +74,7 @@ public final class RemoteVatPayerCheckerDataSource: VatPayerCheckerDataSourcePro
         }
     }
     
-    public func getByRegon(_ regon: String, date: Date) -> Future<VatTaxpayer, VatError> {
+    public func getByRegon(_ regon: String, date: Date) -> Future<ObjectResult<VatTaxpayer>, VatError> {
         Future { [unowned self] promise in
             var address = self.configuration.apiAddress
             address.appendPathComponent("/api/search/regon/\(regon)")
@@ -85,7 +85,7 @@ public final class RemoteVatPayerCheckerDataSource: VatPayerCheckerDataSourcePro
                     promise(.failure(.unknown))
                     return
                 }
-                let result: Result<VatTaxpayer, VatError> = strongSelf.handleResponse(decoder: strongSelf.decoder,
+                let result: Result<ObjectResult<VatTaxpayer>, VatError> = strongSelf.handleResponse(decoder: strongSelf.decoder,
                                                                                       data: data,
                                                                                       response: response,
                                                                                       error: error)
@@ -100,10 +100,10 @@ public final class RemoteVatPayerCheckerDataSource: VatPayerCheckerDataSourcePro
         }
     }
     
-    private func handleResponse<T: Codable>(decoder: JSONDecoder,
-                                            data: Data?,
-                                            response: URLResponse?,
-                                            error: Error?) -> Result<T, VatError> {
+    private func handleResponse<T: Codable & Equatable>(decoder: JSONDecoder,
+                                                        data: Data?,
+                                                        response: URLResponse?,
+                                                        error: Error?) -> Result<ObjectResult<T>, VatError> {
         guard error.isNil else {
             if let nsError = error as NSError?, nsError.code == NSURLErrorNotConnectedToInternet {
                 return .failure(.noInternetConnection)
@@ -117,7 +117,7 @@ public final class RemoteVatPayerCheckerDataSource: VatPayerCheckerDataSourcePro
             return .failure(failure.code)
         }
         if let object = try? decoder.decode(ResultResponse<T>.self, from: data) {
-            return .success(object.result.subject)
+            return .success(object.result)
         }
         return .failure(.unknown)
     }

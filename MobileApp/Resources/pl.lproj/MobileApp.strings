@@ -26,6 +26,7 @@
 "removalDate" = "Data wykreślenia rejestracji jako podatnika VAT";
 "removalBasis" = "Podstawa prawna wykreślenia";
 "accountNumbers" = "Numery rachunków rozliczeniowych lub imiennych rachunków w SKOK";
+"searchId" = "Identyfikator wyszukiwania";
 "hasVirtualAccounts" = "";
 "personCompanyName" = "Nazwa firmy";
 "personNIP" = "NIP";

@@ -10,9 +10,9 @@ import Foundation
 import Combine
 
 public protocol VatPayerCheckerRepositoryProtocol {
-    func getByNip(_ nip: String, date: Date) -> AnyPublisher<VatTaxpayer, VatError>
-    func getByAccountNumber(_ accountNumber: String, date: Date) -> AnyPublisher<VatTaxpayer, VatError>
-    func getByRegon(_ regon: String, date: Date) -> AnyPublisher<VatTaxpayer, VatError>
+    func getByNip(_ nip: String, date: Date) -> AnyPublisher<ObjectResult<VatTaxpayer>, VatError>
+    func getByAccountNumber(_ accountNumber: String, date: Date) -> AnyPublisher<ObjectResult<VatTaxpayer>, VatError>
+    func getByRegon(_ regon: String, date: Date) -> AnyPublisher<ObjectResult<VatTaxpayer>, VatError>
 }
 
 public final class VatPayerCheckerRepository: VatPayerCheckerRepositoryProtocol {
@@ -24,11 +24,11 @@ public final class VatPayerCheckerRepository: VatPayerCheckerRepositoryProtocol 
         self.remote = remote
     }
     
-    public func getByNip(_ nip: String, date: Date) -> AnyPublisher<VatTaxpayer, VatError> {
+    public func getByNip(_ nip: String, date: Date) -> AnyPublisher<ObjectResult<VatTaxpayer>, VatError> {
         local.getByNip(nip, date: date)
-            .catch { [weak self] _ -> AnyPublisher<VatTaxpayer, VatError> in
+            .catch { [weak self] _ -> AnyPublisher<ObjectResult<VatTaxpayer>, VatError> in
                 guard let strongSelf = self else {
-                    return Fail<VatTaxpayer, VatError>(error: .unknown)
+                    return Fail<ObjectResult<VatTaxpayer>, VatError>(error: .unknown)
                         .eraseToAnyPublisher()
                 }
                 return strongSelf.remote.getByNip(nip, date: date)
@@ -38,11 +38,11 @@ public final class VatPayerCheckerRepository: VatPayerCheckerRepositoryProtocol 
             .eraseToAnyPublisher()
     }
     
-    public func getByAccountNumber(_ accountNumber: String, date: Date) -> AnyPublisher<VatTaxpayer, VatError> {
+    public func getByAccountNumber(_ accountNumber: String, date: Date) -> AnyPublisher<ObjectResult<VatTaxpayer>, VatError> {
         local.getByAccountNumber(accountNumber, date: date)
-            .catch { [weak self] _ -> AnyPublisher<VatTaxpayer, VatError> in
+            .catch { [weak self] _ -> AnyPublisher<ObjectResult<VatTaxpayer>, VatError> in
                 guard let strongSelf = self else {
-                    return Fail<VatTaxpayer, VatError>(error: .unknown)
+                    return Fail<ObjectResult<VatTaxpayer>, VatError>(error: .unknown)
                         .eraseToAnyPublisher()
                 }
                 return strongSelf.remote.getByAccountNumber(accountNumber, date: date)
@@ -52,11 +52,11 @@ public final class VatPayerCheckerRepository: VatPayerCheckerRepositoryProtocol 
             .eraseToAnyPublisher()
     }
     
-    public func getByRegon(_ regon: String, date: Date) -> AnyPublisher<VatTaxpayer, VatError> {
+    public func getByRegon(_ regon: String, date: Date) -> AnyPublisher<ObjectResult<VatTaxpayer>, VatError> {
         local.getByRegon(regon, date: date)
-            .catch { [weak self] _ -> AnyPublisher<VatTaxpayer, VatError> in
+            .catch { [weak self] _ -> AnyPublisher<ObjectResult<VatTaxpayer>, VatError> in
                 guard let strongSelf = self else {
-                    return Fail<VatTaxpayer, VatError>(error: .unknown)
+                    return Fail<ObjectResult<VatTaxpayer>, VatError>(error: .unknown)
                         .eraseToAnyPublisher()
                 }
                 return strongSelf.remote.getByRegon(regon, date: date)

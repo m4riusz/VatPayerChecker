@@ -8,10 +8,12 @@
 
 import Foundation
 
-public struct ObjectResult<T: Codable> {
-    let subject: T
-    let requestDateTime: String
-    let requestId: String
+public struct ObjectResult<T: Codable & Equatable> {
+    public let subject: T
+    public let requestDateTime: String
+    public let requestId: String
 }
 
-extension ObjectResult: Codable {}
+extension ObjectResult: Equatable { /*Nop*/ }
+
+extension ObjectResult: Codable { /*Nop*/ }

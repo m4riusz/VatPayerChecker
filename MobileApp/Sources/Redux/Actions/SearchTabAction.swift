@@ -17,7 +17,7 @@ enum SearchTabAction: Action {
     case searchByNip(_ nip: String, date: Date)
     case searchByRegon(_ regon: String, date: Date)
     case searchByAccount(_ account: String, date: Date)
-    case setResult(_ result: Result<VatTaxpayer, VatError>)
+    case setResult(_ result: Result<ObjectResult<VatTaxpayer>, VatError>)
     case showDatePicker
     case hideDatePicker
 }

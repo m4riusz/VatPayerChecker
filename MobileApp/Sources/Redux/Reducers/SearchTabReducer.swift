@@ -31,8 +31,8 @@ struct SearchTabReducer {
             mutableState.status = .loading
         case .setResult(let result):
             switch result {
-            case .success(let vatTaxpayer):
-                mutableState.status = .success(vatTaxpayer)
+            case .success(let object):
+                mutableState.status = .success(object)
             case .failure(let error):
                 mutableState.status = .error(error)
             }

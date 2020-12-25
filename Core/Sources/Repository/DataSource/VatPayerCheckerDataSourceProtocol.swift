@@ -10,8 +10,8 @@ import Foundation
 import Combine
 
 public protocol VatPayerCheckerDataSourceProtocol {
-    func save(_ search: String, date: Date, result: VatTaxpayer) -> Future<VatTaxpayer, VatError>
-    func getByNip(_ nip: String, date: Date) -> Future<VatTaxpayer, VatError>
-    func getByAccountNumber(_ accountNumber: String, date: Date) -> Future<VatTaxpayer, VatError>
-    func getByRegon(_ regon: String, date: Date) -> Future<VatTaxpayer, VatError>
+    func save(_ search: String, date: Date, result: ObjectResult<VatTaxpayer>) -> Future<ObjectResult<VatTaxpayer>, VatError>
+    func getByNip(_ nip: String, date: Date) -> Future<ObjectResult<VatTaxpayer>, VatError>
+    func getByAccountNumber(_ accountNumber: String, date: Date) -> Future<ObjectResult<VatTaxpayer>, VatError>
+    func getByRegon(_ regon: String, date: Date) -> Future<ObjectResult<VatTaxpayer>, VatError>
 }
