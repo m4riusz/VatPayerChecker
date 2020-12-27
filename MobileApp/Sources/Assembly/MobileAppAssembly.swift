@@ -19,10 +19,17 @@ final class MobileAppAssembly: Assembly {
     }
     
     func register(container: Container) {
+        registerDateProvider(container: container)
         registerUrlHandler(container: container)
         registerStates(container: container)
         registerMiddlewares(container: container)
         registerAppStore(container: container)
+    }
+    
+    private func registerDateProvider(container: Container) {
+        container.register(DateProviderProtocol.self) { _ in
+            DateProvider()
+        }.inObjectScope(.container)
     }
     
     private func registerUrlHandler(container: Container) {
@@ -33,15 +40,19 @@ final class MobileAppAssembly: Assembly {
     
     private func registerStates(container: Container) {
         container.register(AboutTabState.self) { _ in
-            AboutTabState()
+            AboutTabState(status: .ready)
         }
         
-        container.register(SearchTabState.self) { _ in
-            SearchTabState()
+        container.register(SearchTabState.self) { r in
+            SearchTabState(searchQuery: "",
+                           searchDate: r.resolve(DateProviderProtocol.self)!.now,
+                           showDatePicker: false,
+                           searchOption: .nip,
+                           status: .ready)
         }
         
         container.register(MainState.self) { _ in
-            MainState()
+            MainState(tab: .vatTaxpayer)
         }
         
         container.register(AppState.self) { r in

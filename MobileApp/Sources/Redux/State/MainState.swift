@@ -9,5 +9,7 @@
 import Foundation
 
 struct MainState: StateRedux {
-    var tab: MainView.Tab = .vatTaxpayer
+    var tab: MainView.Tab
 }
+
+extension MainState: Equatable { /*Nop*/ }

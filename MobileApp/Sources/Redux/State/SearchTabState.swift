@@ -19,9 +19,11 @@ enum SearchTabLoadable {
 extension SearchTabLoadable: Equatable { /*Nop*/ }
 
 struct SearchTabState: StateRedux {
-    var searchQuery = ""
-    var searchDate = Date()
-    var showDatePicker = false
-    var searchOption: VatTaxpayerSearchBar.Option = .nip
-    var status: SearchTabLoadable = .ready
+    var searchQuery: String
+    var searchDate: Date
+    var showDatePicker: Bool
+    var searchOption: VatTaxpayerSearchBar.Option
+    var status: SearchTabLoadable
 }
+
+extension SearchTabState: Equatable { /*Nop*/ }

@@ -61,6 +61,7 @@ enum Targets {
                              path: Projects.core.relativeManifestPath)]
         case .mobileAppTests:
             return [.package(product: "SnapshotTesting"),
+                    .package(product: "EntwineTest"),
                     .target(name: Targets.mobileApp.name),
                     .project(target: Targets.testKit.name,
                              path: Projects.testKit.relativeManifestPath)]

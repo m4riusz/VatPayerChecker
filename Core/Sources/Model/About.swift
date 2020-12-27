@@ -11,6 +11,11 @@ import Foundation
 public struct About {
     public let apiUrl: String
     public let usedLibraries: [Library]
+    
+    public init(apiUrl: String, usedLibraries: [Library]) {
+        self.apiUrl = apiUrl
+        self.usedLibraries = usedLibraries
+    }
 }
 
 extension About: Equatable { /*Nop*/ }
