@@ -98,15 +98,42 @@ private extension VatError {
     var localizedMessage: String {
         switch self {
         case .invalidNip:
-            return Literals.invalidNipMessage
-        case .invalidRegon:
-            return Literals.invalidRegonMessage
+            return Literals.invalidNip
         case .invalidAccount:
-            return Literals.invalidAccountMessage
+            return Literals.invalidAccount
         case .noInternetConnection:
             return Literals.noInternetConnection
-        case .unknown:
-            return Literals.unknownMessage
+        case .serverError:
+            return Literals.serverError
+        case .emptyRegon:
+            return Literals.emptyRegonError
+        case .invalidRegonLength:
+            return Literals.invalidRegonFormat
+        case .invalidRegonCharacters:
+            return Literals.invalidRegonCharacters
+        case .invalidRegon:
+            return Literals.invalidRegon
+        case .emptyAccount:
+            return Literals.emptyAccountNumber
+        case .invalidAccountLength:
+            return Literals.invalidAccountNumberFormat
+        case .invalidAccountCharacters:
+            return Literals.invalidAccountNumberCharacters
+        case .emptyNip:
+            return Literals.emptyNipError
+        case .invalidNipLength:
+            return Literals.invalidNipFormat
+        case .invalidNipCharacters:
+            return Literals.invalidNipCharacters
+        case .tooOldDate:
+            return Literals.dateTooOldError
+        case .apiLimitReached:
+            return Literals.apiLimitReachedError
+        case .databaseUpdateInProgress:
+            return Literals.databaseUpdateInProgressError
+        case .unknown, .emptyDate, .invalidDateFormat, .emptyCompanyName,
+             .companyNameTooShort, .futureDate, .invalidRequest, .newData, .tooMuchApiParams:
+            return Literals.unknownError
         }
     }
 }
