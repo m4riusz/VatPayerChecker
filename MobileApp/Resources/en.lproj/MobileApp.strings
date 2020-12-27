@@ -45,16 +45,29 @@
 "loading" = "Searching...";
 
 /* Error */
-"invalidNipMessage" = "Invalid NIP number";
-"invalidRegonMessage" = "Invalid REGON number";
-"invalidAccountMessage" = "Invalid account number";
-"noInternetConnection" = "No internet connection";
-"unknownMessage" = "Unknown error";
+"emptyRegonError" = "REGON can't be empty";
+"invalidRegonFormat" = "Given REGON number has invalid length. 9 or 14 digits required";
+"invalidRegonCharacters" = "Given REGON contains characters that are not allowed. Only digits are allowed";
+"invalidRegon" = "Invalid REGON number";
+"emptyAccountNumber" = "Account number can't be empty";
+"invalidAccountNumberFormat" = "Given account number has invalid length. 26 digits required";
+"invalidAccountNumberCharacters" = "Given account number contains characters that are not allowed. Only digits are allowed";
+"invalidAccount" = "Invalid account number";
+"emptyNipError" = "NIP can't be empty";
+"invalidNipFormat" = "Given REGON number has invalid length. 10 digits required";
+"invalidNipCharacters" = "Given NIP contains characters that are not allowed. Only digits are allowed";
+"invalidNip" = "Invalid NIP number";
+"dateTooOldError" = "Given date is before the range of the register";
+"apiLimitReachedError" = "The request limit for this IP address has been exhausted for today";
+"databaseUpdateInProgressError" = "The database is being updated. Please try again later";
+"serverError" = "An unexpected server error has occurred. Try again later";
 
 /* Date picker */
 "selectDate" = "Select date";
 
 /* General */
+"noInternetConnection" = "No internet connection";
+"unknownError" = "Unknown error";
 "appName" = "VatTaxpayerChecker";
 "back" = "Back";
 "pick" = "Select";

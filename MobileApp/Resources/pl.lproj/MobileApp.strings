@@ -45,17 +45,30 @@
 "loading" = "Szukam...";
 
 /* Error */
-"invalidNipMessage" = "Nieprawidłowy NIP";
-"invalidRegonMessage" = "Nieprawidłowy REGON";
-"invalidAccountMessage" = "Nieprawidłowy numer rachunku";
-"noInternetConnection" = "Brak połączenia do internetu";
-"unknownMessage" = "Nieznany błąd";
+"emptyRegonError" = "REGON nie może być pusty";
+"invalidRegonFormat" = "Podany REGON ma nieprawidłową długość. Wymagane 9 lub 14 znaków";
+"invalidRegonCharacters" = "Podany REGON zawiera niedozwolone znaki. Dozwolone są tylko cyfry";
+"invalidRegon" = "Nieprawidłowy REGON";
+"emptyAccountNumber" = "Numer konta nie może być pusty";
+"invalidAccountNumberFormat" = "Podany numer konta ma nieprawidłową długość. Wymagane 26 cyfr";
+"invalidAccountNumberCharacters" = "Podany numer konta zawiera niedozwolone znaki. Dozwolone są tylko cyfry";
+"invalidAccount" = "Nieprawidłowy numer konta";
+"emptyNipError" = "NIP nie może być pusty";
+"invalidNipFormat" = "Podany NIP ma nieprawidłową długość. Wymagane 10 znaków";
+"invalidNipCharacters" = "Podany NIP zawiera niedozwolone znaki. Dozwolone są tylko cyfry";
+"invalidNip" = "Nieprawidłowy NIP";
+"dateTooOldError" = "Podana data jest sprzed zakresu rejestru";
+"apiLimitReachedError" = "Limit żądań dla tego adresu IP został na dziś wyczerpany";
+"databaseUpdateInProgressError" = "Trwa aktualizacja bazy danych. Spróbuj ponownie później";
+"serverError" = "Wystąpił nieoczekiwany błąd serwera. Spróbuj ponownie później";
 
 /* Date picker */
 "selectDate" = "Wybierz datę";
 
 /* General */
 "appName" = "VatTaxpayerChecker";
+"noInternetConnection" = "Brak połączenia do internetu";
+"unknownError" = "Nieznany błąd";
 "back" = "Cofnij";
 "pick" = "Wybierz";
 "cancel" = "Anuluj";
