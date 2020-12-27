@@ -13,3 +13,5 @@ enum AboutAction: Action {
     case load
     case setResult(_ result: About)
 }
+
+extension AboutAction: Equatable { /*Nop*/ }

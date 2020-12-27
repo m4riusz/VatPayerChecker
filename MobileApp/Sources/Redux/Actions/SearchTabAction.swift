@@ -21,3 +21,5 @@ enum SearchTabAction: Action {
     case showDatePicker
     case hideDatePicker
 }
+
+extension SearchTabAction: Equatable { /*Nop*/ }

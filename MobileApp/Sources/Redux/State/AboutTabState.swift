@@ -17,5 +17,7 @@ enum AboutTabLoadable {
 extension AboutTabLoadable: Equatable { /*Nop*/ }
 
 struct AboutTabState: StateRedux {
-    var status: AboutTabLoadable = .ready
+    var status: AboutTabLoadable
 }
+
+extension AboutTabState: Equatable { /*Nop*/ }
