@@ -10,6 +10,7 @@ import Foundation
 
 public struct ProdConfiguration: ConfigurationProtocol {
     public let apiAddress = URL(string: "https://wl-api.mf.gov.pl")!
+    public let certificate = "wl-test.mf.gov.pl.cer"
     
     public init() { /* Nop */ }
 }

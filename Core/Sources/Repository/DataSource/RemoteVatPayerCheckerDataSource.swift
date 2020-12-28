@@ -11,10 +11,12 @@ import Combine
 
 public final class RemoteVatPayerCheckerDataSource: VatPayerCheckerDataSourceProtocol {
     private let configuration: ConfigurationProtocol
+    private let session: URLSession
     private let decoder: JSONDecoder
     
-    public init(configuration: ConfigurationProtocol, decoder: JSONDecoder) {
+    public init(configuration: ConfigurationProtocol, session: URLSession, decoder: JSONDecoder) {
         self.configuration = configuration
+        self.session = session
         self.decoder = decoder
     }
     
@@ -28,7 +30,7 @@ public final class RemoteVatPayerCheckerDataSource: VatPayerCheckerDataSourcePro
             address.appendPathComponent("/api/search/nip/\(nip)")
             address.appendQueryItem(name: "date", value: date.yyyyMMdd)
             let request = URLRequest(url: address, cachePolicy: .reloadIgnoringLocalAndRemoteCacheData)
-            let res = URLSession.shared.dataTask(with: request) { [weak self] data, response, error in
+            let res = session.dataTask(with: request) { [weak self] data, response, error in
                 guard let strongSelf = self else {
                     promise(.failure(.unknown))
                     return
@@ -54,7 +56,7 @@ public final class RemoteVatPayerCheckerDataSource: VatPayerCheckerDataSourcePro
             address.appendPathComponent("/api/search/bank-account/\(accountNumber)")
             address.appendQueryItem(name: "date", value: date.yyyyMMdd)
             let request = URLRequest(url: address, cachePolicy: .reloadIgnoringLocalAndRemoteCacheData)
-            let res = URLSession.shared.dataTask(with: request) { [weak self] data, response, error in
+            let res = session.dataTask(with: request) { [weak self] data, response, error in
                 guard let strongSelf = self else {
                     promise(.failure(.unknown))
                     return
@@ -80,7 +82,7 @@ public final class RemoteVatPayerCheckerDataSource: VatPayerCheckerDataSourcePro
             address.appendPathComponent("/api/search/regon/\(regon)")
             address.appendQueryItem(name: "date", value: date.yyyyMMdd)
             let request = URLRequest(url: address, cachePolicy: .reloadIgnoringLocalAndRemoteCacheData)
-            let res = URLSession.shared.dataTask(with: request) { [weak self] data, response, error in
+            let res = session.dataTask(with: request) { [weak self] data, response, error in
                 guard let strongSelf = self else {
                     promise(.failure(.unknown))
                     return
