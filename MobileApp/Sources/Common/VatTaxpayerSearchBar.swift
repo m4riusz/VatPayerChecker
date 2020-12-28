@@ -46,7 +46,7 @@ struct VatTaxpayerSearchBar: View {
                 .frame(maxWidth: .infinity)
             VPSegmentControl<Option>(items: [.nip, .regon, .account],
                                      selection: searchOption)
-                .frame(maxWidth: .infinity, maxHeight: 50)
+                .frame(maxWidth: .infinity, minHeight: 35)
             VPButton(style: .link,
                      text: searchDate.wrappedValue.yyyyMMdd,
                      image: Image(systemSymbol: .calendar),
