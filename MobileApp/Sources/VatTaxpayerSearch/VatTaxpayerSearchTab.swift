@@ -78,6 +78,12 @@ struct VatTaxpayerSearchTab: View {
     
     private func getSuccessView(result: ObjectResult<VatTaxpayer>) -> some View {
         VatTaxpayerView(vatTaxpayer: result.subject,
+                        actionText: Literals.copy,
+                        action: { text in
+                            let generator = UIImpactFeedbackGenerator(style: .light)
+                            generator.impactOccurred()
+                            UIPasteboard.general.string = text
+                        },
                         searchDate: result.requestDateTime,
                         searchId: result.requestId)
     }

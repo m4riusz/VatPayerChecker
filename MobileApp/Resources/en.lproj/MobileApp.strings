@@ -72,6 +72,7 @@
 "back" = "Back";
 "pick" = "Select";
 "cancel" = "Cancel";
+"copy" = "Copy";
 
 /* About */
 "aboutApiDescription" = "Aplication fetch data from Polish National Revenue Administration API";

@@ -12,6 +12,8 @@ import Core
 struct VatTaxpayerView: View {
     private typealias Literals = MobileAppStrings
     let vatTaxpayer: VatTaxpayer
+    let actionText: String
+    let action: (String) -> Void
     let searchDate: String
     let searchId: String
     
@@ -50,7 +52,10 @@ struct VatTaxpayerView: View {
     }
     
     private var nipSection: VatTaxpayerTextRow? {
-        createTextRow(title: Literals.nip, values: [vatTaxpayer.nip])
+        createTextRow(title: Literals.nip,
+                      values: [vatTaxpayer.nip],
+                      actionButton: actionText,
+                      action: action)
     }
     
     private var vatStatusSection: VatTaxpayerTextRow? {
@@ -66,15 +71,24 @@ struct VatTaxpayerView: View {
     }
     
     private var regonSection: VatTaxpayerTextRow? {
-        createTextRow(title: Literals.regon, values: [vatTaxpayer.regon])
+        createTextRow(title: Literals.regon,
+                      values: [vatTaxpayer.regon],
+                      actionButton: actionText,
+                      action: action)
     }
     
     private var peselSection: VatTaxpayerTextRow? {
-        createTextRow(title: Literals.pesel, values: [vatTaxpayer.pesel])
+        createTextRow(title: Literals.pesel,
+                      values: [vatTaxpayer.pesel],
+                      actionButton: actionText,
+                      action: action)
     }
     
     private var krsSection: VatTaxpayerTextRow? {
-        createTextRow(title: Literals.krs, values: [vatTaxpayer.krs])
+        createTextRow(title: Literals.krs,
+                      values: [vatTaxpayer.krs],
+                      actionButton: actionText,
+                      action: action)
     }
     
     private var residenceAddressSection: VatTaxpayerTextRow? {
@@ -126,14 +140,20 @@ struct VatTaxpayerView: View {
     }
     
     private var accountNumbersSection: VatTaxpayerTextRow? {
-        createTextRow(title: Literals.accountNumbers, values: vatTaxpayer.accountNumbers)
+        createTextRow(title: Literals.accountNumbers,
+                      values: vatTaxpayer.accountNumbers,
+                      actionButton: actionText,
+                      action: action)
     }
     
     private var searchIdSection: VatTaxpayerTextRow? {
         createTextRow(title: Literals.searchId, values: [searchId])
     }
     
-    private func createTextRow(title: String, values: [String?]) -> VatTaxpayerTextRow? {
+    private func createTextRow(title: String,
+                               values: [String?],
+                               actionButton: String? = nil,
+                               action: ((String) -> Void)? = nil) -> VatTaxpayerTextRow? {
         let notNilAndEmptyValues = values
             .filter { !$0.isNilOrEmpty }
             .compactMap { $0 }
@@ -141,7 +161,10 @@ struct VatTaxpayerView: View {
         guard !notNilAndEmptyValues.isEmpty else {
             return nil
         }
-        return VatTaxpayerTextRow(title: title, values: notNilAndEmptyValues)
+        return VatTaxpayerTextRow(title: title,
+                                  values: notNilAndEmptyValues,
+                                  actionButton: actionButton,
+                                  action: action)
     }
     
     private func createPersonRow(title: String, persons: [Person]) -> VatTaxpayerPersonRow? {
@@ -190,6 +213,8 @@ struct VatTaxpayerView_Previews: PreviewProvider {
                                         removalBasis: "removalBasis",
                                         accountNumbers: ["12112123123121241241212", "2312342423423423"],
                                         hasVirtualAccounts: false),
+                        actionText: "Kopiuj",
+                        action: { _ in /*Nop*/ },
                         searchDate: "10-10-2020",
                         searchId: "gdfgdf-sfgdgfds-sdffsdh")
     }

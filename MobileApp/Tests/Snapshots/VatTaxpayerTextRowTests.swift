@@ -16,7 +16,11 @@ import SnapshotTesting
 final class VatTaxpayerTextRowTests: BaseTestCase {
     private var text = ""
     private var values = [""]
-    private lazy var sut = ListContainer(view: VatTaxpayerTextRow(title: text, values: values))
+    private var actionText: String?
+    private lazy var sut = ListContainer(view: VatTaxpayerTextRow(title: text,
+                                                                  values: values,
+                                                                  actionButton: actionText,
+                                                                  action: { _ in }))
     
     func testSingleLine() {
         text = "Section"
@@ -33,6 +37,13 @@ final class VatTaxpayerTextRowTests: BaseTestCase {
     func testMultipleRows() {
         text =  "Title"
         values = ["Item one", "Item two"]
+        assertSnapshot(matching: sut, as: .image)
+    }
+    
+    func testActionRow() {
+        text =  "Title"
+        values = ["Item one", "Item two"]
+        actionText = "Kopiuj"
         assertSnapshot(matching: sut, as: .image)
     }
 }
