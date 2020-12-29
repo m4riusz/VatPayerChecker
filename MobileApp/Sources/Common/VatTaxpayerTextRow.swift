@@ -7,18 +7,24 @@
 //
 
 import SwiftUI
+import Common
 
 struct VatTaxpayerTextRow: View {
+    typealias ValueCallback = (String) -> Void
     let title: String
     let values: [String]
+    let actionButton: String?
+    let action: ValueCallback?
     
-    init(title: String, value: String) {
-        self.init(title: title, values: [value])
+    init(title: String, value: String, actionButton: String? = nil, action: ValueCallback? = nil) {
+        self.init(title: title, values: [value], actionButton: actionButton, action: action)
     }
     
-    init(title: String, values: [String]) {
+    init(title: String, values: [String], actionButton: String? = nil, action: ValueCallback? = nil) {
         self.title = title
         self.values = values
+        self.actionButton = actionButton
+        self.action = action
     }
     
     var body: some View {
@@ -34,16 +40,31 @@ struct VatTaxpayerTextRow: View {
                     .listRowInsets(EdgeInsets()),
                 content: {
                     ForEach(values, id: \.self) { text in
-                        Text(text)
-                            .font(.body)
-                            .bold()
+                        HStack(spacing: 5) {
+                            Text(text)
+                                .font(.body)
+                                .bold()
+                            Spacer()
+                            if let actionText = actionButton, let callback = action {
+                                Button(action: {
+                                    callback(text)
+                                }, label: {
+                                    Text(actionText)
+                                        .fontWeight(.bold)
+                                        .foregroundColor(.accentColor)
+                                })
+                            }
+                        }
                     }
-                })
+                }).buttonStyle(PlainButtonStyle())
     }
 }
 
 struct VatTaxpayerTextRow_Previews: PreviewProvider {
     static var previews: some View {
-        VatTaxpayerTextRow(title: "Name", value: "Januszex")
+        VatTaxpayerTextRow(title: "Name",
+                           value: "Januszex",
+                           actionButton: "Kopiuj",
+                           action: { _ in /*Nop*/ })
     }
 }
