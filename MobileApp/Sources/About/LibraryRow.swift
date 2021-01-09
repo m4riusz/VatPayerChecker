@@ -10,6 +10,11 @@ import SwiftUI
 import Core
 
 struct LibraryRow: View {
+    private struct Identifiers {
+        static let name = "NameIdentifier"
+        static let url = "UrlIdentifier"
+        static let license = "LicenseIdentifier"
+    }
     let library: Library
     let onLinkTap: VoidHandler
     
@@ -18,14 +23,17 @@ struct LibraryRow: View {
             Text(library.name)
                 .font(.title2)
                 .fontWeight(.medium)
+                .accessibilityIdentifier(Identifiers.name)
             Text(library.url)
                 .font(.body)
                 .fontWeight(.regular)
                 .foregroundColor(.blue)
                 .onTapGesture { onLinkTap() }
+                .accessibilityIdentifier(Identifiers.url)
             Text(library.license)
                 .font(.callout)
                 .fontWeight(.light)
+                .accessibilityIdentifier(Identifiers.license)
         }
         .multilineTextAlignment(.leading)
         .frame(maxWidth: .infinity)

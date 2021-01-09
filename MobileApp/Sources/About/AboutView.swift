@@ -10,6 +10,11 @@ import SwiftUI
 import Core
 
 struct AboutView: View {
+    private struct Identifiers {
+        static let headerView = "AboutViewHeader"
+        static let aboutOpenSource = "AboutOpenSourceLabel"
+        static let cellIdentifier = "LibraryCell"
+    }
     private typealias Literals = MobileAppStrings
     private typealias Images = MobileAppAsset
     @EnvironmentObject var store: AppStore
@@ -40,6 +45,7 @@ struct AboutView: View {
                             apiDescription: Literals.aboutApiDescription,
                             apiUrl: about.apiUrl,
                             onUrlTap: { store.dispatch(AppAction.openUrl(about.apiUrl)) })
+                .accessibilityIdentifier(Identifiers.headerView)
             if !about.usedLibraries.isEmpty {
                 Text(Literals.aboutOpenSource)
                     .font(.title)
@@ -47,8 +53,10 @@ struct AboutView: View {
                     .multilineTextAlignment(.leading)
                     .frame(maxWidth: .infinity, alignment: .leading)
                     .padding([.top, .bottom], 10)
+                    .accessibilityIdentifier(Identifiers.aboutOpenSource)
                 ForEach(about.usedLibraries, id: \.self) { library in
                     LibraryRow(library: library) { store.dispatch(AppAction.openUrl(library.url)) }
+                        .accessibilityIdentifier(Identifiers.cellIdentifier)
                 }
             }
         }
