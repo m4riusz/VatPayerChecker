@@ -10,6 +10,12 @@ import SwiftUI
 import Core
 
 struct AboutViewHeader: View {
+    private struct Identifiers {
+        static let appName = "AppNameIdentifier"
+        static let apiDescription = "ApiDescriptionIdentifier"
+        static let apiUrl = "ApiUrlIdentifier"
+        
+    }
     let appName: String
     let apiDescription: String
     let apiUrl: String
@@ -20,13 +26,16 @@ struct AboutViewHeader: View {
             Text(appName)
                 .font(.title)
                 .fontWeight(.bold)
+                .accessibilityIdentifier(Identifiers.appName)
             Text(apiDescription)
                 .font(.body)
+                .accessibilityIdentifier(Identifiers.apiDescription)
             Text(apiUrl)
                 .font(.body)
                 .fontWeight(.semibold)
                 .foregroundColor(.blue)
                 .onTapGesture { onUrlTap() }
+                .accessibilityIdentifier(Identifiers.apiUrl)
         }
         .multilineTextAlignment(.leading)
         .frame(maxWidth: .infinity, alignment: .leading)
