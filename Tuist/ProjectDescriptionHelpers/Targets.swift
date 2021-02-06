@@ -14,12 +14,20 @@ enum Targets {
         switch self {
         case .testKit:
             return "TestKit"
-        case .common, .commonTests:
+        case .common:
             return "Common"
-        case .core, .coreTests:
+        case .commonTests:
+            return "CommonTests"
+        case .core:
             return "Core"
-        case .mobileApp, .mobileAppTests, .mobileAppUITests:
+        case .coreTests:
+            return "CoreTests"
+        case .mobileApp:
             return "MobileApp"
+        case .mobileAppTests:
+            return "MobileAppTests"
+        case .mobileAppUITests:
+            return "MobileAppUITests"
         }
     }
     
@@ -41,14 +49,14 @@ enum Targets {
         case .common:
             return []
         case .commonTests:
-            return [.target(name: name),
+            return [.target(name: Targets.common.name),
                     .project(target: Targets.testKit.name,
                              path: Projects.testKit.relativeManifestPath)]
         case .core:
             return [.project(target: Targets.common.name,
                              path: Projects.common.relativeManifestPath)]
         case .coreTests:
-            return [.target(name: name),
+            return [.target(name: Targets.core.name),
                     .package(product: "EntwineTest"),
                     .project(target: Targets.testKit.name,
                              path: Projects.testKit.relativeManifestPath)]

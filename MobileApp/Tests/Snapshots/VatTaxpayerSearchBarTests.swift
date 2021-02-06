@@ -14,7 +14,7 @@ import SnapshotTesting
 @testable import MobileApp
 
 final class VatTaxpayerSearchBarTests: BaseTestCase {
-    private var date = Date()
+    private var date = Date.from(year: 2020, month: 12, day: 28)
     private var text = ""
     private var option = VatTaxpayerSearchBar.Option.nip
     private var error: String?

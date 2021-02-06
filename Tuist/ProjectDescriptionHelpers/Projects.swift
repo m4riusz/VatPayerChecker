@@ -40,7 +40,17 @@ public enum Projects {
     }
     
     var schemes: [Scheme] {
-        []
+        switch self {
+        case .mobileApp:
+            return [
+                MobileAppScheme.dev.scheme,
+                MobileAppScheme.staging.scheme,
+                MobileAppScheme.production.scheme,
+                MobileAppScheme.uiTests.scheme
+            ]
+        default:
+            return []
+        }
     }
     
     var settings: Settings? {
