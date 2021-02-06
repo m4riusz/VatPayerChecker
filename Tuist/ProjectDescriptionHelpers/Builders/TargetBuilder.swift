@@ -44,21 +44,8 @@ final class TargetBuilder {
         return self
     }
     
-    var fixedName: String {
-        switch product {
-        case .app, .framework:
-            return name
-        case .unitTests:
-            return "\(name)Tests"
-        case .uiTests:
-            return "\(name)UITests"
-        default:
-            fatalError("Unknown name")
-        }
-    }
-    
     var bundleId: String {
-        "\(baseBundleId).\(fixedName)"
+        "\(baseBundleId).\(name)"
     }
     
     var sources: SourceFilesList {
@@ -88,11 +75,11 @@ final class TargetBuilder {
     }
     
     var infoPlistName: String {
-        "\(fixedName).plist"
+        "\(name).plist"
     }
     
     func build() -> Target {
-        Target(name: fixedName,
+        Target(name: name,
                platform: platform,
                product: product,
                bundleId: bundleId,
