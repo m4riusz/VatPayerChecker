@@ -11,16 +11,22 @@ import Combine
 
 public final class RemoteVatPayerCheckerDataSource: VatPayerCheckerDataSourceProtocol {
     private let configuration: ConfigurationProtocol
+    private let debugLogger: DebugLogger
     private let session: URLSession
     private let decoder: JSONDecoder
     
-    public init(configuration: ConfigurationProtocol, session: URLSession, decoder: JSONDecoder) {
+    public init(configuration: ConfigurationProtocol,
+                debugLogger: DebugLogger,
+                session: URLSession,
+                decoder: JSONDecoder) {
         self.configuration = configuration
+        self.debugLogger = debugLogger
         self.session = session
         self.decoder = decoder
     }
     
     public func save(_ search: String, date: Date, result: ObjectResult<VatTaxpayer>) -> Future<ObjectResult<VatTaxpayer>, VatError> {
+        debugLogger.error("Save method should not be called on remote data source")
         fatalError()
     }
     
@@ -35,14 +41,17 @@ public final class RemoteVatPayerCheckerDataSource: VatPayerCheckerDataSourcePro
                     promise(.failure(.unknown))
                     return
                 }
-                let result: Result<ObjectResult<VatTaxpayer>, VatError> = strongSelf.handleResponse(decoder: strongSelf.decoder,
-                                                                                      data: data,
-                                                                                      response: response,
-                                                                                      error: error)
+                let result: Result<ObjectResult<VatTaxpayer>, VatError> = strongSelf.handleResponse(
+                    decoder: strongSelf.decoder,
+                                                                                                    data: data,
+                                                                                                    response: response,
+                                                                                                    error: error)
                 switch result {
                 case .success(let object):
+                    debugLogger.info(object)
                     promise(.success(object))
                 case .failure(let error):
+                    debugLogger.error(error)
                     promise(.failure(error))
                 }
             }
@@ -67,8 +76,10 @@ public final class RemoteVatPayerCheckerDataSource: VatPayerCheckerDataSourcePro
                                                                                       error: error)
                 switch result {
                 case .success(let object):
+                    debugLogger.info(object)
                     promise(.success(object))
                 case .failure(let error):
+                    debugLogger.error(error)
                     promise(.failure(error))
                 }
             }
@@ -93,8 +104,10 @@ public final class RemoteVatPayerCheckerDataSource: VatPayerCheckerDataSourcePro
                                                                                       error: error)
                 switch result {
                 case .success(let object):
+                    debugLogger.info(object)
                     promise(.success(object))
                 case .failure(let error):
+                    debugLogger.error(error)
                     promise(.failure(error))
                 }
             }

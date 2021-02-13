@@ -7,12 +7,15 @@
 //
 
 import Foundation
+import Core
 
 final class CertificateValidator: NSObject, URLSessionDelegate {
     private let certificateProvider: CertificateProviderProtocol
+    private let debugLogger: DebugLogger
     
-    init(certificateProvider: CertificateProviderProtocol) {
+    init(certificateProvider: CertificateProviderProtocol, debugLogger: DebugLogger) {
         self.certificateProvider = certificateProvider
+        self.debugLogger = debugLogger
     }
     
     func urlSession(_ session: URLSession,
@@ -24,6 +27,7 @@ final class CertificateValidator: NSObject, URLSessionDelegate {
     private func evaluate(challenge: URLAuthenticationChallenge,
                           completionHandler: @escaping (URLSession.AuthChallengeDisposition, URLCredential?) -> Void) {
         if let credential = credentialIfTrustedCertificate(for: challenge) {
+            debugLogger.verbose("Certificate evaluation succeed")
             completionHandler(.useCredential, credential)
         } else {
             completionHandler(.cancelAuthenticationChallenge, nil)
@@ -34,6 +38,7 @@ final class CertificateValidator: NSObject, URLSessionDelegate {
         let protectionSpace = challenge.protectionSpace
         guard protectionSpace.authenticationMethod == NSURLAuthenticationMethodServerTrust,
               let serverTrust = protectionSpace.serverTrust else {
+            debugLogger.error("Certificate evaluation failed - unknowm method")
             return nil
         }
         SecTrustSetAnchorCertificates(serverTrust, [certificateProvider.certificate] as CFArray)
@@ -42,7 +47,7 @@ final class CertificateValidator: NSObject, URLSessionDelegate {
         var result: CFError?
         let status = SecTrustEvaluateWithError(serverTrust, &result)
         if let error = result {
-            print(error)
+            debugLogger.error("Certificate evaluation failed: \(error)")
         }
         return status ? URLCredential(trust: serverTrust) : nil
     }

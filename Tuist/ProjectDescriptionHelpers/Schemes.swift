@@ -19,9 +19,9 @@ enum MobileAppScheme {
     var arguments: Arguments {
         switch self {
         case .dev, .uiTests:
-            return Arguments(environment: ["Dev": "YES"], launchArguments: [:])
+            return Arguments(environment: ["Dev": "YES", "ConsoleLog": "YES"], launchArguments: [:])
         case .production:
-            return Arguments(environment: [:], launchArguments: [:])
+            return Arguments(environment: ["Dev": "NO", "ConsoleLog": "NO"], launchArguments: [:])
         }
     }
     

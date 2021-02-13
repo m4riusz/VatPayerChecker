@@ -10,12 +10,15 @@ import Foundation
 import Combine
 
 public final class LocalAboutDataSource: AboutDataSourceProtocol {
+    private let configuration: ConfigurationProtocol
     
-    public init() { /* Nop */ }
+    public init(configuration: ConfigurationProtocol) {
+        self.configuration = configuration
+    }
     
     public func getAbout() -> Future<About, Never> {
         Future { [unowned self] promise in
-            let about = About(apiUrl: "https://www.gov.pl/web/kas/api-wykazu-podatnikow-vat",
+            let about = About(apiUrl: configuration.apiSite,
                               usedLibraries: [
                                 self.tuist,
                                 self.swinject,

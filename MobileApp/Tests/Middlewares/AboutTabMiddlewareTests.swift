@@ -24,7 +24,8 @@ final class AboutTabMiddlewareTests: BaseTestCase {
                                              aboutTabState: .init(status: .ready))
     private lazy var about = About(apiUrl: "ApiUrl",
                                    usedLibraries: [.init(name: "Lib", url: "LibUrl", license: "LibLicense")])
-    private lazy var sut = AboutTabMiddleware(repository: StubAboutRepository(resultGetAbout: .success(about))).middleware()
+    private lazy var sut = AboutTabMiddleware(repository: StubAboutRepository(resultGetAbout: .success(about)),
+                                              debugLogger: MockLogger()).middleware()
     private lazy var store = AppStore(initialState: initialState,
                                       reducer: AppReducer.reduce,
                                       middlewares: [sut])

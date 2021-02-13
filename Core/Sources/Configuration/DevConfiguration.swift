@@ -10,6 +10,7 @@ import Foundation
 
 public struct DevConfiguration: ConfigurationProtocol {
     public let apiAddress = URL(string: "https://wl-test.mf.gov.pl/")!
+    public let apiSite = "https://www.gov.pl/web/kas/api-wykazu-podatnikow-vat"
     public let certificate = "wl-test.mf.gov.pl.cer"
     
     public init() { /* Nop */ }

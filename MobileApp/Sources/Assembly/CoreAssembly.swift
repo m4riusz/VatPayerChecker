@@ -23,6 +23,13 @@ final class CoreAssembly: Assembly {
     }
     
     private func registerBasic(container: Container, launchConfiguration: LaunchConfiguration) {
+        container.register(DebugLogger.self) { _ in
+            if launchConfiguration.consoleLog {
+                return ConsoleLogger()
+            }
+            return MockLogger()
+        }
+        
         container.register(JSONDecoder.self) { _ in
             let decoder = JSONDecoder()
             decoder.dateDecodingStrategy = .formatted(.yearMonthDay)
@@ -40,6 +47,7 @@ final class CoreAssembly: Assembly {
     private func registerNetworking(container: Container, launchConfiguration: LaunchConfiguration) {
         container.register(CertificateProviderProtocol.self) { r in
             CertificateProvider(configuration: r.resolve(ConfigurationProtocol.self)!,
+                                debugLogger: r.resolve(DebugLogger.self)!,
                                 bundle: MobileAppResources.bundle)
         }.inObjectScope(.container)
         
@@ -47,7 +55,8 @@ final class CoreAssembly: Assembly {
             if launchConfiguration.isRunningDev {
                 return nil
             }
-            return CertificateValidator(certificateProvider: r.resolve(CertificateProviderProtocol.self)!)
+            return CertificateValidator(certificateProvider: r.resolve(CertificateProviderProtocol.self)!,
+                                        debugLogger: r.resolve(DebugLogger.self)!)
         }.inObjectScope(.container)
         
         container.register(URLSessionConfiguration.self) { _  in
@@ -64,8 +73,8 @@ final class CoreAssembly: Assembly {
     }
     
     private func registerRepository(container: Container, launchConfiguration: LaunchConfiguration) {
-        container.register(AboutDataSourceProtocol.self) { _ in
-            LocalAboutDataSource()
+        container.register(AboutDataSourceProtocol.self) { r in
+            LocalAboutDataSource(configuration: r.resolve(ConfigurationProtocol.self)!)
         }
         
         container.register(VatPayerCheckerDataSourceProtocol.self, name: ServiceName.localDataSource.rawValue) { _ in
@@ -74,6 +83,7 @@ final class CoreAssembly: Assembly {
         
         container.register(VatPayerCheckerDataSourceProtocol.self, name: ServiceName.remoteDataSource.rawValue) { r in
             RemoteVatPayerCheckerDataSource(configuration: r.resolve(ConfigurationProtocol.self)!,
+                                            debugLogger: r.resolve(DebugLogger.self)!,
                                             session: r.resolve(URLSession.self)!,
                                             decoder: r.resolve(JSONDecoder.self)!)
         }
