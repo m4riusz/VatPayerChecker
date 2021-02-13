@@ -8,7 +8,8 @@
 
 import Foundation
 import Swinject
+import Core
 
 protocol Assembly {
-    func register(container: Container)
+    func register(container: Container, launchConfiguration: LaunchConfiguration)
 }

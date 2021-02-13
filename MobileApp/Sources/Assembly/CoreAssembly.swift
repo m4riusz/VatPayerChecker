@@ -16,13 +16,13 @@ final class CoreAssembly: Assembly {
         case remoteDataSource = "VatPayerCheckerDataSourceProtocolRemote"
     }
     
-    func register(container: Container) {
-        registerBasic(container: container)
-        registerRepository(container: container)
-        registerNetworking(container: container)
+    func register(container: Container, launchConfiguration: LaunchConfiguration) {
+        registerBasic(container: container, launchConfiguration: launchConfiguration)
+        registerRepository(container: container, launchConfiguration: launchConfiguration)
+        registerNetworking(container: container, launchConfiguration: launchConfiguration)
     }
     
-    private func registerBasic(container: Container) {
+    private func registerBasic(container: Container, launchConfiguration: LaunchConfiguration) {
         container.register(JSONDecoder.self) { _ in
             let decoder = JSONDecoder()
             decoder.dateDecodingStrategy = .formatted(.yearMonthDay)
@@ -30,18 +30,24 @@ final class CoreAssembly: Assembly {
         }
         
         container.register(ConfigurationProtocol.self) { _ in
-            ProdConfiguration()
+            if launchConfiguration.isRunningDev {
+                return DevConfiguration()
+            }
+            return ProdConfiguration()
         }.inObjectScope(.container)
     }
     
-    private func registerNetworking(container: Container) {
+    private func registerNetworking(container: Container, launchConfiguration: LaunchConfiguration) {
         container.register(CertificateProviderProtocol.self) { r in
             CertificateProvider(configuration: r.resolve(ConfigurationProtocol.self)!,
                                 bundle: MobileAppResources.bundle)
         }.inObjectScope(.container)
         
-        container.register(URLSessionDelegate.self) { r  in
-            CertificateValidator(certificateProvider: r.resolve(CertificateProviderProtocol.self)!)
+        container.register(URLSessionDelegate?.self) { r  in
+            if launchConfiguration.isRunningDev {
+                return nil
+            }
+            return CertificateValidator(certificateProvider: r.resolve(CertificateProviderProtocol.self)!)
         }.inObjectScope(.container)
         
         container.register(URLSessionConfiguration.self) { _  in
@@ -52,12 +58,12 @@ final class CoreAssembly: Assembly {
         
         container.register(URLSession.self) { r in
             URLSession(configuration: r.resolve(URLSessionConfiguration.self)!,
-                       delegate: r.resolve(URLSessionDelegate.self)!,
+                       delegate: r.resolve(URLSessionDelegate?.self)!,
                        delegateQueue: nil)
         }.inObjectScope(.container)
     }
     
-    private func registerRepository(container: Container) {
+    private func registerRepository(container: Container, launchConfiguration: LaunchConfiguration) {
         container.register(AboutDataSourceProtocol.self) { _ in
             LocalAboutDataSource()
         }

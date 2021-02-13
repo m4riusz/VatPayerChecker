@@ -44,7 +44,6 @@ public enum Projects {
         case .mobileApp:
             return [
                 MobileAppScheme.dev.scheme,
-                MobileAppScheme.staging.scheme,
                 MobileAppScheme.production.scheme,
                 MobileAppScheme.uiTests.scheme
             ]
