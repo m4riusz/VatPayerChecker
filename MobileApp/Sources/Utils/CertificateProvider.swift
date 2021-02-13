@@ -15,19 +15,23 @@ protocol CertificateProviderProtocol {
 
 final class CertificateProvider: CertificateProviderProtocol {
     private let configuration: ConfigurationProtocol
+    private let debugLogger: DebugLogger
     private let bundle: Bundle
     
-    init(configuration: ConfigurationProtocol, bundle: Bundle) {
+    init(configuration: ConfigurationProtocol, debugLogger: DebugLogger,  bundle: Bundle) {
         self.configuration = configuration
         self.bundle = bundle
+        self.debugLogger = debugLogger
     }
     
     lazy var certificate: SecCertificate = {
         guard let fileUrl = bundle.url(forResource: configuration.certificate, withExtension: nil),
               let data = try? Data(contentsOf: fileUrl),
               let cerfificate = SecCertificateCreateWithData(nil, data as CFData) else {
+            debugLogger.error("Certificate file not found!")
             fatalError("Unable to load certificate!")
         }
+        debugLogger.verbose("Certificate file found")
         return cerfificate
     }()
 }

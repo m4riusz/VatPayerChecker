@@ -12,9 +12,11 @@ import Combine
 
 struct UrlHandlerMiddleware {
     private let urlHandler: UrlHandlerProtocol
+    private let debugLogger: DebugLogger
     
-    init(urlHandler: UrlHandlerProtocol) {
+    init(urlHandler: UrlHandlerProtocol, debugLogger: DebugLogger) {
         self.urlHandler = urlHandler
+        self.debugLogger = debugLogger
     }
     
     func middleware() -> Middleware<AppState, Action> {
@@ -24,6 +26,7 @@ struct UrlHandlerMiddleware {
             }
             switch action {
             case .openUrl(let url):
+                debugLogger.verbose("Try to open url: \(url)")
                 urlHandler.openUrl(url)
                 return Empty().eraseToAnyPublisher()
             }

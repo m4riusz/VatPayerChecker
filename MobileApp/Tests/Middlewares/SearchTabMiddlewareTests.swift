@@ -26,7 +26,7 @@ final class SearchTabMiddlewareTests: BaseTestCase {
                                                               requestDateTime: "requestDateTime",
                                                               requestId: "requestId")
     private lazy var repository = StubVatPayerCheckerRepository()
-    private lazy var sut = SearchTabMiddleware(repository: repository).middleware()
+    private lazy var sut = SearchTabMiddleware(repository: repository, debugLogger: MockLogger()).middleware()
     private lazy var store = AppStore(initialState: initialState,
                                       reducer: AppReducer.reduce,
                                       middlewares: [sut])

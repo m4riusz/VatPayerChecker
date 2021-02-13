@@ -33,8 +33,8 @@ final class MobileAppAssembly: Assembly {
     }
     
     private func registerUrlHandler(container: Container, launchConfiguration: LaunchConfiguration) {
-        container.register(UrlHandlerProtocol.self) { _ in
-            UIApplicationUrlHandler()
+        container.register(UrlHandlerProtocol.self) { r in
+            UIApplicationUrlHandler(debugLogger: r.resolve(DebugLogger.self)!)
         }.inObjectScope(.container)
     }
     
@@ -63,14 +63,17 @@ final class MobileAppAssembly: Assembly {
     }
     
     private func registerMiddlewares(container: Container, launchConfiguration: LaunchConfiguration) {
-        container.register(Middleware<AppState, Action>.self, name: ServiceName.searchTabMiddleware.rawValue) { _ in
-            SearchTabMiddleware(repository: container.resolve(VatPayerCheckerRepositoryProtocol.self)!).middleware()
+        container.register(Middleware<AppState, Action>.self, name: ServiceName.searchTabMiddleware.rawValue) { r in
+            SearchTabMiddleware(repository: r.resolve(VatPayerCheckerRepositoryProtocol.self)!,
+                                debugLogger: r.resolve(DebugLogger.self)!).middleware()
         }
-        container.register(Middleware<AppState, Action>.self, name: ServiceName.aboutTabMiddleware.rawValue) { _ in
-            AboutTabMiddleware(repository: container.resolve(AboutRepositoryProtocol.self)!).middleware()
+        container.register(Middleware<AppState, Action>.self, name: ServiceName.aboutTabMiddleware.rawValue) { r in
+            AboutTabMiddleware(repository: r.resolve(AboutRepositoryProtocol.self)!,
+                               debugLogger: r.resolve(DebugLogger.self)!).middleware()
         }
         container.register(Middleware<AppState, Action>.self, name: ServiceName.urlHandler.rawValue) { r in
-            UrlHandlerMiddleware(urlHandler: r.resolve(UrlHandlerProtocol.self)!).middleware()
+            UrlHandlerMiddleware(urlHandler: r.resolve(UrlHandlerProtocol.self)!,
+                                 debugLogger: r.resolve(DebugLogger.self)!).middleware()
         }
     }
     

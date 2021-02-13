@@ -10,5 +10,6 @@ import Foundation
 
 public protocol ConfigurationProtocol {
     var apiAddress: URL { get }
+    var apiSite: String { get }
     var certificate: String { get }
 }

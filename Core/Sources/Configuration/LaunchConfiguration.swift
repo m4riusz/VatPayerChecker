@@ -8,10 +8,17 @@
 
 import Foundation
 
+struct EnvironmentKeys {
+    static let dev = "Dev"
+    static let consoleLog = "ConsoleLog"
+}
+
 public struct LaunchConfiguration {
     public let isRunningDev: Bool
+    public let consoleLog: Bool
     
     public init(environment: [String: String]) {
-        self.isRunningDev = environment["Dev"] == "YES"
+        self.isRunningDev = environment[EnvironmentKeys.dev] == "YES"
+        self.consoleLog = environment[EnvironmentKeys.consoleLog] == "YES"
     }
 }
