@@ -12,7 +12,9 @@ import Core
 
 @main
 struct MobileApp: App {
-    private let container = MobileAppAssembler().assembly()
+    private let container = MobileAppAssembler(
+        launchConfiguration: LaunchConfiguration(environment: ProcessInfo().environment))
+        .assembly()
     private var store: AppStore {
         container.resolve(AppStore.self)!
     }

@@ -8,9 +8,15 @@
 
 import Foundation
 import Swinject
+import Core
 
 final class MobileAppAssembler: Assembler {
     private lazy var container = Container()
+    let launchConfiguration: LaunchConfiguration
+    
+    init(launchConfiguration: LaunchConfiguration) {
+        self.launchConfiguration = launchConfiguration
+    }
     
     let assemblies: [Assembly] = [
         CoreAssembly(),
@@ -18,7 +24,7 @@ final class MobileAppAssembler: Assembler {
     ]
     
     func assembly() -> Container {
-        assemblies.forEach { $0.register(container: container) }
+        assemblies.forEach { $0.register(container: container, launchConfiguration: launchConfiguration) }
         return container
     }
 }

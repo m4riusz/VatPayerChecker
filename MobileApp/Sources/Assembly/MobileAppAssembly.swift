@@ -18,27 +18,27 @@ final class MobileAppAssembly: Assembly {
         case searchTabMiddleware
     }
     
-    func register(container: Container) {
-        registerDateProvider(container: container)
-        registerUrlHandler(container: container)
-        registerStates(container: container)
-        registerMiddlewares(container: container)
-        registerAppStore(container: container)
+    func register(container: Container, launchConfiguration: LaunchConfiguration) {
+        registerDateProvider(container: container, launchConfiguration: launchConfiguration)
+        registerUrlHandler(container: container, launchConfiguration: launchConfiguration)
+        registerStates(container: container, launchConfiguration: launchConfiguration)
+        registerMiddlewares(container: container, launchConfiguration: launchConfiguration)
+        registerAppStore(container: container, launchConfiguration: launchConfiguration)
     }
     
-    private func registerDateProvider(container: Container) {
+    private func registerDateProvider(container: Container, launchConfiguration: LaunchConfiguration) {
         container.register(DateProviderProtocol.self) { _ in
             DateProvider()
         }.inObjectScope(.container)
     }
     
-    private func registerUrlHandler(container: Container) {
+    private func registerUrlHandler(container: Container, launchConfiguration: LaunchConfiguration) {
         container.register(UrlHandlerProtocol.self) { _ in
             UIApplicationUrlHandler()
         }.inObjectScope(.container)
     }
     
-    private func registerStates(container: Container) {
+    private func registerStates(container: Container, launchConfiguration: LaunchConfiguration) {
         container.register(AboutTabState.self) { _ in
             AboutTabState(status: .ready)
         }
@@ -62,7 +62,7 @@ final class MobileAppAssembly: Assembly {
         }
     }
     
-    private func registerMiddlewares(container: Container) {
+    private func registerMiddlewares(container: Container, launchConfiguration: LaunchConfiguration) {
         container.register(Middleware<AppState, Action>.self, name: ServiceName.searchTabMiddleware.rawValue) { _ in
             SearchTabMiddleware(repository: container.resolve(VatPayerCheckerRepositoryProtocol.self)!).middleware()
         }
@@ -74,7 +74,7 @@ final class MobileAppAssembly: Assembly {
         }
     }
     
-    private func registerAppStore(container: Container) {
+    private func registerAppStore(container: Container, launchConfiguration: LaunchConfiguration) {
         container.register(AppStore.self) { r in
             AppStore(initialState: r.resolve(AppState.self)!,
                      reducer: AppReducer.reduce,

@@ -2,7 +2,6 @@ import ProjectDescription
 
 enum MobileAppScheme {
     case dev
-    case staging
     case production
     case uiTests
     
@@ -10,8 +9,6 @@ enum MobileAppScheme {
         switch self {
         case .dev:
             return "\(Projects.mobileApp.name)-Dev"
-        case .staging:
-            return "\(Projects.mobileApp.name)-Staging"
         case .production:
             return "\(Projects.mobileApp.name)-Production"
         case .uiTests:
@@ -21,33 +18,34 @@ enum MobileAppScheme {
     
     var arguments: Arguments {
         switch self {
-        case .dev:
-            return Arguments(environment: [:], launchArguments: ["Dev": true])
-        case .staging:
-            return Arguments(environment: [:], launchArguments: ["Staging": true])
+        case .dev, .uiTests:
+            return Arguments(environment: ["Dev": "YES"], launchArguments: [:])
         case .production:
             return Arguments(environment: [:], launchArguments: [:])
-        case .uiTests:
-            return Arguments(environment: [:], launchArguments: ["Dev": true])
         }
     }
     
     var presetConfig: PresetBuildConfiguration {
         switch self {
-        case .dev:
-            return .debug
-        case .staging:
+        case .dev, .uiTests:
             return .debug
         case .production:
             return .release
-        case .uiTests:
-            return .debug
+        }
+    }
+    
+    var diagnosticOptions: [SchemeDiagnosticsOption] {
+        switch self {
+        case .dev, .uiTests:
+            return [.mainThreadChecker]
+        case .production:
+            return []
         }
     }
     
     var testableTargets: [TestableTarget] {
         switch self {
-        case .dev, .staging, .production:
+        case .dev, .production:
             return [TestableTarget(target: TargetReference(projectPath: Projects.mobileApp.path, target: Targets.mobileAppTests.name))
             ]
         case .uiTests:
@@ -61,6 +59,13 @@ enum MobileAppScheme {
         ])
     }
     
+    var runAction: RunAction? {
+        RunAction(config: presetConfig,
+                  executable: TargetReference(projectPath: Projects.mobileApp.path, target: Targets.mobileApp.name),
+                  arguments: arguments,
+                  diagnosticsOptions: diagnosticOptions)
+    }
+    
     var testAction: TestAction? {
         TestAction(targets: testableTargets,
                    arguments: arguments,
@@ -69,7 +74,7 @@ enum MobileAppScheme {
                    codeCoverageTargets: [.project(path: Projects.mobileApp.path, target: Targets.mobileApp.name)],
                    preActions: [],
                    postActions: [],
-                   diagnosticsOptions: presetConfig == .debug ? [.mainThreadChecker] : [],
+                   diagnosticsOptions: diagnosticOptions,
                    language: "pl",
                    region: "PL")
     }
@@ -90,6 +95,7 @@ enum MobileAppScheme {
         SchemeBuilder()
             .setName(name: name)
             .setBuildAction(buildAction: buildAction)
+            .setRunAction(runAction: runAction)
             .setTestAction(testAction: testAction)
             .setArchiveAction(archiveAction: archiveAction)
             .setProfileAction(profileAction: profileAction)
