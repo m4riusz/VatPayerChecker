@@ -9,6 +9,7 @@
 import Foundation
 import Swinject
 import Core
+import Firebase
 
 final class MobileAppAssembly: Assembly {
     
@@ -24,6 +25,13 @@ final class MobileAppAssembly: Assembly {
         registerStates(container: container, launchConfiguration: launchConfiguration)
         registerMiddlewares(container: container, launchConfiguration: launchConfiguration)
         registerAppStore(container: container, launchConfiguration: launchConfiguration)
+        registerFirebase(launchConfiguration: launchConfiguration)
+    }
+    
+    private func registerFirebase(launchConfiguration: LaunchConfiguration) {
+        if !launchConfiguration.isRunningDev {
+            FirebaseApp.configure()
+        }
     }
     
     private func registerDateProvider(container: Container, launchConfiguration: LaunchConfiguration) {
