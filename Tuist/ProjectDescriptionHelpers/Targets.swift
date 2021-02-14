@@ -31,6 +31,27 @@ enum Targets {
         }
     }
     
+    var bundleId: String {
+        switch self {
+        case .testKit:
+            return "\(Projects.bundleId).TestKit"
+        case .common:
+            return "\(Projects.bundleId).Common"
+        case .commonTests:
+            return "\(Projects.bundleId).CommonTests"
+        case .core:
+            return "\(Projects.bundleId).Core"
+        case .coreTests:
+            return "\(Projects.bundleId).CoreTests"
+        case .mobileApp:
+            return "\(Projects.bundleId).VatPayerChecker"
+        case .mobileAppTests:
+            return "\(Projects.bundleId).VatPayerCheckerTests"
+        case .mobileAppUITests:
+            return "\(Projects.bundleId).VatPayerCheckerUITests"
+        }
+    }
+    
     var actions: [TargetAction] {
         switch self {
         case .common, .core, .mobileApp:
@@ -94,14 +115,23 @@ enum Targets {
     }
     
     var settings: Settings? {
-        return nil
+        switch self {
+        case .mobileApp:
+            return Settings(base: SettingsDictionary()
+                                .manualCodeSigning()
+                                .appleGenericVersioningSystem(),
+                            configurations: [.debug(name: "Debug"), .release(name: "Release")],
+                            defaultSettings: .recommended)
+        default:
+            return nil
+        }
     }
     
     var target: Target {
         TargetBuilder()
             .setName(name)
             .setProduct(product)
-            .setBaseBundleId(Projects.bundleId)
+            .setBundleId(bundleId)
             .setDependencies(dependencies)
             .setSettings(settings)
             .setActions(actions)

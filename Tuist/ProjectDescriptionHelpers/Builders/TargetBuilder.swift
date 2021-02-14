@@ -2,7 +2,7 @@ import ProjectDescription
 
 final class TargetBuilder {
     private var name = ""
-    private var baseBundleId = ""
+    private var bundleId = ""
     private var platform: Platform = .iOS
     private var product: Product = .app
     private var dependencies: [TargetDependency] = []
@@ -14,8 +14,8 @@ final class TargetBuilder {
         return self
     }
     
-    func setBaseBundleId(_ bundleId: String) -> TargetBuilder {
-        self.baseBundleId = bundleId
+    func setBundleId(_ bundleId: String) -> TargetBuilder {
+        self.bundleId = bundleId
         return self
     }
     
@@ -42,10 +42,6 @@ final class TargetBuilder {
     func setActions(_ actions: [TargetAction]) -> TargetBuilder {
         self.actions = actions
         return self
-    }
-    
-    var bundleId: String {
-        "\(baseBundleId).\(name)"
     }
     
     var sources: SourceFilesList {
