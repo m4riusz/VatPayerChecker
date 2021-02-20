@@ -1,0 +1,79 @@
+/* MainView */
+"mainViewSearch" = "Szukaj";
+"mainViewAbout" = "Informacje";
+
+/* Search */
+"findCompany" = "Wyszukaj firmę";
+"name" = "Firma (nazwa) lub imię i nazwisko";
+"nip" = "Numer, za pomocą którego podmiot został zidentyfikowany na potrzeby podatku, jeżeli taki numer został przyznany";
+"vatStatus" = "Status podatnika (wg stanu na dzień sprawdzenia)";
+"vatStatusActive" = "Czynny";
+"vatStatusExempt" = "Zwolniony";
+"vatStatusNotRegistered" = "Niezarejestrowany";
+"regon" = "Numer identyfikacyjny REGON, o ile został nadany";
+"pesel" = "Numer PESEL, o ile podmiot posiada";
+"krs" = "Numer w Krajowym Rejestrze Sądowym, o ile został nadany";
+"residenceAddress" = "Adres stałego miejsca prowadzenia działalności albo adres miejsca zamieszkania, w przypadku braku adresu stałego miejsca prowadzenia działalności - w odniesieniu do osoby fizycznej";
+"workingAddress" = "Adres siedziby – w przypadku podmiotu niebędącego osobą fizyczną";
+"representatives" = "Imiona i nazwiska osób wchodzących w skład organu uprawnionego do reprezentowania podmiotu oraz ich numery identyfikacji podatkowej lub numery PESEL";
+"authorizedClerks" = "Imiona i nazwiska prokurentów oraz ich numery identyfikacji podatkowej lub numery PESEL";
+"partners" = "Imię i nazwisko lub firma (nazwa) wspólnika oraz jego numer identyfikacji podatkowej lub numer PESEL";
+"registrationLegalDate" = "Data rejestracji jako podatnika VAT";
+"registrationDenialDate" = "Data odmowy rejestracji jako podatnika VAT";
+"registrationDenialBasis" = "Podstawa prawna odmowy rejestracji";
+"restorationDate" = "Data przywrócenia rejestracji jako podatnika VAT";
+"restorationBasis" = "Podstawa prawna przywrócenia";
+"removalDate" = "Data wykreślenia rejestracji jako podatnika VAT";
+"removalBasis" = "Podstawa prawna wykreślenia";
+"accountNumbers" = "Numery rachunków rozliczeniowych lub imiennych rachunków w SKOK";
+"searchId" = "Identyfikator wyszukiwania";
+"hasVirtualAccounts" = "";
+"personCompanyName" = "Nazwa firmy";
+"personNIP" = "NIP";
+"personPESEL" = "PESEL";
+"personFirstName" = "Imię";
+"personLastName" = "Nazwisko";
+"searchButton" = "Szukaj";
+"searchByNip" = "NIP";
+"searchByRegon" = "REGON";
+"searchByAccount" = "Nr konta";
+"searchByNipPlaceholder" = "Wpisz NIP";
+"searchByRegonPlaceholder" = "Wpisz REGON";
+"searchByAccountNumberPlaceholder" = "Wpisz numer konta";
+
+/* LoadingView */
+"loading" = "Szukam...";
+
+/* Error */
+"emptyRegonError" = "REGON nie może być pusty";
+"invalidRegonFormat" = "Podany REGON ma nieprawidłową długość. Wymagane 9 lub 14 znaków";
+"invalidRegonCharacters" = "Podany REGON zawiera niedozwolone znaki. Dozwolone są tylko cyfry";
+"invalidRegon" = "Nieprawidłowy REGON";
+"emptyAccountNumber" = "Numer konta nie może być pusty";
+"invalidAccountNumberFormat" = "Podany numer konta ma nieprawidłową długość. Wymagane 26 cyfr";
+"invalidAccountNumberCharacters" = "Podany numer konta zawiera niedozwolone znaki. Dozwolone są tylko cyfry";
+"invalidAccount" = "Nieprawidłowy numer konta";
+"emptyNipError" = "NIP nie może być pusty";
+"invalidNipFormat" = "Podany NIP ma nieprawidłową długość. Wymagane 10 znaków";
+"invalidNipCharacters" = "Podany NIP zawiera niedozwolone znaki. Dozwolone są tylko cyfry";
+"invalidNip" = "Nieprawidłowy NIP";
+"dateTooOldError" = "Podana data jest sprzed zakresu rejestru";
+"apiLimitReachedError" = "Limit żądań dla tego adresu IP został na dziś wyczerpany";
+"databaseUpdateInProgressError" = "Trwa aktualizacja bazy danych. Spróbuj ponownie później";
+"serverError" = "Wystąpił nieoczekiwany błąd serwera. Spróbuj ponownie później";
+
+/* Date picker */
+"selectDate" = "Wybierz datę";
+
+/* General */
+"appName" = "VatTaxpayerChecker";
+"noInternetConnection" = "Brak połączenia do internetu";
+"unknownError" = "Nieznany błąd";
+"back" = "Cofnij";
+"pick" = "Wybierz";
+"cancel" = "Anuluj";
+"copy" = "Kopiuj";
+
+/* About */
+"aboutApiDescription" = "Aplikacja pobiera dane poprzez API wystawione przez Ministerstwo Finansów - Krajową Administracje Skarbową";
+"aboutOpenSource" = "Biblioteki opensource wykorzystywane przez aplikację";
