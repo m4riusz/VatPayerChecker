@@ -31,12 +31,34 @@ enum Targets {
         }
     }
     
+    var bundleId: String {
+        switch self {
+        case .testKit:
+            return "\(Projects.bundleId).TestKit"
+        case .common:
+            return "\(Projects.bundleId).Common"
+        case .commonTests:
+            return "\(Projects.bundleId).CommonTests"
+        case .core:
+            return "\(Projects.bundleId).Core"
+        case .coreTests:
+            return "\(Projects.bundleId).CoreTests"
+        case .mobileApp:
+            return "\(Projects.bundleId).VatPayerChecker"
+        case .mobileAppTests:
+            return "\(Projects.bundleId).VatPayerCheckerTests"
+        case .mobileAppUITests:
+            return "\(Projects.bundleId).VatPayerCheckerUITests"
+        }
+    }
+    
     var actions: [TargetAction] {
         switch self {
-        case .common, .core, .mobileApp:
-            return [.pre(tool: "swiftlint",
-                         arguments: ["--path ${SRCROOT} --config ../.swiftlint.yml"],
-                         name: "Swiftlint script")]
+        case .mobileApp:
+            return [.pre(path: Path.relativeToRoot("Scripts/swiftlint"), name: "Swiftlint script"),
+                    .pre(path: Path.relativeToRoot("Scripts/crashlytics"), name: "Crashlytics script")]
+        case .common, .core:
+            return [.pre(path: Path.relativeToRoot("Scripts/swiftlint"), name: "Swiftlint script")]
         default:
             return []
         }
@@ -63,6 +85,7 @@ enum Targets {
         case .mobileApp:
             return [.package(product: "Swinject"),
                     .package(product: "SFSafeSymbols"),
+                    .package(product: "FirebaseCrashlytics"),
                     .project(target: Targets.common.name,
                              path: Projects.common.relativeManifestPath),
                     .project(target: Targets.core.name,
@@ -94,14 +117,26 @@ enum Targets {
     }
     
     var settings: Settings? {
-        return nil
+        switch self {
+        case .mobileApp:
+            var settings = SettingsDictionary()
+                .manualCodeSigning()
+                .appleGenericVersioningSystem()
+            settings.updateValue(SettingValue(stringLiteral: "-ObjC"), forKey: "OTHER_LDFLAGS")
+            settings.updateValue(SettingValue("dwarf-with-dsym"), forKey: "DEBUG_INFORMATION_FORMAT")
+            return Settings(base: settings,
+                            configurations: [.debug(name: "Debug"), .release(name: "Release")],
+                            defaultSettings: .recommended)
+        default:
+            return nil
+        }
     }
     
     var target: Target {
         TargetBuilder()
             .setName(name)
             .setProduct(product)
-            .setBaseBundleId(Projects.bundleId)
+            .setBundleId(bundleId)
             .setDependencies(dependencies)
             .setSettings(settings)
             .setActions(actions)
