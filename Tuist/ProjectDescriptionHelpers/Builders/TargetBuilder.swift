@@ -79,6 +79,8 @@ final class TargetBuilder {
                platform: platform,
                product: product,
                bundleId: bundleId,
+               deploymentTarget: .iOS(targetVersion: Projects.deploymentTarget,
+                                      devices: .iphone),
                infoPlist: .file(path: .relativeToManifest(infoPlistName)),
                sources: sources,
                resources: resources,
