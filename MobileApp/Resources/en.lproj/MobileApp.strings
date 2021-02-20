@@ -54,7 +54,7 @@
 "invalidAccountNumberCharacters" = "Given account number contains characters that are not allowed. Only digits are allowed";
 "invalidAccount" = "Invalid account number";
 "emptyNipError" = "NIP can't be empty";
-"invalidNipFormat" = "Given REGON number has invalid length. 10 digits required";
+"invalidNipFormat" = "Given NIP number has invalid length. 10 digits required";
 "invalidNipCharacters" = "Given NIP contains characters that are not allowed. Only digits are allowed";
 "invalidNip" = "Invalid NIP number";
 "dateTooOldError" = "Given date is before the range of the register";
