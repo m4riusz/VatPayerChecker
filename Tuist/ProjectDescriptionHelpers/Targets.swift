@@ -56,7 +56,7 @@ enum Targets {
         switch self {
         case .mobileApp:
             return [.pre(path: Path.relativeToRoot("Scripts/swiftlint"), name: "Swiftlint script"),
-                    .pre(path: Path.relativeToRoot("Scripts/crashlytics"), name: "Crashlytics script")]
+                    .post(path: Path.relativeToRoot("Scripts/crashlytics"), name: "Crashlytics script")]
         case .common, .core:
             return [.pre(path: Path.relativeToRoot("Scripts/swiftlint"), name: "Swiftlint script")]
         default:
