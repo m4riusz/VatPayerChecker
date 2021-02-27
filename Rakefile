@@ -3,11 +3,14 @@ task :generate do
 	puts 'Generating project'
 	paths = [
 		"Common/Resources",
+		"Common/Tests/Resources",
 		"Core/Resources",
+		"Core/Tests/Resources",
 		"MobileApp/Resources",
+		"MobileApp/Tests/Resources",
 		"TestKit/Resources"
 	]
-	paths.each { |path| puts 'Creating directory #{path}' }
+	paths.each { |path| puts 'Creating directory: ' + path }
 	paths.each { |path| createDirectoryIfNotExists(path) }
 	
 	if isInstalled("tuist")
