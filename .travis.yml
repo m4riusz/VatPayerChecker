@@ -9,7 +9,7 @@ addons:
       - swiftlint
 
 before_install:
- - bash <(curl -Ls https://install.tuist.io)
+ - bash <(curl -Ls https://raw.githubusercontent.com/tuist/tuist/1.25.0/script/install)
 
 install:
  - rake generate
