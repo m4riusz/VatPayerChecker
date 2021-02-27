@@ -1,4 +1,3 @@
-sudo: true
 os: osx
 language: swift
 osx_image: xcode12.3
