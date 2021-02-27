@@ -1,11 +1,17 @@
 language: swift
 osx_image: xcode12.2
 
+before_script:
+  bash <(curl -Ls https://install.tuist.io)
+
+install:
+ - brew update && brew upgrade swiftlint
+
 jobs:
   include:
     - stage: test
       name: "Unit Tests"
-      script: ./unit-tests
+      script: xcodebuild -workspace VatPayerChecker.xcworkspace -scheme MobileApp-Dev -sdk iphonesimulator -destination 'platform=iOS Simulator,name=iPhone 8,OS=14.3' test
     - stage: test
       name: "UT Tests"
-      script: ./ui-tests
+      script: xcodebuild -workspace VatPayerChecker.xcworkspace -scheme MobileApp-UITests -sdk iphonesimulator -destination 'platform=iOS Simulator,name=iPhone 8,OS=14.3' test
