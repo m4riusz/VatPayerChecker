@@ -1,11 +1,12 @@
 language: swift
 osx_image: xcode12.2
 
-before_script:
-  bash <(curl -Ls https://install.tuist.io)
+before_install:
+  - /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/tuist/tuist/main/script/install)"
 
 install:
  - brew update && brew upgrade swiftlint
+ - rake generate
 
 jobs:
   include:
