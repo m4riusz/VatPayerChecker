@@ -1,0 +1,11 @@
+language: swift
+osx_image: xcode12.2
+
+jobs:
+  include:
+    - stage: test
+      name: "Unit Tests"
+      script: ./unit-tests
+    - stage: test
+      name: "UT Tests"
+      script: ./ui-tests
