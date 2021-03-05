@@ -3,7 +3,7 @@ import ProjectDescription
 public enum Projects {
     public static let organizationName = "MSut"
     public static let bundleId = "pl.msut"
-    public static let deploymentTarget = "14.3"
+    public static let deploymentTarget = "14.0"
     
     case testKit
     case common
