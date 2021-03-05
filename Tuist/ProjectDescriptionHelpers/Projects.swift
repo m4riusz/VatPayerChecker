@@ -62,7 +62,7 @@ public enum Projects {
          .package(url: "https://github.com/Swinject/Swinject.git", from: Version(2, 7, 1)),
          .package(url: "https://github.com/pointfreeco/swift-snapshot-testing.git", from: Version(1, 8, 1)),
          .package(url: "https://github.com/piknotech/SFSafeSymbols.git", from: Version(2, 1, 0)),
-         .package(url: "https://github.com/firebase/firebase-ios-sdk.git", .branch("7.0-spm-beta"))]
+         .package(url: "https://github.com/microsoft/appcenter-sdk-apple.git", from: Version(4, 1, 0))]
     }
     
     var additionalFiles: [FileElement] {

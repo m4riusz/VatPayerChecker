@@ -9,7 +9,7 @@
 import Foundation
 import Swinject
 import Core
-import Firebase
+import AppCenter
 
 final class MobileAppAssembly: Assembly {
     
@@ -17,6 +17,7 @@ final class MobileAppAssembly: Assembly {
         case urlHandler
         case aboutTabMiddleware
         case searchTabMiddleware
+        case analyticsMiddleware
     }
     
     func register(container: Container, launchConfiguration: LaunchConfiguration) {
@@ -25,12 +26,15 @@ final class MobileAppAssembly: Assembly {
         registerStates(container: container, launchConfiguration: launchConfiguration)
         registerMiddlewares(container: container, launchConfiguration: launchConfiguration)
         registerAppStore(container: container, launchConfiguration: launchConfiguration)
-        registerFirebase(launchConfiguration: launchConfiguration)
+        registerAnalytics(container: container, launchConfiguration: launchConfiguration)
     }
     
-    private func registerFirebase(launchConfiguration: LaunchConfiguration) {
-        if !launchConfiguration.isRunningDev {
-            FirebaseApp.configure()
+    private func registerAnalytics(container: Container, launchConfiguration: LaunchConfiguration) {
+        container.register(AnalyticsProtocol.self) { _ in
+            if launchConfiguration.isRunningDev {
+                return MockAnalytics()
+            }
+            return AppCenterAnalytics()
         }
     }
     
@@ -83,6 +87,9 @@ final class MobileAppAssembly: Assembly {
             UrlHandlerMiddleware(urlHandler: r.resolve(UrlHandlerProtocol.self)!,
                                  debugLogger: r.resolve(DebugLogger.self)!).middleware()
         }
+        container.register(Middleware<AppState, Action>.self, name: ServiceName.analyticsMiddleware.rawValue) { r in
+            AnalyticsMiddleware(analytics: r.resolve(AnalyticsProtocol.self)!).middleware()
+        }
     }
     
     private func registerAppStore(container: Container, launchConfiguration: LaunchConfiguration) {
@@ -92,7 +99,8 @@ final class MobileAppAssembly: Assembly {
                      middlewares: [
                         r.resolve(Middleware<AppState, Action>.self, name: ServiceName.searchTabMiddleware.rawValue)!,
                         r.resolve(Middleware<AppState, Action>.self, name: ServiceName.aboutTabMiddleware.rawValue)!,
-                        r.resolve(Middleware<AppState, Action>.self, name: ServiceName.urlHandler.rawValue)!
+                        r.resolve(Middleware<AppState, Action>.self, name: ServiceName.urlHandler.rawValue)!,
+                        r.resolve(Middleware<AppState, Action>.self, name: ServiceName.analyticsMiddleware.rawValue)!
                      ])
         }
     }
