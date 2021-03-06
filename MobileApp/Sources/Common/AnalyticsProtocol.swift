@@ -6,23 +6,31 @@
 //  Copyright © 2021 MSut. All rights reserved.
 //
 
-import Foundation
+import Core
+import AppCenter
 import AppCenterAnalytics
+import AppCenterCrashes
 
 protocol AnalyticsProtocol {
-    func log(event: String, properties: [String: String]?)
+    func log(event: AnalyticsEvent)
 }
 
 final class AppCenterAnalytics: AnalyticsProtocol {
     
-    func log(event: String, properties: [String : String]?) {
-        Analytics.trackEvent("", withProperties: EventProperties())
-        print("event: \(event)")
+    init(launchConfiguration: LaunchConfiguration) {
+        AppCenter.start(withAppSecret: launchConfiguration.appCenterSecret, services: [
+            Analytics.self,
+            Crashes.self
+        ])
+    }
+    
+    func log(event: AnalyticsEvent) {
+        Analytics.trackEvent(event.name, withProperties: event.parameters)
     }
 }
 
 final class MockAnalytics: AnalyticsProtocol {
-    func log(event: String, properties: [String : String]?) {
-        print("event: \(event), properties: \(properties ?? [:])")
+    func log(event: AnalyticsEvent) {
+        print("event: \(event.name), properties: \(event.parameters ?? [:])")
     }
 }

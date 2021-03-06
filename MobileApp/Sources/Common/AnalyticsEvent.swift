@@ -23,6 +23,10 @@ enum AnalyticsEvent: Equatable {
         static let error = "error"
         static let buttonTap = "buttonTap"
         static let urlOpen = "urlOpen"
+        static let successSearch = "successSearch"
+        static let searchByNip = "searchByNip"
+        static let searchByRegon = "searchByRegon"
+        static let searchByAccount = "searchByAccount"
         
         struct Parameters {
             static let screenName = "screen"
@@ -36,9 +40,13 @@ enum AnalyticsEvent: Equatable {
     case screenDisappear(_ screen: AnalyticsScreen)
     case showLoader(_ screen: AnalyticsScreen)
     case hideLoader(_ screen: AnalyticsScreen)
+    case successSearch
     case error(_ screen: AnalyticsScreen, _ error: String)
     case buttonTap(_ screen: AnalyticsScreen, _ button: String)
     case urlOpen(_ screen: AnalyticsScreen, _ url: String)
+    case searchByNip
+    case searchByRegon
+    case searchByAccount
     
     var name: String {
         switch self {
@@ -49,6 +57,10 @@ enum AnalyticsEvent: Equatable {
         case .error: return Constants.error
         case .buttonTap: return Constants.buttonTap
         case .urlOpen: return Constants.urlOpen
+        case .successSearch: return Constants.successSearch
+        case .searchByNip: return Constants.searchByNip
+        case .searchByRegon: return Constants.searchByRegon
+        case .searchByAccount: return Constants.searchByAccount
         }
     }
     
@@ -62,6 +74,7 @@ enum AnalyticsEvent: Equatable {
         case .error(let screen, let error): return [Params.screenName: screen.rawValue, Params.error: error]
         case .buttonTap(let screen, let button): return [Params.screenName: screen.rawValue, Params.button: button]
         case .urlOpen(let screen, let url): return [Params.screenName: screen.rawValue, Params.url: url]
+        case .successSearch, .searchByNip, .searchByRegon, .searchByAccount: return nil
         }
     }
 }

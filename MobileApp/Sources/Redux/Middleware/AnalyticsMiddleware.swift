@@ -24,7 +24,7 @@ struct AnalyticsMiddleware {
             }
             switch action {
             case .event(let event):
-                analytics.log(event: event.name, properties: event.parameters)
+                analytics.log(event: event)
                 return Empty().eraseToAnyPublisher()
             }
         }

@@ -31,10 +31,10 @@ final class MobileAppAssembly: Assembly {
     
     private func registerAnalytics(container: Container, launchConfiguration: LaunchConfiguration) {
         container.register(AnalyticsProtocol.self) { _ in
-            if launchConfiguration.isRunningDev {
+            if launchConfiguration.isRunningDev || launchConfiguration.appCenterSecret.isEmpty {
                 return MockAnalytics()
             }
-            return AppCenterAnalytics()
+            return AppCenterAnalytics(launchConfiguration: launchConfiguration)
         }
     }
     
@@ -77,6 +77,7 @@ final class MobileAppAssembly: Assembly {
     private func registerMiddlewares(container: Container, launchConfiguration: LaunchConfiguration) {
         container.register(Middleware<AppState, Action>.self, name: ServiceName.searchTabMiddleware.rawValue) { r in
             SearchTabMiddleware(repository: r.resolve(VatPayerCheckerRepositoryProtocol.self)!,
+                                analytics: r.resolve(AnalyticsProtocol.self)!,
                                 debugLogger: r.resolve(DebugLogger.self)!).middleware()
         }
         container.register(Middleware<AppState, Action>.self, name: ServiceName.aboutTabMiddleware.rawValue) { r in
