@@ -55,8 +55,7 @@ enum Targets {
     var actions: [TargetAction] {
         switch self {
         case .mobileApp:
-            return [.pre(path: Path.relativeToRoot("Scripts/swiftlint"), name: "Swiftlint script"),
-                    .post(path: Path.relativeToRoot("Scripts/crashlytics"), name: "Crashlytics script")]
+            return [.pre(path: Path.relativeToRoot("Scripts/swiftlint"), name: "Swiftlint script")]
         case .common, .core:
             return [.pre(path: Path.relativeToRoot("Scripts/swiftlint"), name: "Swiftlint script")]
         default:
@@ -85,7 +84,8 @@ enum Targets {
         case .mobileApp:
             return [.package(product: "Swinject"),
                     .package(product: "SFSafeSymbols"),
-                    .package(product: "FirebaseCrashlytics"),
+                    .package(product: "AppCenterAnalytics"),
+                    .package(product: "AppCenterCrashes"),
                     .project(target: Targets.common.name,
                              path: Projects.common.relativeManifestPath),
                     .project(target: Targets.core.name,

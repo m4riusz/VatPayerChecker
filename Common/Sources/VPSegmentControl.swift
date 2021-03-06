@@ -10,6 +10,7 @@ import SwiftUI
 
 public protocol VPSegmentControlItem: Hashable {
     var text: String { get }
+    var analytics: String { get }
 }
 
 public struct VPSegmentControl<T: VPSegmentControlItem>: View {
@@ -59,6 +60,10 @@ struct VPSegmentControl_Previews: PreviewProvider {
         case text
         
         var text: String {
+            "text"
+        }
+        
+        var analytics: String {
             "text"
         }
     }

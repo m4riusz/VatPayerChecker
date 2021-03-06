@@ -44,7 +44,10 @@ struct AboutView: View {
             AboutViewHeader(appName: Literals.appName,
                             apiDescription: Literals.aboutApiDescription,
                             apiUrl: about.apiUrl,
-                            onUrlTap: { store.dispatch(AppAction.openUrl(about.apiUrl)) })
+                            onUrlTap: {
+                                store.dispatch(AnalyticsAction.event(.urlOpen(.about, about.apiUrl)))
+                                store.dispatch(AppAction.openUrl(about.apiUrl))
+                            })
                 .accessibilityIdentifier(Identifiers.headerView)
             if !about.usedLibraries.isEmpty {
                 Text(Literals.aboutOpenSource)
@@ -55,7 +58,10 @@ struct AboutView: View {
                     .padding([.top, .bottom], 10)
                     .accessibilityIdentifier(Identifiers.aboutOpenSource)
                 ForEach(about.usedLibraries, id: \.self) { library in
-                    LibraryRow(library: library) { store.dispatch(AppAction.openUrl(library.url)) }
+                    LibraryRow(library: library) {
+                        store.dispatch(AnalyticsAction.event(.urlOpen(.about, about.apiUrl)))
+                        store.dispatch(AppAction.openUrl(library.url))
+                    }
                         .accessibilityIdentifier(Identifiers.cellIdentifier)
                 }
             }

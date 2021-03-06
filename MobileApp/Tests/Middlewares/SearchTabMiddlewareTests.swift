@@ -26,7 +26,8 @@ final class SearchTabMiddlewareTests: BaseTestCase {
                                                               requestDateTime: "requestDateTime",
                                                               requestId: "requestId")
     private lazy var repository = StubVatPayerCheckerRepository()
-    private lazy var sut = SearchTabMiddleware(repository: repository, debugLogger: MockLogger()).middleware()
+    private lazy var analytics = SpyAnalytics()
+    private lazy var sut = SearchTabMiddleware(repository: repository, analytics: analytics, debugLogger: MockLogger()).middleware()
     private lazy var store = AppStore(initialState: initialState,
                                       reducer: AppReducer.reduce,
                                       middlewares: [sut])
@@ -42,6 +43,7 @@ final class SearchTabMiddlewareTests: BaseTestCase {
 
         let recorderEvents = subscriber.recordedOutput.mapInput { $0 as? SearchTabAction }
 
+        XCTAssertEqual(analytics.events, [.searchByNip])
         XCTAssertEqual(recorderEvents, [
             (0, .subscription),
             (0, .input(.setResult(.success(objectResult)))),
@@ -59,6 +61,7 @@ final class SearchTabMiddlewareTests: BaseTestCase {
 
         let recorderEvents = subscriber.recordedOutput.mapInput { $0 as? SearchTabAction }
 
+        XCTAssertEqual(analytics.events, [.searchByNip])
         XCTAssertEqual(recorderEvents, [
             (0, .subscription),
             (0, .input(.setResult(.failure(.invalidNip)))),
@@ -76,6 +79,7 @@ final class SearchTabMiddlewareTests: BaseTestCase {
 
         let recorderEvents = subscriber.recordedOutput.mapInput { $0 as? SearchTabAction }
 
+        XCTAssertEqual(analytics.events, [.searchByRegon])
         XCTAssertEqual(recorderEvents, [
             (0, .subscription),
             (0, .input(.setResult(.success(objectResult)))),
@@ -93,6 +97,7 @@ final class SearchTabMiddlewareTests: BaseTestCase {
 
         let recorderEvents = subscriber.recordedOutput.mapInput { $0 as? SearchTabAction }
 
+        XCTAssertEqual(analytics.events, [.searchByRegon])
         XCTAssertEqual(recorderEvents, [
             (0, .subscription),
             (0, .input(.setResult(.failure(.invalidRegon)))),
@@ -110,6 +115,7 @@ final class SearchTabMiddlewareTests: BaseTestCase {
 
         let recorderEvents = subscriber.recordedOutput.mapInput { $0 as? SearchTabAction }
 
+        XCTAssertEqual(analytics.events, [.searchByAccount])
         XCTAssertEqual(recorderEvents, [
             (0, .subscription),
             (0, .input(.setResult(.success(objectResult)))),
@@ -127,6 +133,7 @@ final class SearchTabMiddlewareTests: BaseTestCase {
 
         let recorderEvents = subscriber.recordedOutput.mapInput { $0 as? SearchTabAction }
 
+        XCTAssertEqual(analytics.events, [.searchByAccount])
         XCTAssertEqual(recorderEvents, [
             (0, .subscription),
             (0, .input(.setResult(.failure(.invalidAccount)))),
@@ -158,6 +165,7 @@ final class SearchTabMiddlewareTests: BaseTestCase {
 
         let recorderEvents = subscriber.recordedOutput.mapInput { $0 as? SearchTabAction }
 
+        XCTAssertEqual(analytics.events, [.successSearch])
         XCTAssertEqual(recorderEvents, [
             (0, .subscription),
             (0, .completion(.finished))
@@ -173,6 +181,7 @@ final class SearchTabMiddlewareTests: BaseTestCase {
 
         let recorderEvents = subscriber.recordedOutput.mapInput { $0 as? SearchTabAction }
 
+        XCTAssertEqual(analytics.events, [.error(.search, VatError.invalidAccount.rawValue)])
         XCTAssertEqual(recorderEvents, [
             (0, .subscription),
             (0, .completion(.finished))
