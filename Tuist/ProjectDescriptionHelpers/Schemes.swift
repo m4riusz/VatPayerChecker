@@ -20,13 +20,11 @@ enum MobileAppScheme {
         switch self {
         case .dev, .uiTests:
             return Arguments(environment: ["Dev": "YES",
-                                           "ConsoleLog": "YES",
-                                           "AppCenterSecret":""],
+                                           "ConsoleLog": "YES"],
                              launchArguments: [])
         case .production:
-            return Arguments(environment: ["Dev": "NO",
-                                           "ConsoleLog": "NO",
-                                           "AppCenterSecret": ""],
+            return Arguments(environment: ["Dev": "YES",
+                                           "ConsoleLog": "YES"],
                              launchArguments: [])
         }
     }
@@ -86,15 +84,30 @@ enum MobileAppScheme {
     }
     
     var archiveAction: ArchiveAction? {
-        ArchiveAction(configurationName: presetConfig.rawValue)
+        switch self {
+        case .dev, .uiTests:
+            return ArchiveAction(configurationName: "Debug")
+        case .production:
+            return ArchiveAction(configurationName: "Release")
+        }
     }
     
     var profileAction: ProfileAction? {
-        ProfileAction(configurationName: presetConfig.rawValue)
+        switch self {
+        case .dev, .uiTests:
+            return ProfileAction(configurationName: "Debug")
+        case .production:
+            return ProfileAction(configurationName: "Release")
+        }
     }
     
     var analyzeAction: AnalyzeAction {
-        AnalyzeAction(configurationName: presetConfig.rawValue)
+        switch self {
+        case .dev, .uiTests:
+            return AnalyzeAction(configurationName: "Debug")
+        case .production:
+            return AnalyzeAction(configurationName: "Release")
+        }
     }
     
     var scheme: Scheme {

@@ -18,7 +18,7 @@ protocol AnalyticsProtocol {
 final class AppCenterAnalytics: AnalyticsProtocol {
     
     init(launchConfiguration: LaunchConfiguration) {
-        AppCenter.start(withAppSecret: launchConfiguration.appCenterSecret, services: [
+        AppCenter.start(withAppSecret: "", services: [
             Analytics.self,
             Crashes.self
         ])

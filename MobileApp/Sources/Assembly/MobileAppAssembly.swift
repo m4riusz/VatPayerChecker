@@ -31,7 +31,7 @@ final class MobileAppAssembly: Assembly {
     
     private func registerAnalytics(container: Container, launchConfiguration: LaunchConfiguration) {
         container.register(AnalyticsProtocol.self) { _ in
-            if launchConfiguration.isRunningDev || launchConfiguration.appCenterSecret.isEmpty {
+            if launchConfiguration.isRunningDev {
                 return MockAnalytics()
             }
             return AppCenterAnalytics(launchConfiguration: launchConfiguration)
