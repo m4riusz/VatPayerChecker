@@ -119,11 +119,9 @@ enum Targets {
     var settings: Settings? {
         switch self {
         case .mobileApp:
-            var settings = SettingsDictionary()
+            let settings = SettingsDictionary()
                 .manualCodeSigning()
                 .appleGenericVersioningSystem()
-            settings.updateValue(SettingValue(stringLiteral: "-ObjC"), forKey: "OTHER_LDFLAGS")
-            settings.updateValue(SettingValue("dwarf-with-dsym"), forKey: "DEBUG_INFORMATION_FORMAT")
             return Settings(base: settings,
                             configurations: [.debug(name: "Debug"), .release(name: "Release")],
                             defaultSettings: .recommended)
