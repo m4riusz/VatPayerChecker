@@ -57,7 +57,7 @@ final class TargetBuilder {
         }
     }
     
-    var resources: [FileElement]? {
+    var resources: ResourceFileElements? {
         switch product {
         case .app, .framework:
             return ["Resources/**"]

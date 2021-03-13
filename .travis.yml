@@ -1,0 +1,23 @@
+os: osx
+language: swift
+osx_image: xcode12.3
+
+addons:
+  homebrew:
+    packages:
+      - swiftlint
+
+before_install:
+ - bash <(curl -Ls https://raw.githubusercontent.com/tuist/tuist/1.25.0/script/install)
+
+install:
+ - rake generate
+
+jobs:
+  include:
+    - stage: test
+      name: "Unit Tests"
+      script: xcodebuild -workspace VatPayerChecker.xcworkspace -scheme MobileApp-Dev -sdk iphonesimulator -destination 'platform=iOS Simulator,name=iPhone 8,OS=14.3' test
+    - stage: test
+      name: "UT Tests"
+      script: xcodebuild -workspace VatPayerChecker.xcworkspace -scheme MobileApp-UITests -sdk iphonesimulator -destination 'platform=iOS Simulator,name=iPhone 8,OS=14.3' test

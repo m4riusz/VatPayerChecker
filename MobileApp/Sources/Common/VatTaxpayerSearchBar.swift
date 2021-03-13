@@ -74,7 +74,7 @@ struct VatTaxpayerSearchBar: View {
 }
 
 extension VatTaxpayerSearchBar {
-    enum Option: VPSegmentControlItem {
+    enum Option: String, VPSegmentControlItem {
         case nip
         case account
         case regon
@@ -88,6 +88,10 @@ extension VatTaxpayerSearchBar {
             case .account:
                 return Literals.searchByAccount
             }
+        }
+        
+        var analytics: String {
+            rawValue
         }
     }
 }

@@ -32,9 +32,13 @@ struct MainView: View {
     var body: some View {
         TabView(selection: tabBinding) {
             VatTaxpayerSearchTab()
+                .uiKitOnAppear { store.dispatch(AnalyticsAction.event(.screenAppear(.search))) }
+                .uiKitOnDisappear { store.dispatch(AnalyticsAction.event(.screenDisappear(.search))) }
                 .tabItem { searchItem }
                 .tag(Tab.vatTaxpayer)
             AboutView()
+                .uiKitOnAppear { store.dispatch(AnalyticsAction.event(.screenAppear(.about))) }
+                .uiKitOnDisappear { store.dispatch(AnalyticsAction.event(.screenDisappear(.about))) }
                 .tabItem { aboutItem }
                 .tag(Tab.about)
             

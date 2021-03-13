@@ -12,6 +12,10 @@ import Core
 
 struct VatTaxpayerSearchTab: View {
     private typealias Literals = MobileAppStrings
+    private struct Constants {
+        static let searchButtonAnalytics = "search"
+        static let datePickerButtonAnalytics = "datePicker"
+    }
     @EnvironmentObject var store: AppStore
     private var state: SearchTabState {
         store.state.searchTabState
@@ -38,11 +42,16 @@ struct VatTaxpayerSearchTab: View {
                                     store.dispatch(SearchTabAction.setSearchDate(date))
                                     store.dispatch(SearchTabAction.hideDatePicker)
                                    })
+                        .uiKitOnAppear { store.dispatch(AnalyticsAction.event(.screenAppear(.datePicker))) }
+                        .uiKitOnDisappear { store.dispatch(AnalyticsAction.event(.screenDisappear(.datePicker))) }
                         .zIndex(1)
                 }
-                getLoadingView()
-                    .opacity(status == .loading ? 1 : 0)
-                    .zIndex(1)
+                if status == .loading {
+                    getLoadingView()
+                        .uiKitOnAppear { store.dispatch(AnalyticsAction.event(.showLoader(.search))) }
+                        .uiKitOnDisappear { store.dispatch(AnalyticsAction.event(.hideLoader(.search))) }
+                        .zIndex(1)
+                }
                 
                 switch status {
                 case .ready, .loading:
@@ -168,6 +177,7 @@ extension VatTaxpayerSearchTab {
             state.searchOption
         }, set: { option in
             store.dispatch(SearchTabAction.setSearchOption(option))
+            store.dispatch(AnalyticsAction.event(.buttonTap(.search, option.analytics)))
         })
     }
     
@@ -180,10 +190,12 @@ extension VatTaxpayerSearchTab {
         case .account:
             store.dispatch(SearchTabAction.searchByAccount(state.searchQuery, date: state.searchDate))
         }
+        store.dispatch(AnalyticsAction.event(.buttonTap(.search, Constants.searchButtonAnalytics)))
     }
     
     private func dateSelection() {
         store.dispatch(SearchTabAction.showDatePicker)
+        store.dispatch(AnalyticsAction.event(.buttonTap(.search, Constants.datePickerButtonAnalytics)))
     }
 }
 

@@ -18,7 +18,7 @@ public struct LaunchConfiguration {
     public let consoleLog: Bool
     
     public init(environment: [String: String]) {
-        self.isRunningDev = environment[EnvironmentKeys.dev] == "YES"
-        self.consoleLog = environment[EnvironmentKeys.consoleLog] == "YES"
+        isRunningDev = environment[EnvironmentKeys.dev] == "YES"
+        consoleLog = environment[EnvironmentKeys.consoleLog] == "YES"
     }
 }
